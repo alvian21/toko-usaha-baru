@@ -42,18 +42,7 @@
 </head>
 
 <body>
-    {{-- <div class="pre-loader">
-		<div class="pre-loader-box">
-			<div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
-			<div class='loader-progress' id="progress_div">
-				<div class='bar' id='bar1'></div>
-			</div>
-			<div class='percent' id='percent1'>0%</div>
-			<div class="loading-text">
-				Loading...
-			</div>
-		</div>
-	</div> --}}
+
 
     @include('dashboard.include.header')
 
@@ -74,6 +63,7 @@
     <script src="{{asset('assets/src/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('assets/src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{asset('assets/vendors/scripts/dashboard.js')}}"></script>
+    <script src="{{asset('assets/src/scripts/sweetalert2.all.min.js')}}"></script>
     @stack('script')
 </body>
 

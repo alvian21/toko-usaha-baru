@@ -58,9 +58,9 @@
                         <ul>
                             <li>
                                 <a href="#">
-                                    <img src="vendors/images/img.jpg" alt="">
-                                    <h3>John Doe</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
+                                    {{-- <img src="{{asset('assets/vendors/images/img.jpg')}}" alt=""> --}}
+                                    <h3>Barang 1</h3>
+                                    <p>Stok Barang 1 tinggal 10, mohon untuk melakukan pembelian barang</p>
                                 </a>
                             </li>
                             <li>
@@ -120,7 +120,8 @@
             </div>
         </div>
         <div class="github-link">
-            <a href="https://github.com/dropways/deskapp" target="_blank"><img src="vendors/images/github.svg" alt=""></a>
+            <a href="https://github.com/dropways/deskapp" target="_blank"><img src="vendors/images/github.svg"
+                    alt=""></a>
         </div>
     </div>
 </div>

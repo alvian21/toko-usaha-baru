@@ -21,9 +21,9 @@
                         <span class="micon dw dw-edit2"></span><span class="mtext">Data Master</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#">Data Master Pegawai</a></li>
-                        <li><a href="#">Data Master Kehadiran Pegawai</a></li>
-                        <li><a href="#">Data Master Penjualan</a></li>
+                        <li><a href="{{ '/admin/supplier' }}">Data Supplier</a></li>
+                        <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
+                        <li><a href="#">Data Master 3</a></li>
                     </ul>
                 </li>
             </ul>

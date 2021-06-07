@@ -21,14 +21,30 @@ Route::get('dashboard', function(){
     return view('dashboard.index');
 });
 
-Route::get('pegawai/input', 'Backend\PegawaiController@create');
-Route::get('pegawai', 'Backend\PegawaiController@index');
 
-Route::get('kehadiran-pegawai/input', 'Backend\KehadiranPegawaiController@create');
-Route::get('kehadiran-pegawai', 'Backend\KehadiranPegawaiController@index');
+Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
+    Route::resource('employee', 'EmployeeController');
+    Route::resource('barang','BarangController');
 
-Route::get('penjualan/input', 'Backend\PenjualanController@create');
-Route::get('penjualan', 'Backend\PenjualanController@index');
+    Route::get('supplier','SupplierController@index');
+    Route::get('supplier/create','SupplierController@create');
+    Route::get('supplier/{supplier}/edit','SupplierController@edit');
+    Route::patch('supplier/{supplier}/update','SupplierController@update');
+    Route::post('supplier/store','SupplierController@store');
+    Route::get('supplier/{id}/delete','SupplierController@destroy');
 
-Route::get('penerimaan-barang/input', 'Backend\PenerimaanBarangController@create');
-Route::get('penerimaan-barang', 'Backend\PenerimaanBarangController@index');
+    Route::get('finance','FinanceController@index');
+    Route::get('finance/create','FinanceController@create');
+    Route::get('finance/{finance}/edit','FinanceController@edit');
+    Route::patch('finance/{finance}/update','FinanceController@update');
+    Route::post('finance/store','FinanceController@store');
+    Route::get('finance/{finance}/delete','FinanceController@destroy');
+
+    Route::resource('customer','CustomerController');
+
+    // Route::get('/struk','OutputController@struk');
+    // Route::get('/pembelianbarang','OutputController@pembelian_barang');
+    // Route::get('/laporangaji','OutputController@laporan_gaji');
+    // Route::get('/laporanlabarugi','OutputController@laporan_labarugi');
+    // Route::get('/laporanpembeliancutomer','OutputController@laporan_pembeliancutomer');
+});
