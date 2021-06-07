@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/',function () {
     return view('welcome');
-});
+})->name("welcome");
 
 Route::get('dashboard', function(){
     return view('dashboard.index');
@@ -23,10 +23,24 @@ Route::get('dashboard', function(){
 
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
-    Route::resource('employee', 'EmployeeController');
-    Route::resource('barang','BarangController');
-    Route::resource('supplier','SupplierController');
-    Route::resource('customer','CustomerController');
+
+
+    Route::get('login', 'AuthController@getLogin')->name("admin.getlogin");
+    Route::post('login', 'AuthController@postLogin')->name("admin.login");
+
+
+    Route::group(['middleware'=>'auth:backend'],function () {
+        Route::get('logout', 'AuthController@logout')->name("admin.logout");
+        Route::resource('employee', 'EmployeeController');
+        Route::resource('barang','BarangController');
+        Route::resource('supplier','SupplierController');
+        Route::resource('customer','CustomerController');
+    });
+
+
+
+
+
     // Route::get('/struk','OutputController@struk');
     // Route::get('/pembelianbarang','OutputController@pembelian_barang');
     // Route::get('/laporangaji','OutputController@laporan_gaji');

@@ -8,40 +8,41 @@
                     <h4 class="text-blue h4">Tambah Master Pegawai</h4>
                 </div>
             </div>
-            <form method="POST" action="{{route('employee.store')}}">
+            <form method="POST" action="{{route('employee.update',[$employee->id])}}">
                 @include('dashboard.include.alert')
+                {{method_field('PUT')}}
                 @csrf
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Nama Lengkap</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="text" name="nama_lengkap" placeholder="Nama Pegawai">
+                        <input class="form-control" type="text" name="nama_lengkap" value="{{$employee->nama}}"  placeholder="Nama Pegawai">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Jenis Kelamin</label>
                     <div class="col-sm-12 col-md-10">
                         <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
-                            <option value="L">Laki - laki</option>
-                            <option value="P">Perempuan</option>
+                            <option value="L" @if($employee->umur == "L") selected @endif>Laki - laki</option>
+                            <option value="P" @if($employee->umur == "P") selected @endif>Perempuan</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Umur</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="number" name="umur" placeholder="umur">
+                        <input class="form-control" type="number" name="umur" value="{{$employee->umur}}"  placeholder="umur">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Alamat</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="text" name="alamat" placeholder="alamat">
+                        <input class="form-control" type="text" name="alamat" value="{{$employee->alamat}}"  placeholder="alamat">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Username</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="text" name="username" placeholder="Username">
+                        <input class="form-control" readonly value="{{$employee->username}}" type="text" name="username" placeholder="Username">
                     </div>
                 </div>
                 <div class="form-group row">
