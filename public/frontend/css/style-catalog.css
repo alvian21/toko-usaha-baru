@@ -1,0 +1,69 @@
+#info .row{
+	margin-top: 15px;
+	margin-bottom: -100px;
+}
+.btn_produk{
+	width: 110px;
+	margin: 10px;
+	background-color: transparent;
+	border-color: transparent;
+	color: black;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.product-category a:hover{
+	border-color: #CD5C5C;
+	background-color: #CD5C5C;
+	color: white;
+	text-decoration:none;
+	border-radius: 5px;
+}
+.product-category a:hover span{
+	color: white;
+}
+.product-category .activee{
+	border-color: #CD5C5C;
+	background-color: #CD5C5C;
+	color: white;
+	border-radius: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.product-category .activee span{
+	color:white;
+}
+.katalog {
+ 	border: 1px solid;
+ 	border-color: white;
+ 	background-color: white;
+ 	width: 250px;
+}
+
+.katalog:hover {
+  	border: 1px solid #777;
+}
+
+.katalog img {
+  	width: 100%;
+  	height: 250px;
+}
+
+.desc h1{
+  	padding-top: 10px;
+  	text-align: center;
+  	font-size: 15px;
+}
+.desc p{
+	text-align: center;
+	font-size: 15px;
+	color: gray;
+}
+
+@media (max-width:767px){
+	.katalog{
+		width: 200px;
+	}
+	.katalog img {
+  		height: 200px;
+	}
+}

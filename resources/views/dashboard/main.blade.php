@@ -5,7 +5,8 @@
     <!-- Basic Page Info -->
     <meta charset="utf-8">
     <title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
-
+    <title>Dashboard - Toko usaha baru</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
@@ -25,6 +26,7 @@
     <link rel="stylesheet" type="text/css"
         href="{{asset('assets/src/plugins/datatables/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/styles/style.css')}}">
+	<!-- Basic Page Info -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -51,19 +53,19 @@
 
     <div class="main-container">
         @yield('content')
-    </div>
-    <!-- js -->
-    <script src="{{asset('assets/vendors/scripts/core.js')}}"></script>
-    <script src="{{asset('assets/vendors/scripts/script.min.js')}}"></script>
-    <script src="{{asset('assets/vendors/scripts/process.js')}}"></script>
-    <script src="{{asset('assets/vendors/scripts/layout-settings.js')}}"></script>
-    <script src="{{asset('assets/src/plugins/apexcharts/apexcharts.min.js')}}"></script>
-    <script src="{{asset('assets/src/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('assets/src/plugins/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('assets/src/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('assets/src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('assets/vendors/scripts/dashboard.js')}}"></script>
-    <script src="{{asset('assets/src/scripts/sweetalert2.all.min.js')}}"></script>
+	</div>
+	<!-- js -->
+	<script src="{{asset('assets/vendors/scripts/core.js')}}"></script>
+	<script src="{{asset('assets/vendors/scripts/script.min.js')}}"></script>
+	<script src="{{asset('assets/vendors/scripts/process.js')}}"></script>
+	<script src="{{asset('assets/vendors/scripts/layout-settings.js')}}"></script>
+	{{-- <script src="{{asset('assets/src/plugins/apexcharts/apexcharts.min.js')}}"></script> --}}
+	<script src="{{asset('assets/src/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{asset('assets/src/plugins/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
+	<script src="{{asset('assets/src/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
+	<script src="{{asset('assets/src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
+	{{-- <script src="{{asset('assets/vendors/scripts/dashboard.js')}}"></script> --}}
+    <script src="{{asset('assets/src/scripts/sweetalert2.min.js')}}"></script>
     @stack('script')
 </body>
 
