@@ -33,7 +33,7 @@
                             <td>
                                 <a href="{{route('employee.edit',[$row->id])}}" class="btn btn-info">Edit</a>
                                 <button type="button"
-                                    class="btn btn-danger">Hapus</button></td>
+                                    class="btn btn-danger deletedata" data-id="{{$row->id}}">Hapus</button></td>
                         </tr>
                         @empty
 
@@ -48,3 +48,50 @@
 
     </div>
 @endsection
+@push('script')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    function ajax()
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    }
+
+    $(document).on('click','.deletedata', function(){
+        var id = $(this).data('id');
+
+        swal({
+            title: "Apa kamu yakin untuk menghapus data karyawan?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    ajax();
+                    $.ajax({
+                        url:"{{url('admin/employee/')}}/"+id,
+                        method:"DELETE",
+                        success:function(data){
+                            if(data['message'] == "true"){
+                                swal("Data karyawan berhasil dihapus!", {
+                                    icon: "success",
+                                    });
+                               setTimeout(function(){ window.location.href = "{{route('employee.index')}}";},1500)
+                            }
+                        }
+                    })
+
+
+                }
+        });
+
+    })
+})
+</script>
+@endpush

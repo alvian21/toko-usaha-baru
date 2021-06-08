@@ -13,14 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',function () {
-    return view('welcome');
-})->name("welcome");
 
-Route::get('dashboard', function(){
-    return view('dashboard.index');
+
+
+Route::group(['namespace'=>'Frontend'],function () {
+    Route::get("/","HomeController@index")->name("home");
+    Route::get('login', 'AuthController@getLogin')->name("customer.getlogin");
+    Route::post('login', 'AuthController@postLogin')->name("customer.login");
+
+    Route::get('register', 'AuthController@getRegister')->name("customer.getregister");
+    Route::post('register', 'AuthController@postRegister')->name("customer.register");
+
 });
-
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
 
@@ -31,6 +35,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
 
     Route::group(['middleware'=>'auth:backend'],function () {
         Route::get('logout', 'AuthController@logout')->name("admin.logout");
+        Route::resource('dashboard', 'DashboardController');
         Route::resource('employee', 'EmployeeController');
         Route::resource('barang','BarangController');
         Route::resource('supplier','SupplierController');

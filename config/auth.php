@@ -46,6 +46,11 @@ return [
             'provider' => 'employees',
         ],
 
+        'frontend' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -79,6 +84,11 @@ return [
         'employees' => [
             'driver' => 'eloquent',
             'model' => App\Employee::class,
+        ],
+
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Customer::class,
         ],
 
         // 'users' => [

@@ -109,7 +109,9 @@ class AuthController extends Controller
 
             if(Auth::guard('backend')->attempt(['username'=>$request->get('username'),'password'=>$request->get('password')])){
 
-                return redirect()->route("employee.index");
+                return redirect()->route("dashboard.index");
+            }else {
+                return redirect()->back()->withErrors(['Password atau username salah']);
             }
         }
     }

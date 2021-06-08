@@ -24,6 +24,8 @@
                         <li><a href="#">Data Master 1</a></li>
                         <li><a href="#">Data Master 2</a></li>
                         <li><a href="#">Data Master 3</a></li>
+                        <li><a href="{{route('employee.index')}}">Pegawai</a></li>
+                        <li><a href="{{route('customer.index')}}">Customer</a></li>
                     </ul>
                 </li>
             </ul>

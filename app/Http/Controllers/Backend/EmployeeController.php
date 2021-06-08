@@ -133,8 +133,16 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        if($request->ajax()){
+            $employee = Employee::find($id);
+            $employee->delete();
+
+            return response()->json([
+                'message' => "true"
+            ]);
+
+        }
     }
 }

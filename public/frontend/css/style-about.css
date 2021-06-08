@@ -1,0 +1,16 @@
+.information_about img{
+	width: 100%;
+	border-radius: 50%;
+}
+.info_about{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.narrow .about h1{
+	margin-bottom: -2rem;
+	font-size: 2.4rem;
+}
+#tkped img{
+	width: 30%;
+}
+
