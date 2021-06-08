@@ -24,7 +24,13 @@ Route::get('dashboard', function(){
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
     Route::resource('employee', 'EmployeeController');
-    Route::resource('barang','BarangController');
+
+    Route::get('item','BarangController@index');
+    Route::get('item/create','BarangController@create');
+    Route::get('item/{item}/edit','BarangController@edit');
+    Route::patch('item/{item}/update','BarangController@update');
+    Route::post('item/store','BarangController@store');
+    Route::get('item/{item}/delete','BarangController@destroy');
 
     Route::get('supplier','SupplierController@index');
     Route::get('supplier/create','SupplierController@create');
@@ -39,6 +45,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
     Route::patch('finance/{finance}/update','FinanceController@update');
     Route::post('finance/store','FinanceController@store');
     Route::get('finance/{finance}/delete','FinanceController@destroy');
+    Route::get('finance/{file}','FinanceController@showDocument');
 
     Route::resource('customer','CustomerController');
 

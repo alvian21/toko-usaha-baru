@@ -5,16 +5,17 @@
         <div class="pd-20 card-box mb-30">
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Tambah Master Barang</h4>
+                    <h4 class="text-blue h4">Edit Master Barang</h4>
                 </div>
             </div>
-            <form action="{{ 'store' }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ 'update' }}" method="POST" enctype="multipart/form-data">
+                @method('patch')
                 @csrf
-                <div class="form-group row mt-3">
+                <div class="form-group mt-3 row">
                     <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control @error('nama_barang') is-invalid @enderror"
-                            value="{{ old('nama_barang') }}" name="nama_barang" type="text" placeholder="Nama Barang">
+                        <input class="form-control @error('nama_barang') is-invalid @enderror" type="text"
+                            value="{{ $item->nama_barang }}" name="nama_barang" placeholder="Nama barang">
                         @error('nama_barang')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -23,7 +24,7 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Harga</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control  @error('harga') is-invalid @enderror" value="{{ old('harga') }}"
+                        <input class="form-control  @error('harga') is-invalid @enderror" value="{{ $item->harga }}"
                             name="harga" type="number" placeholder="Harga">
                         @error('nama_barang')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -33,7 +34,7 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Stok</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control @error('stok') is-invalid @enderror" value="{{ old('stok') }}"
+                        <input class="form-control @error('stok') is-invalid @enderror" value="{{ $item->stok }}"
                             name="stok" type="number" placeholder="Stok">
                         @error('stok')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -43,15 +44,20 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Gambar</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control @error('gambar') is-invalid @enderror" value="{{ old('gambar') }}"
-                            name="gambar" type="file">
+                        <input class="form-control @error('gambar') is-invalid @enderror" name="gambar" type="file">
                         @error('gambar')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Gambar saat ini</label>
+                    <div class="col-sm-12 col-md-10">
+                        <img width="80px" src="{{ url('/item_images/' . $item->gambar) }}" alt="">
+                    </div>
+                </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Ubah</button>
                 </div>
             </form>
 

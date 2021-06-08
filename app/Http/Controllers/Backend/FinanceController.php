@@ -58,6 +58,14 @@ class FinanceController extends Controller
             $finance->bukti_dokumen = $name;
 
             $finance->save();
+        }else{
+            $finance = new Finance();
+            $finance->jenis_keuangan = $request->jenis_keuangan;
+            $finance->nama_keuangan = $request->nama_keuangan;
+            $finance->tgl_keuangan = $request->tgl_keuangan;
+            $finance->bukti_dokumen = "";
+
+            $finance->save();
         }
 
         return redirect('/admin/finance')->with('status', 'Data berhasil ditambah!');
@@ -108,6 +116,7 @@ class FinanceController extends Controller
                 'bukti_dokumen' => $name,
 
             ]);
+            unlink(public_path('bukti_dokumen/'. $finance->bukti_dokumen));
         }else{
             Finance::where('id', $finance->id)->update([
 
@@ -141,5 +150,10 @@ class FinanceController extends Controller
 
 
         return redirect('/admin/finance')->with('status', 'Data berhasil dihapus!');
+    }
+
+    public function showDocument($file){
+
+        return response()->file(public_path('bukti_dokumen/'.$file));
     }
 }

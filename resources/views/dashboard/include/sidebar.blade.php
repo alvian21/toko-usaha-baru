@@ -23,7 +23,7 @@
                     <ul class="submenu">
                         <li><a href="{{ '/admin/supplier' }}">Data Supplier</a></li>
                         <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
-                        <li><a href="#">Data Master 3</a></li>
+                        <li><a href="{{ '/admin/item' }}">Data Barang</a></li>
                     </ul>
                 </li>
             </ul>
