@@ -116,7 +116,10 @@ class FinanceController extends Controller
                 'bukti_dokumen' => $name,
 
             ]);
-            unlink(public_path('bukti_dokumen/'. $finance->bukti_dokumen));
+            if($finance->bukti_dokumen != ""){
+
+                unlink(public_path('bukti_dokumen/'. $finance->bukti_dokumen));
+            }
         }else{
             Finance::where('id', $finance->id)->update([
 

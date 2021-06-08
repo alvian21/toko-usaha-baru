@@ -114,7 +114,10 @@ class BarangController extends Controller
                 'gambar' => $name,
 
             ]);
-            unlink(public_path('item_images/'. $item->gambar));
+            if($item->gambar != ""){
+
+                unlink(public_path('item_images/'. $item->gambar));
+            }
         }else{
             Item::where('id', $item->id)->update([
 
