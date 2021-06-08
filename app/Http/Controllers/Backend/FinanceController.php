@@ -102,6 +102,14 @@ class FinanceController extends Controller
      */
     public function update(Request $request, Finance $finance)
     {
+        $request->validate([
+
+            'nama_keuangan' => 'required',
+            'jenis_keuangan' => 'required',
+            'tgl_keuangan' => 'required',
+            'bukti_dokumen' => 'mimes:pdf,doc,docx'
+        ]);
+
         if ($request->hasFile('bukti_dokumen')) {
 
             $file = $request->file('bukti_dokumen');
@@ -144,7 +152,10 @@ class FinanceController extends Controller
         if(file_exists(public_path('bukti_dokumen/'. $finance->bukti_dokumen))){
 
             Finance::destroy($finance->id);
-            unlink(public_path('bukti_dokumen/'. $finance->bukti_dokumen));
+            if($finance->bukti_dokumen != ""){
+
+                unlink(public_path('bukti_dokumen/'. $finance->bukti_dokumen));
+            }
 
             }else{
 

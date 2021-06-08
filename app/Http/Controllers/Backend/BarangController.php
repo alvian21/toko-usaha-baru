@@ -100,6 +100,14 @@ class BarangController extends Controller
      */
     public function update(Request $request, Item $item)
     {
+        $request->validate([
+
+            'nama_barang' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+            'gambar' => 'image|mimes:jpeg,png,jpg'
+        ]);
+
         if ($request->hasFile('gambar')) {
 
             $file = $request->file('gambar');
@@ -142,7 +150,10 @@ class BarangController extends Controller
         if(file_exists(public_path('item_images/'. $item->gambar))){
 
             Item::destroy($item->id);
-            unlink(public_path('item_images/'. $item->gambar));
+            if($item->gambar != ""){
+
+                unlink(public_path('item_images/'. $item->gambar));
+            }
 
         }else{
 
