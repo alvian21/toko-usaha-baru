@@ -22,10 +22,19 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ '/admin/supplier' }}">Data Supplier</a></li>
-                        <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
                         <li><a href="{{ '/admin/item' }}">Data Barang</a></li>
                         <li><a href="{{route('employee.index')}}">Pegawai</a></li>
                         <li><a href="{{route('customer.index')}}">Customer</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-edit2"></span><span class="mtext">Data Transaksi</span>
+                    </a>
+                    <ul class="submenu">
+
+                        <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
+
                     </ul>
                 </li>
             </ul>
