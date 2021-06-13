@@ -1,113 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Toko Usaha Baru</title>
 
-  <!-- link -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Toko Usaha Baru</title>
+
+    <!-- link -->
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/bootstrap.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/style-home.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/style-about.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/style-catalog.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/css/style-login.css')}}">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
 
 </head>
-<body data-spy="scroll" data-target="#navbarResponsive" >
 
-  <!-- Start Home Section -->
-  <div id="home">
+<body data-spy="scroll" data-target="#navbarResponsive">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-        <span class="navbar-toggler-icon"></span>
-        <span>Menu</span>
-      </button>
+    <!-- Start Home Section -->
+    <div id="home">
 
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" onclick="window.location='/'">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" onclick="window.location='catalog'">Catalog</a>
-          </li>
-          <li class="nav-item">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand flex-grow-1" href="#">TokoUsahaBaru.me</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="flex-grow-1 d-flex ml-6">
+                        <form class="form-inline flex-nowrap  mx-0 mx-lg-auto rounded p-1">
+                            <input class="form-control rounded-pill" style="width:20rem" type="search"
+                                placeholder="Search" aria-label="Search">
+
+                        </form>
+                    </div>
+
+                    <ul class="navbar-nav  ml-6">
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="window.location='/'">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('catalog.index')}}">Catalog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="window.location='catalog'">About Us</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location='/'"><i class="fas fa-bell"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
+                    </li>
+                    {{-- <li class="nav-item">
             <a class="nav-link" onclick="window.location='about'">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" onclick="window.location='login'">Login</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <!-- End Navigation -->
+          </li> --}}
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="window.location='login'"><i class="far fa-user-circle"></i> Login</a>
+                    </li>
+                </ul>
 
-    <!-- Start Landing Page Section -->
-    @yield('landing')
-    <!-- End Landing Page Section -->
+            </div>
+        </nav>
+        <!-- End Navigation -->
 
-  </div>
-  <!-- End Home Section -->
+        <!-- Start Landing Page Section -->
+        @yield('landing')
+        <!-- End Landing Page Section -->
 
-  <!-- Isi Content -->
-  @yield('isi')
-  <!-- End Isi Content -->
+    </div>
+    <!-- End Home Section -->
 
-  <!-- Start Footer Section -->
-  <div id="footer" class="offset">
-    <footer>
-      <div class="row justify-content-center">
-        <div class="col-md-4 text-center">
-          <h1>Toko <br> USAHA BARU</h1>
-        </div>
-        <div class="col-md-4 text-center">
-          <p class="text-center">
-            <strong>CONTACT INFO</strong>
-          </p>
-          <hr class="light">
-          <p>
-            <i class="fas fa-phone"></i>
-            (0356) 551804
-            <br>
-            <i class="fas fa-mobile-alt"></i>
-            +62 822 3288 5121
-            <br>
-            <i class="fas fa-map-marker-alt"></i>
-            Jl. Raya Barat No.4
-            <br>
-            Jatirogo - Tuban
-          </p>
-        </div>
+    <!-- Isi Content -->
+    @yield('isi')
+    <!-- End Isi Content -->
 
-        <div class="col-md-4 text-center">
-          <p class="text-center">
-            <strong>SITE MAP</strong>
-          </p>
-          <hr class="light">
-          <a class="nav-link" onclick="window.location='home'">Home</a>
-          <a class="nav-link" onclick="window.location='catalog'">Catalog</a>
-          <a class="nav-link" onclick="window.location='about'">About Us</a>
-          <a class="nav-link" onclick="window.location='login'">Login</a>
-        </div>
+    <!-- Start Footer Section -->
+    <div id="footer" class="offset">
+        <footer>
+            <div class="row justify-content-center">
+                <div class="col-md-4 text-center">
+                    <h1>Toko <br> USAHA BARU</h1>
+                </div>
+                <div class="col-md-4 text-center">
+                    <p class="text-center">
+                        <strong>CONTACT INFO</strong>
+                    </p>
+                    <hr class="light">
+                    <p>
+                        <i class="fas fa-phone"></i>
+                        (0356) 551804
+                        <br>
+                        <i class="fas fa-mobile-alt"></i>
+                        +62 822 3288 5121
+                        <br>
+                        <i class="fas fa-map-marker-alt"></i>
+                        Jl. Raya Barat No.4
+                        <br>
+                        Jatirogo - Tuban
+                    </p>
+                </div>
 
-        <hr class="socket">
-        &copy; Copyright (2021) - Toko usaha baru
-      </div>
-    </footer>
-  </div>
-  <!-- End Footer Section -->
+                <div class="col-md-4 text-center">
+                    <p class="text-center">
+                        <strong>SITE MAP</strong>
+                    </p>
+                    <hr class="light">
+                    <a class="nav-link" onclick="window.location='home'">Home</a>
+                    <a class="nav-link" onclick="window.location='catalog'">Catalog</a>
+                    <a class="nav-link" onclick="window.location='about'">About Us</a>
+                    <a class="nav-link" onclick="window.location='login'">Login</a>
+                </div>
 
-  <!-- Script -->
-  <script type="text/javascript" src="{{asset('frontend/js/jquery-3.3.1.min.js')}}"></script>
-  <script type="text/javascript" src="{{asset('frontend/js/jquery.js')}}"></script>
-  <script type="text/javascript" src="{{asset('frontend/js/bootstrap.js')}}"></script>
-  <script type="text/javascript" src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-  <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/css/all.css')}}"></script>
-  <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/js/all.js')}}"></script>
+                <hr class="socket">
+                &copy; Copyright (2021) - Toko usaha baru
+            </div>
+        </footer>
+    </div>
+    <!-- End Footer Section -->
+
+    <!-- Script -->
+    <script type="text/javascript" src="{{asset('frontend/js/jquery-3.3.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('frontend/js/jquery.js')}}"></script>
+    <script type="text/javascript" src="{{asset('frontend/js/bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/css/all.css')}}"></script>
+    <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/js/all.js')}}"></script>
 
 </body>
+
 </html>
