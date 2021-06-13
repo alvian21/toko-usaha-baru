@@ -38,11 +38,12 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
 
             'nama_pemasok' => 'required',
             'alamat' => 'required',
-            'nomor_telepon' => 'required'
+            'nomor_telepon' => 'required',
         ]);
 
         Supplier::create($request->all());
@@ -81,6 +82,14 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
+        $request->validate([
+
+            'nama_pemasok' => 'required',
+            'alamat' => 'required',
+            'nomor_telepon' => 'required',
+
+        ]);
+
         Supplier::where('id', $supplier->id)->update([
 
             'nama_pemasok' => $request->nama_pemasok,
