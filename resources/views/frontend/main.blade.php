@@ -137,6 +137,7 @@
     <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/css/all.css')}}"></script>
     <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/js/all.js')}}"></script>
 
+    @stack('script')
 </body>
 
 </html>
