@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Item;
 
 class CatalogController extends Controller
 {
@@ -14,7 +15,8 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        return view("frontend.catalog.index");
+        $item = Item::all();
+        return view("frontend.catalog.index",['item'=>$item]);
     }
 
     /**

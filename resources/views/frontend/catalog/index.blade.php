@@ -63,17 +63,19 @@
 
                 </div>
             </div>
-            <div class="row isotope-grid" style="position: relative; height: 392.75px;">
-                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item filter women"
-                    style="position: absolute; left: 0%; top: 0px;">
+            <div class="row" >
+                @forelse ($item as $row)
+                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 filter {{$row->kategori}}">
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="images/gmodal-1.jpeg" alt="Card image cap">
+                        <img class="card-img-top" src="{{asset('storage/images/items/'.$row->gambar)}}" alt="Card image cap">
                         <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
+                            <p class="card-text">{{$row->nama_barang}}.</p>
                         </div>
                     </div>
                 </div>
+                @empty
+
+                @endforelse
             </div>
         </div>
     </div>

@@ -59,7 +59,7 @@ class BarangController extends Controller
                 $ext = $gambar->getClientOriginalExtension();
                 $filename = time() . '.' . $ext;
                 $img = Image::make($gambar);
-                $img->resize(200, 200);
+                $img->resize(500, 500);
                 $img->stream();
                 $img->orientate();
                 Storage::disk("local")->put("public/images/items/" . $filename, $img);
@@ -167,4 +167,6 @@ class BarangController extends Controller
 
         return redirect('/admin/item')->with('status', 'Data berhasil dihapus!');
     }
+
+
 }
