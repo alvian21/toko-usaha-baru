@@ -24,6 +24,12 @@ Route::group(['namespace'=>'Frontend'],function () {
     Route::get('register', 'AuthController@getRegister')->name("customer.getregister");
     Route::post('register', 'AuthController@postRegister')->name("customer.register");
 
+    //cartcontroller
+    Route::resource('cart', 'CartController');
+
+    //catalog controller
+    Route::resource('catalog', 'CatalogController');
+
 });
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {

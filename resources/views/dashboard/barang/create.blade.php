@@ -8,7 +8,7 @@
                     <h4 class="text-blue h4">Tambah Master Barang</h4>
                 </div>
             </div>
-            <form action="{{ 'store' }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row mt-3">
                     <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
@@ -38,6 +38,18 @@
                         @error('stok')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Kategori</label>
+                    <div class="col-sm-12 col-md-10">
+                        <select class="form-control" id="exampleFormControlSelect1" name="kategori">
+                            <option value="women">Women</option>
+                            <option value="pria">Pria</option>
+                            <option value="anak-anak">Anak - anak</option>
+                            <option value="ibu-dan-bayi">Ibu dan bayi</option>
+                            <option value="lain-lain">Lain -lain</option>
+                          </select>
                     </div>
                 </div>
                 <div class="form-group row">

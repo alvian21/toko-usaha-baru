@@ -17,6 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('nama_barang');
             $table->integer('harga');
+            $table->string('kategori')->nullable();
             $table->string('gambar');
             $table->integer('stok');
             $table->timestamps();

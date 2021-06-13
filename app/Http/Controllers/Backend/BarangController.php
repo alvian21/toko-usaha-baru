@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 use App\Item;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class BarangController extends Controller
 {
@@ -41,31 +43,33 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'harga' => 'required',
             'stok' => 'required',
+            'kategori' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg'
         ]);
+        $item = new Item();
+        $item->nama_barang = $request->nama_barang;
+        $item->harga = $request->harga;
+        $item->kategori = $request->kategori;
+        $item->stok = $request->stok;
 
         if ($request->hasFile('gambar')) {
 
-            $file = $request->file('gambar');
-            $name = $file->getClientOriginalName();
-            $file->move(\base_path() . "/public/item_images", $name);
+            try {
+                $gambar = $request->file("gambar");
+                $ext = $gambar->getClientOriginalExtension();
+                $filename = time() . '.' . $ext;
+                $img = Image::make($gambar);
+                $img->resize(500, 500);
+                $img->stream();
+                $img->orientate();
+                Storage::disk("local")->put("public/images/items/" . $filename, $img);
+                $item->gambar = $filename;
+            } catch (\Throwable $th) {
+               dd($th);
+            }
 
-            $item = new Item();
-            $item->nama_barang = $request->nama_barang;
-            $item->harga = $request->harga;
-            $item->gambar = $name;
-            $item->stok = $request->stok;
-            $item->save();
-
-        }else{
-            $item = new Item();
-            $item->nama_barang = $request->nama_barang;
-            $item->harga = $request->harga;
-            $item->gambar = "";
-            $item->stok = $request->stok;
-
-            $item->save();
         }
+        $item->save();
         return redirect('/admin/item')->with('status', 'Data berhasil ditambah!');
     }
 
@@ -163,4 +167,6 @@ class BarangController extends Controller
 
         return redirect('/admin/item')->with('status', 'Data berhasil dihapus!');
     }
+
+
 }
