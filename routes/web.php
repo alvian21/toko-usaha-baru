@@ -30,6 +30,9 @@ Route::group(['namespace'=>'Frontend'],function () {
     //catalog controller
     Route::resource('catalog', 'CatalogController');
 
+    //aboutus controller
+    Route::resource('aboutus', 'AboutusController');
+
 });
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
