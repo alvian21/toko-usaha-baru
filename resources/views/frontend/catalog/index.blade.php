@@ -1,14 +1,20 @@
 @extends('frontend.main')
 
 @section('landing')
-<div class="landing">
-    <div class="home-wrap">
+	<div class="landing">
+      <div class="home-wrap">
         <div class="home-inner">
         </div>
+      </div>
     </div>
-</div>
 
+    <div class="caption text-center">
+      <h1>Katalog Produk</h1>
+      <h3>Pusat Busana Termurah dan Terlengkap di Jatirogo</h3>
+      <div class="btn_landing">
 
+      </div>
+    </div>
 @endsection
 
 @section('isi')
@@ -66,12 +72,15 @@
             <div class="row" >
                 @forelse ($item as $row)
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 filter {{$row->kategori}}">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="{{asset('storage/images/items/'.$row->gambar)}}" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">{{$row->nama_barang}}.</p>
+                    <a href="{{route('catalog.show',[$row->id])}}">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="{{asset('item_images/'.$row->gambar)}}" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">{{$row->nama_barang}}.</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+
                 </div>
                 @empty
 

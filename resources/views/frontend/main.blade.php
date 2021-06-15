@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Toko Usaha Baru</title>
 
@@ -17,7 +18,23 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
-
+    <style>
+        #ex4 .p1[data-count]:after {
+            position: absolute;
+            right: 10%;
+            top: 8%;
+            content: attr(data-count);
+            font-size: 40%;
+            padding: .2em;
+            border-radius: 50%;
+            line-height: 1em;
+            color: white;
+            background: rgba(255, 0, 0, .85);
+            text-align: center;
+            min-width: 1em;
+            //font-weight:bold;
+        }
+    </style>
 </head>
 
 <body data-spy="scroll" data-target="#navbarResponsive">
@@ -60,13 +77,15 @@
                         <a class="nav-link" onclick="window.location='/'"><i class="fas fa-bell"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
+                        <a class="nav-link p1 iconcart" href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"
+                                data-count="1"></i>@if(session()->has('cart')) {{count(session('cart'))}} @endif</a>
                     </li>
                     {{-- <li class="nav-item">
             <a class="nav-link" onclick="window.location='about'">About Us</a>
           </li> --}}
                     <li class="nav-item">
-                        <a class="nav-link" onclick="window.location='login'"><i class="far fa-user-circle"></i> Login</a>
+                        <a class="nav-link" href="{{url('/login')}}"><i class="far fa-user-circle"></i>
+                            @if(auth()->guard('frontend')->check()) User @else Login @endif</a>
                     </li>
                 </ul>
 
@@ -136,7 +155,7 @@
     <script type="text/javascript" src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/css/all.css')}}"></script>
     <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/js/all.js')}}"></script>
-
+    <script src="{{asset('assets/src/scripts/sweetalert2.all.min.js')}}"></script>
     @stack('script')
 </body>
 

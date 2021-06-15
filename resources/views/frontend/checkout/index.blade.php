@@ -4,8 +4,17 @@
 
 <div class="container-fluid" style="margin-top: 10rem">
     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                  This is some text within a card body.
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8">
-            <div class="card" style="height: 30rem">
+            <div class="card" style="height: 40rem">
                 <div class="card-body">
                     <table class="table">
                         <thead>
@@ -64,28 +73,49 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card" style="height: 20rem">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>Jumlah Produk:</h4>
-                        </div>
-                        <div class="col-md-6">
-                            <h4 class="pl-1">{{count(session('cart'))}}</h4>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>Harga Total:</h4>
-                        </div>
-                        <div class="col-md-6">
-                            <h4 class="pl-1">{{"Rp " . number_format($subtotal,2,',','.')}}</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" style="height: 18rem">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Opsi Pengiriman:</h5>
+                                </div>
+
+                            </div>
+
+
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <a href="{{route('checkout.index')}}" class="btn btn-danger btn-lg">Checkout</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" style="height: 18rem">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Jumlah Produk:</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="pl-1">{{count(session('cart'))}}</h5>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Harga Total:</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="pl-1">{{"Rp " . number_format($subtotal,2,',','.')}}</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+
+                                    <button type="button" class="btn btn-danger btn-lg">Buat Pesanan</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

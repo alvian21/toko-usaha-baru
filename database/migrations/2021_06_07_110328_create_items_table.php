@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration
             $table->string('kategori')->nullable();
             $table->string('gambar');
             $table->integer('stok');
+            $table->longText('deskripsi')->nullable();
             $table->timestamps();
         });
     }

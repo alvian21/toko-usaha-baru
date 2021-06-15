@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Item;
+use App\CustomerAddress;
+use Illuminate\Support\Facades\Auth;
 
-class CatalogController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,8 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        $item = Item::all();
-        // session()->forget('cart');
-        return view("frontend.catalog.index",['item'=>$item]);
+        $address = CustomerAddress::all()->where('customer', Auth::guard('frontend')->user()->id);
+        return view('frontend.user.index', ['address' => $address]);
     }
 
     /**
@@ -49,8 +49,7 @@ class CatalogController extends Controller
      */
     public function show($id)
     {
-        $item = Item::find($id);
-        return view('frontend.catalog.show', ['item' => $item]);
+        //
     }
 
     /**

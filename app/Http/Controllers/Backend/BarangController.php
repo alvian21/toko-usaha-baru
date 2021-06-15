@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Item;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -55,19 +56,19 @@ class BarangController extends Controller
         if ($request->hasFile('gambar')) {
 
             try {
-                $gambar = $request->file("gambar");
-                $ext = $gambar->getClientOriginalExtension();
+
+                $file = $request->file('gambar');
+                $ext = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $ext;
-                $img = Image::make($gambar);
-                $img->resize(500, 500);
+                $img = Image::make($file);
+                $img->resize(400, 400);
                 $img->stream();
                 $img->orientate();
-                Storage::disk("local")->put("public/images/items/" . $filename, $img);
+                $img->save(\base_path() . "/public/item_images/" . $filename);
                 $item->gambar = $filename;
             } catch (\Throwable $th) {
-               dd($th);
+                dd($th);
             }
-
         }
         $item->save();
         return redirect('/admin/item')->with('status', 'Data berhasil ditambah!');
@@ -81,7 +82,7 @@ class BarangController extends Controller
      */
     public function show($id)
     {
-        //
+      
     }
 
     /**
@@ -126,11 +127,11 @@ class BarangController extends Controller
                 'gambar' => $name,
 
             ]);
-            if($item->gambar != ""){
+            if ($item->gambar != "") {
 
-                unlink(public_path('item_images/'. $item->gambar));
+                unlink(public_path('item_images/' . $item->gambar));
             }
-        }else{
+        } else {
             Item::where('id', $item->id)->update([
 
                 'nama_barang' => $request->nama_barang,
@@ -151,15 +152,14 @@ class BarangController extends Controller
      */
     public function destroy(Item $item)
     {
-        if(file_exists(public_path('item_images/'. $item->gambar))){
+        if (file_exists(public_path('item_images/' . $item->gambar))) {
 
             Item::destroy($item->id);
-            if($item->gambar != ""){
+            if ($item->gambar != "") {
 
-                unlink(public_path('item_images/'. $item->gambar));
+                unlink(public_path('item_images/' . $item->gambar));
             }
-
-        }else{
+        } else {
 
             Item::destroy($item->id);
         }
@@ -167,6 +167,4 @@ class BarangController extends Controller
 
         return redirect('/admin/item')->with('status', 'Data berhasil dihapus!');
     }
-
-
 }

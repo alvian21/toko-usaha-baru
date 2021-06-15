@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Item;
 
-class CatalogController extends Controller
+class CheckoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,7 @@ class CatalogController extends Controller
     public function index()
     {
         $item = Item::all();
-        // session()->forget('cart');
-        return view("frontend.catalog.index",['item'=>$item]);
+        return view("frontend.checkout.index", ['item' => $item]);
     }
 
     /**
@@ -49,8 +48,7 @@ class CatalogController extends Controller
      */
     public function show($id)
     {
-        $item = Item::find($id);
-        return view('frontend.catalog.show', ['item' => $item]);
+        //
     }
 
     /**
