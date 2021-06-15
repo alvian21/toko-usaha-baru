@@ -33,6 +33,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
 
     Route::group(['middleware'=>'auth:backend'],function () {
         Route::get('logout', 'AuthController@logout')->name("admin.logout");
+
         Route::get('item','BarangController@index');
         Route::get('item/create','BarangController@create');
         Route::get('item/{item}/edit','BarangController@edit');
@@ -54,6 +55,17 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
         Route::post('finance/store','FinanceController@store');
         Route::get('finance/{finance}/delete','FinanceController@destroy');
         Route::get('finance/{file}','FinanceController@showDocument');
+
+        Route::get('sales','SalesController@index');
+        Route::get('sales/create','SalesController@create');
+        Route::post('sales/store','SalesController@store');
+        Route::post('sales/create/add','SalesController@addList');
+        Route::get('sales/create/delete/{namabarang}','SalesController@deleteBarang');
+        Route::get('sales/getHarga/{id}','SalesController@getHarga');
+        Route::get('sales/uptMin/{id}','SalesController@updateMinus');
+        Route::get('sales/uptPlus/{id}','SalesController@updatePlus');
+        Route::get('sales/getTotal','SalesController@getTotal');
+        Route::get('sales/detail/{id}','SalesController@getDetail');
 
         Route::resource('dashboard', 'DashboardController');
         Route::resource('employee', 'EmployeeController');
