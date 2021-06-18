@@ -32,16 +32,16 @@
                                 <td> <img class="img-tdumbnail " width="100px"
                                         src="{{asset('item_images/'.$item->gambar)}}" alt="Card image cap"></td>
                                 <td>
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        @for ($i = 1; $i < $item->stok; $i++)
-                                            <option value="{{$i}}" @if($row['qty']==$i) selected @endif>{{$i}}</option>
+                                    <select class="form-control qty" id="qty">
+                                        @for ($i = 1; $i <= $item->stok; $i++)
+                                            <option data-id="{{$row['id_barang']}}" value="{{$i}}" @if($row['qty']==$i) selected @endif>{{$i}}</option>
                                             @endfor
 
 
                                     </select>
                                 </td>
                                 <td>{{ "Rp " . number_format($row['total']*$row['qty'],2,',','.')}}</td>
-                                <td>Hapus</td>
+                                <td style="cursor: pointer" class="hapus" data-id="{{$row['id_barang']}}">Hapus</td>
                             </tr>
 
                             @php
@@ -59,6 +59,7 @@
                             @endif
 
                         </tbody>
+                        <input type="hidden" name="subtotal" id="subtotal" value="{{$subtotal}}">
                     </table>
                 </div>
             </div>
@@ -94,3 +95,61 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script>
+    $(document).ready(function(){
+
+        function ajax() {
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        }
+
+
+
+        $('.qty').on('change', function () {
+            var qty = $(this).find(':selected').val()
+            var id = $(this).find(':selected').data('id');
+            ajax()
+             $.ajax({
+                 url:"{{route('checkout.qty')}}",
+                 method:"POST",
+                 data:{
+                     'id':id,
+                     'qty':qty
+                     },success:function(data){
+                        window.location.href="{{route('cart.index')}}"
+                     }
+             })
+         })
+
+         $('.hapus').on('click', function(){
+             var id = $(this).data('id');
+
+             $.ajax({
+                 url:"{{route('checkout.delete')}}",
+                 method:"GET",
+                 data:{
+                     'id':id
+                     },success:function(data){
+                        window.location.href="{{route('cart.index')}}"
+                     }
+             })
+         })
+
+        function convertToRupiah(angka) {
+            var rupiah = '';
+            var angkarev = angka.toString().split('').reverse().join('');
+            for (var i = 0; i < angkarev.length; i++) {
+                if (i%3 == 0) {
+                rupiah += angkarev.substr(i,3)+'.';
+                }
+            }
+            return rupiah.split('',rupiah.length-1).reverse().join('') + ",00";
+        }
+    })
+</script>
+@endpush

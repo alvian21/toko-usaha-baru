@@ -71,11 +71,11 @@
                                     <label for="provinsi">Provinsi</label>
                                     <select class="form-control" id="provinsi" name="provinsi">
                                         <option value="0">Pilih Provinsi</option>
-                                        @forelse ($provinsi as $row)
+                                        {{-- @forelse ($provinsi as $row)
                                         <option value="{{$row['province_id']}}">{{$row['province']}}</option>
                                         @empty
 
-                                        @endforelse
+                                        @endforelse --}}
                                     </select>
                                 </div>
                                 <div>
@@ -121,23 +121,23 @@
         $('#provinsi').select2()
         $('#kota').select2()
 
-        $('#provinsi').on('change', function () {
-            var province_id = $(this).val()
-            $('#kota').empty()
-            $.ajax({
-                url:"{{route('address.city')}}",
-                method:"GET",
-                data:{
-                    'province_id':province_id
-                },success:function(data){
-                   for (let index = 0; index < data.length; index++) {
-                       const element = data[index];
-                    $('#kota').append(' <option value="'+element['city_id']+'">'+element['city_name']+'</option>');
+        // $('#provinsi').on('change', function () {
+        //     var province_id = $(this).val()
+        //     $('#kota').empty()
+        //     $.ajax({
+        //         url:"{{route('address.city')}}",
+        //         method:"GET",
+        //         data:{
+        //             'province_id':province_id
+        //         },success:function(data){
+        //            for (let index = 0; index < data.length; index++) {
+        //                const element = data[index];
+        //             $('#kota').append(' <option value="'+element['city_id']+'">'+element['city_name']+'</option>');
 
-                   }
-                }
-            })
-         })
+        //            }
+        //         }
+        //     })
+        //  })
      })
 </script>
 

@@ -81,23 +81,25 @@
                             @include('dashboard.include.alert')
                             <table class="table table-striped">
                                 <thead>
-                                  <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
-                                  </tr>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Alamat</th>
+                                        <th scope="col">Kota</th>
+                                        <th scope="col">Kode Pos</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                  </tr>
-                               
+                                    @forelse ($address as $item)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$item->alamat}}</td>
+                                        <td>{{$item->kota}}</td>
+                                       <td>{{$item->kode_pos}}</td>
+                                    </tr>
+                                    @empty
+                                    @endforelse
                                 </tbody>
-                              </table>
+                            </table>
                         </div>
                     </div>
                 </div>

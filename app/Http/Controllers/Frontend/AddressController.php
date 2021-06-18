@@ -27,29 +27,7 @@ class AddressController extends Controller
      */
     public function create()
     {
-        $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-                "key:" . config('app.rajaongkir')
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        $response = json_decode($response, true);
-        $provinsi = $response['rajaongkir']['results'];
-        curl_close($curl);
-
-
-        return view("frontend.user.address.create", ['provinsi' => $provinsi]);
     }
 
     /**
@@ -72,60 +50,60 @@ class AddressController extends Controller
             return redirect()->back()->withErrors($validator->errors());
         } else {
 
-            //provinsi
-            $curl = curl_init();
+            // //provinsi
+            // $curl = curl_init();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.rajaongkir.com/starter/province?id=" . $request->get('provinsi'),
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
-                CURLOPT_HTTPHEADER => array(
-                    "key:" . config('app.rajaongkir')
-                ),
-            ));
+            // curl_setopt_array($curl, array(
+            //     CURLOPT_URL => "https://api.rajaongkir.com/starter/province?id=" . $request->get('provinsi'),
+            //     CURLOPT_RETURNTRANSFER => true,
+            //     CURLOPT_ENCODING => "",
+            //     CURLOPT_MAXREDIRS => 10,
+            //     CURLOPT_TIMEOUT => 30,
+            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            //     CURLOPT_CUSTOMREQUEST => "GET",
+            //     CURLOPT_HTTPHEADER => array(
+            //         "key:" . config('app.rajaongkir')
+            //     ),
+            // ));
 
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-            $response = json_decode($response, true);
-            $provinsi = $response['rajaongkir']['results'];
-            $provinsi = $provinsi['province'];
-            curl_close($curl);
+            // $response = curl_exec($curl);
+            // $err = curl_error($curl);
+            // $response = json_decode($response, true);
+            // $provinsi = $response['rajaongkir']['results'];
+            // $provinsi = $provinsi['province'];
+            // curl_close($curl);
 
 
-            $curl = curl_init();
+            // $curl = curl_init();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$request->get('kota')."&province=".$request->get('provinsi'),
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
-                CURLOPT_HTTPHEADER => array(
-                    "key:" . config('app.rajaongkir')
-                ),
-            ));
+            // curl_setopt_array($curl, array(
+            //     CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$request->get('kota')."&province=".$request->get('provinsi'),
+            //     CURLOPT_RETURNTRANSFER => true,
+            //     CURLOPT_ENCODING => "",
+            //     CURLOPT_MAXREDIRS => 10,
+            //     CURLOPT_TIMEOUT => 30,
+            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            //     CURLOPT_CUSTOMREQUEST => "GET",
+            //     CURLOPT_HTTPHEADER => array(
+            //         "key:" . config('app.rajaongkir')
+            //     ),
+            // ));
 
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-            $response = json_decode($response, true);
-            $kota = $response['rajaongkir']['results'];
-            $kota = $kota['city_name'];
-            curl_close($curl);
+            // $response = curl_exec($curl);
+            // $err = curl_error($curl);
+            // $response = json_decode($response, true);
+            // $kota = $response['rajaongkir']['results'];
+            // $kota = $kota['city_name'];
+            // curl_close($curl);
 
-            $add = new CustomerAddress();
-            $add->customer_id = Auth::guard('frontend')->user()->id;
-            $add->alamat = $request->get('alamat');
-            $add->kota = $kota;
-            $add->kode_pos = $request->get('kode_pos');
-            $add->nomor_telepon = $request->get('nomor_hp');
-            $add->provinsi = $provinsi;
-            $add->save();
+            // $add = new CustomerAddress();
+            // $add->customer_id = Auth::guard('frontend')->user()->id;
+            // $add->alamat = $request->get('alamat');
+            // $add->kota = $kota;
+            // $add->kode_pos = $request->get('kode_pos');
+            // $add->nomor_telepon = $request->get('nomor_hp');
+            // $add->provinsi = $provinsi;
+            // $add->save();
 
             return redirect()->route('user.index')->with('success', 'alamat berhasil ditambahkan');
         }
@@ -176,32 +154,5 @@ class AddressController extends Controller
         //
     }
 
-    public function getKota(Request $request)
-    {
-        if ($request->ajax()) {
-            $provinsi = $request->get('province_id');
-            $curl = curl_init();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.rajaongkir.com/starter/city?province=" . $provinsi,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
-                CURLOPT_HTTPHEADER => array(
-                    "key:" . config('app.rajaongkir')
-                ),
-            ));
-
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-            $response = json_decode($response, true);
-            $provinsi = $response['rajaongkir']['results'];
-            curl_close($curl);
-
-            return response($provinsi);
-        }
-    }
 }

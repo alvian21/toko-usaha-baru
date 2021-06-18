@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $address = CustomerAddress::all()->where('customer', Auth::guard('frontend')->user()->id);
+        $address = CustomerAddress::all()->where('customer_id', Auth::guard('frontend')->user()->id);
         return view('frontend.user.index', ['address' => $address]);
     }
 

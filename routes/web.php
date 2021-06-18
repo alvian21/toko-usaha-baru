@@ -37,9 +37,12 @@ Route::group(['namespace' => 'Frontend'], function () {
         Route::resource('user', 'UserController');
 
         //checkout controller
+        Route::get('/checkout/getharga','CheckoutController@getHarga')->name('checkout.getharga');
+        Route::get('/checkout/deletecart','CheckoutController@deleteCart')->name('checkout.delete');
+        Route::post('/checkout/changeqty','CheckoutController@changeQty')->name('checkout.qty');
         Route::resource('checkout', 'CheckoutController');
         //address controller
-        Route::get('/address/city','AddressController@getKota')->name('address.city');
+        // Route::get('/address/city','AddressController@getKota')->name('address.city');
         Route::resource('address', 'AddressController');
 
         Route::get('/logout', 'AuthController@logout')->name('frontend.logout');

@@ -194,6 +194,8 @@ $('.btncart').on('click', function () {
             $('.iconcart').html(data)
             }
 
+        },error:function(data){
+            Swal.fire('Login terlebih dahulu')
         }
     })
 
