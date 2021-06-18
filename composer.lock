@@ -794,7 +794,6 @@
             "time": "2021-04-26T09:17:50+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "intervention/image",
             "version": "2.5.1",
             "source": {
@@ -869,8 +868,6 @@
             "time": "2019-11-02T09:15:47+00:00"
         },
         {
-=======
->>>>>>> amanda
             "name": "laravel/framework",
             "version": "v7.30.4",
             "source": {
