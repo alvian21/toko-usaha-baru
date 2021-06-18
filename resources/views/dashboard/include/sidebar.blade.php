@@ -12,7 +12,7 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="#" class="dropdown-toggle no-arrow active">
+                    <a href="/admin/dashboard" class="dropdown-toggle no-arrow active">
                         <span class="micon dw dw-house1"></span><span class="mtext">Home</span>
                     </a>
                 </li>
@@ -34,7 +34,7 @@
                     <ul class="submenu">
 
                         <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
-
+                        <li><a href="{{ '/admin/sales' }}">Data Penjualan</a></li>
                     </ul>
                 </li>
             </ul>

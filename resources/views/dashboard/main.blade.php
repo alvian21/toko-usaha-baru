@@ -26,7 +26,10 @@
     <link rel="stylesheet" type="text/css"
         href="{{asset('assets/src/plugins/datatables/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/styles/style.css')}}">
-	<!-- Basic Page Info -->
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+
+    @stack('link')
+    <!-- Basic Page Info -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -66,6 +69,8 @@
     <script src="{{asset('assets/src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{asset('assets/vendors/scripts/dashboard.js')}}"></script>
     <script src="{{asset('assets/src/scripts/sweetalert2.all.min.js')}}"></script>
+    <script src="{{asset('assets/src/scripts/jquery.mask.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @stack('script')
 </body>
 
