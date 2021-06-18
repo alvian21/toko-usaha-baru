@@ -34,8 +34,9 @@
                         <td>{{$row->role}}</td>
                         <td>
                             <a href="{{route('employee.edit',[$row->id])}}" class="btn btn-info">Edit</a>
-                            <button type="button" class="btn btn-danger deletedata"
-                                data-id="{{$row->id}}">Hapus</button></td>
+                            {{-- <button type="button" class="btn btn-danger deletedata"
+                                data-id="{{$row->id}}">Hapus</button> --}}
+                        </td>
                     </tr>
                     @empty
                     @endforelse

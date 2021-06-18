@@ -40,7 +40,7 @@
                         <td>{{ $item->harga }}</td>
                         <td><img width="80px" src="{{ url('/item_images/' . $item->gambar) }}" alt=""></td>
                         <td><a href="item/{{ $item->id }}/edit" class="btn btn-info">Edit</a>
-                            <a rel="{{ $item->id }}" href="javascript:" class="btn btn-danger del">Hapus</a>
+                            {{-- <a rel="{{ $item->id }}" href="javascript:" class="btn btn-danger del">Hapus</a> --}}
                         </td>
                     </tr>
 
