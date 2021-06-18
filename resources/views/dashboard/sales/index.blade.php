@@ -91,12 +91,11 @@
 @endsection
 @push('script')
 <script>
-    $("#table").DataTable();
-
     $(".detail-sales").on('click', function () {
 
         let id = $(this).data('id');
 
+        $(".data-detail").html("");
 
         $.ajax({
 
@@ -121,6 +120,10 @@
                 });
             }
         });
+    });
+
+    $(document).ready(function () {
+        $("#table").DataTable();
     });
 
 </script>
