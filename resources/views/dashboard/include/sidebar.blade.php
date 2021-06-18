@@ -34,6 +34,7 @@
                     <ul class="submenu">
 
                         <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
+                        <li><a href="{{ '/admin/sales' }}">Data Penjualan</a></li>
 
                     </ul>
                 </li>

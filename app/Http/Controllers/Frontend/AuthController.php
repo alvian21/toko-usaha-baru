@@ -89,7 +89,7 @@ class AuthController extends Controller
     public function getLogin()
     {
         if (Auth::guard('frontend')->check()) {
-            // return redirect()->route("employee.index");
+            return redirect()->route('user.index');
         }
         return view("auth.frontend.login");
     }
@@ -108,6 +108,7 @@ class AuthController extends Controller
 
             if (Auth::guard('frontend')->attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
                 // return redirect()->route("employee.index");
+                return redirect()->route('user.index');
             } else {
                 return redirect()->back()->withErrors(['Password atau email salah']);
             }
@@ -144,7 +145,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::guard('frontend')->logout();
-
+        session()->forget('cart');
         return redirect("/");
     }
 }

@@ -37,11 +37,12 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
             'nama_barang' => 'required',
-            'harga' => 'required',
+            'harga_jual' => 'required',
+            'harga_beli' => 'required',
             'stok' => 'required',
-            'gambar' => 'image|mimes:jpeg,png,jpg'
+            'gambar' => 'image|mimes:jpeg,png,jpg',
+            'deskripsi' => 'required'
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -52,17 +53,21 @@ class BarangController extends Controller
 
             $item = new Item();
             $item->nama_barang = $request->nama_barang;
-            $item->harga = $request->harga;
+            $item->harga_jual = $request->harga_jual;
+            $item->harga_beli = $request->harga_beli;
             $item->gambar = $name;
             $item->stok = $request->stok;
+            $item->deskripsi = $request->deskripsi;
             $item->save();
 
         }else{
             $item = new Item();
             $item->nama_barang = $request->nama_barang;
-            $item->harga = $request->harga;
+            $item->harga_jual = $request->harga_jual;
+            $item->harga_beli = $request->harga_beli;
             $item->gambar = "";
             $item->stok = $request->stok;
+            $item->deskripsi = $request->deskripsi;
 
             $item->save();
         }
@@ -101,11 +106,12 @@ class BarangController extends Controller
     public function update(Request $request, Item $item)
     {
         $request->validate([
-
             'nama_barang' => 'required',
-            'harga' => 'required',
+            'harga_jual' => 'required',
+            'harga_beli' => 'required',
             'stok' => 'required',
-            'gambar' => 'image|mimes:jpeg,png,jpg'
+            'gambar' => 'image|mimes:jpeg,png,jpg',
+            'deskripsi' => 'required'
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -117,8 +123,10 @@ class BarangController extends Controller
             Item::where('id', $item->id)->update([
 
                 'nama_barang' => $request->nama_barang,
-                'harga' => $request->harga,
+                'harga_jual' => $request->harga_jual,
+                'harga_beli' => $request->harga_beli,
                 'stok' => $request->stok,
+                'deskripsi' => $request->deskripsi,
                 'gambar' => $name,
 
             ]);
@@ -128,11 +136,11 @@ class BarangController extends Controller
             }
         }else{
             Item::where('id', $item->id)->update([
-
                 'nama_barang' => $request->nama_barang,
-                'harga' => $request->harga,
+                'harga_jual' => $request->harga_jual,
+                'harga_beli' => $request->harga_beli,
                 'stok' => $request->stok,
-
+                'deskripsi' => $request->deskripsi,
             ]);
         }
 

@@ -15,18 +15,16 @@ class CreateSalesTransactionsTable extends Migration
     {
         Schema::create('sales_transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customers');
-            $table->unsignedBigInteger('customer_address_id');
-            $table->foreign('customer_address_id')->references('id')->on('customer_addresses');
+            $table->foreignId('customer_id')->nullable()->constrained();
+            $table->foreignId('customer_address_id')->nullable()->constrained();
             $table->integer('total_barang');
-            $table->date('tgl_pemesanan');
-            $table->string('bukti_pembayaran');
-            $table->string('no_resi');
-            $table->string('jasa');
-            $table->integer('ongkir');
+            $table->date('tgl_transaksi');
+            $table->string('bukti_pembayaran')->nullable();
+            $table->string('no_resi')->nullable();
+            $table->string('jasa')->nullable();
+            $table->integer('ongkir')->nullable();
             $table->string('status_penjualan');
-            $table->string('status_pembayaran');
+            $table->string('status_pembayaran')->nullable();
             $table->timestamps();
         });
     }

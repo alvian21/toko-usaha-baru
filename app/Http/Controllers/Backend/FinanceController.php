@@ -188,7 +188,7 @@ class FinanceController extends Controller
     {
         $tgl_awal = $request->get('tgl_awal');
         $tgl_akhir = $request->get('tgl_akhir');
-        
+
         $periode = Finance::whereDate('tgl_keuangan','>=',$tgl_awal)
         ->whereDate('tgl_keuangan','<=',$tgl_akhir)->get();
 
@@ -202,7 +202,7 @@ class FinanceController extends Controller
         ->where('jenis_keuangan',"=",'pengeluaran')
         ->groupby('nama_keuangan')->get();
 
-        
+
         $pendapatan = Finance::select('nominal')->whereDate('tgl_keuangan','>=',$tgl_awal)
         ->whereDate('tgl_keuangan','<=',$tgl_akhir)
         ->where('jenis_keuangan',"=",'pendapatan')

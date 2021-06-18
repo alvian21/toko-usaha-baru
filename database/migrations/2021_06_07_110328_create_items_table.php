@@ -16,9 +16,12 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('nama_barang');
-            $table->integer('harga');
+            $table->integer('harga_jual');
+            $table->integer('harga_beli');
+            $table->string('kategori')->nullable();
             $table->string('gambar');
             $table->integer('stok');
+            $table->longText('deskripsi')->nullable();
             $table->timestamps();
         });
     }

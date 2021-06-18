@@ -8,7 +8,10 @@
             <div class="clearfix mb-20">
                 <div class="pull-left">
                     <h4 class="text-blue h4">Master Pegawai</h4>
+<<<<<<< HEAD
+=======
 
+>>>>>>> amanda
                 </div>
                 <div class="pull-right">
                     <a href="{{route('employee.create')}}" class="btn btn-primary btn-sm scroll-click"
@@ -39,7 +42,6 @@
                                 data-id="{{$row->id}}">Hapus</button></td>
                     </tr>
                     @empty
-
                     @endforelse
                 </tbody>
             </table>
