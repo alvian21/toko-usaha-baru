@@ -17,6 +17,7 @@ class CreateFinancesTable extends Migration
             $table->id();
             $table->string('jenis_keuangan');
             $table->string('nama_keuangan');
+            $table->integer('nominal');
             $table->date('tgl_keuangan');
             $table->string('bukti_dokumen')->nullable();
             $table->timestamps();

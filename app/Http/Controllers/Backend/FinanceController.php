@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DetailTransaction;
 use App\Finance;
 use App\Http\Controllers\Controller;
+use App\Purchase;
 use Illuminate\Http\Request;
+use Symfony\Component\Finder\Finder;
 
 class FinanceController extends Controller
 {
@@ -41,6 +44,7 @@ class FinanceController extends Controller
 
             'nama_keuangan' => 'required',
             'jenis_keuangan' => 'required',
+            'nominal' => 'required',
             'tgl_keuangan' => 'required',
             'bukti_dokumen' => 'mimes:pdf,doc,docx'
         ]);
@@ -54,6 +58,7 @@ class FinanceController extends Controller
             $finance = new Finance();
             $finance->jenis_keuangan = $request->jenis_keuangan;
             $finance->nama_keuangan = $request->nama_keuangan;
+            $finance->nominal = $request->nominal;
             $finance->tgl_keuangan = $request->tgl_keuangan;
             $finance->bukti_dokumen = $name;
 
@@ -62,6 +67,7 @@ class FinanceController extends Controller
             $finance = new Finance();
             $finance->jenis_keuangan = $request->jenis_keuangan;
             $finance->nama_keuangan = $request->nama_keuangan;
+            $finance->nominal = $request->nominal;
             $finance->tgl_keuangan = $request->tgl_keuangan;
             $finance->bukti_dokumen = "";
 
@@ -106,6 +112,7 @@ class FinanceController extends Controller
 
             'nama_keuangan' => 'required',
             'jenis_keuangan' => 'required',
+            'nominal' => 'required',
             'tgl_keuangan' => 'required',
             'bukti_dokumen' => 'mimes:pdf,doc,docx'
         ]);
@@ -120,6 +127,7 @@ class FinanceController extends Controller
 
                 'nama_keuangan' => $request->nama_keuangan,
                 'jenis_keuangan' => $request->jenis_keuangan,
+                'nominal' => $request->nominal,
                 'tgl_keuangan' => $request->tgl_keuangan,
                 'bukti_dokumen' => $name,
 
@@ -133,6 +141,7 @@ class FinanceController extends Controller
 
                 'nama_keuangan' => $request->nama_keuangan,
                 'jenis_keuangan' => $request->jenis_keuangan,
+                'nominal' => $request->nominal,
                 'tgl_keuangan' => $request->tgl_keuangan,
 
             ]);
@@ -168,6 +177,67 @@ class FinanceController extends Controller
 
     public function showDocument($file){
 
-        return response()->file(public_path('bukti_dokumen/'.$file));
+        //return response()->file(public_path('bukti_dokumen/'.$file));
+    }
+
+    public function modalLaporan(Request $request){
+        return view('dashboard.finance.indexlap');
+    }
+
+    public function periodeLaporan(Request $request)
+    {
+        $tgl_awal = $request->get('tgl_awal');
+        $tgl_akhir = $request->get('tgl_akhir');
+
+        $periode = Finance::whereDate('tgl_keuangan','>=',$tgl_awal)
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)->get();$nama_keuanganpen = Finance::select('nama_keuangan')->whereDate('tgl_keuangan','>=',$tgl_awal)
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        ->where('jenis_keuangan',"=",'pendapatan')
+        ->groupby('nama_keuangan')->get();
+
+        $nama_keuanganpen = Finance::select('nama_keuangan')->whereDate('tgl_keuangan','>=',$tgl_awal)
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        ->where('jenis_keuangan',"=",'pendapatan')
+        ->groupby('nama_keuangan')->get();
+
+        $nama_keuanganpeng = Finance::select('nama_keuangan')->whereDate('tgl_keuangan','>=',$tgl_awal)
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        ->where('jenis_keuangan',"=",'pengeluaran')
+        ->groupby('nama_keuangan')->get();
+
+
+        $pendapatan = Finance::select('nominal')->whereDate('tgl_keuangan','>=',$tgl_awal)
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        ->where('jenis_keuangan',"=",'pendapatan')
+        ->groupby('jenis_keuangan')
+        ->groupby('nominal')
+        ->get();
+
+
+        $pengeluaran = Finance::select('nominal')->whereDate('tgl_keuangan','>=',$tgl_awal)
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        ->where('jenis_keuangan',"=",'pengeluaran')
+        ->groupby('jenis_keuangan')
+        ->groupby('nominal')
+        ->get();
+
+        $totalpen= Finance::whereDate('tgl_keuangan','>=',$tgl_awal)
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        ->where('jenis_keuangan',"=",'pendapatan')
+        ->groupby('jenis_keuangan')->sum('nominal');
+
+        $totalpeng= Finance::whereDate('tgl_keuangan','>=',$tgl_awal)
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        ->where('jenis_keuangan',"=",'pengeluaran')
+        ->groupby('jenis_keuangan')->sum('nominal');
+
+
+
+        return view('dashboard.finance.laporan', ['periode'=>$periode, 'tgl_awal'=>$tgl_awal, 'tgl_akhir'=>$tgl_akhir, 'nama_keuanganpen'=>$nama_keuanganpen,'nama_keuanganpeng'=>$nama_keuanganpeng, 'pendapatan'=>$pendapatan, 'pengeluaran'=>$pengeluaran, 'totalpen'=>$totalpen, 'totalpeng'=>$totalpeng]);
+    }
+
+    public function labaRugi(Request $request)
+    {
+
     }
 }

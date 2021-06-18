@@ -8,7 +8,11 @@
                     <h4 class="text-blue h4">Tambah Master Barang</h4>
                 </div>
             </div>
+<<<<<<< HEAD
             <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
+=======
+            <form action="{{ 'store' }}" method="POST" enctype="multipart/form-data">
+>>>>>>> amanda
                 @csrf
                 <div class="form-group row mt-3">
                     <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>

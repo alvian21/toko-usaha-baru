@@ -1,12 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
 use App\Item;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 class BarangController extends Controller
 {
@@ -44,33 +41,31 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'harga' => 'required',
             'stok' => 'required',
-            'kategori' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg'
         ]);
-        $item = new Item();
-        $item->nama_barang = $request->nama_barang;
-        $item->harga = $request->harga;
-        $item->kategori = $request->kategori;
-        $item->stok = $request->stok;
 
         if ($request->hasFile('gambar')) {
 
-            try {
+            $file = $request->file('gambar');
+            $name = $file->getClientOriginalName();
+            $file->move(\base_path() . "/public/item_images", $name);
 
-                $file = $request->file('gambar');
-                $ext = $file->getClientOriginalExtension();
-                $filename = time() . '.' . $ext;
-                $img = Image::make($file);
-                $img->resize(400, 400);
-                $img->stream();
-                $img->orientate();
-                $img->save(\base_path() . "/public/item_images/" . $filename);
-                $item->gambar = $filename;
-            } catch (\Throwable $th) {
-                dd($th);
-            }
+            $item = new Item();
+            $item->nama_barang = $request->nama_barang;
+            $item->harga = $request->harga;
+            $item->gambar = $name;
+            $item->stok = $request->stok;
+            $item->save();
+
+        }else{
+            $item = new Item();
+            $item->nama_barang = $request->nama_barang;
+            $item->harga = $request->harga;
+            $item->gambar = "";
+            $item->stok = $request->stok;
+
+            $item->save();
         }
-        $item->save();
         return redirect('/admin/item')->with('status', 'Data berhasil ditambah!');
     }
 
@@ -82,7 +77,7 @@ class BarangController extends Controller
      */
     public function show($id)
     {
-      
+        //
     }
 
     /**
@@ -127,11 +122,11 @@ class BarangController extends Controller
                 'gambar' => $name,
 
             ]);
-            if ($item->gambar != "") {
+            if($item->gambar != ""){
 
-                unlink(public_path('item_images/' . $item->gambar));
+                unlink(public_path('item_images/'. $item->gambar));
             }
-        } else {
+        }else{
             Item::where('id', $item->id)->update([
 
                 'nama_barang' => $request->nama_barang,
@@ -152,14 +147,15 @@ class BarangController extends Controller
      */
     public function destroy(Item $item)
     {
-        if (file_exists(public_path('item_images/' . $item->gambar))) {
+        if(file_exists(public_path('item_images/'. $item->gambar))){
 
             Item::destroy($item->id);
-            if ($item->gambar != "") {
+            if($item->gambar != ""){
 
-                unlink(public_path('item_images/' . $item->gambar));
+                unlink(public_path('item_images/'. $item->gambar));
             }
-        } else {
+
+        }else{
 
             Item::destroy($item->id);
         }

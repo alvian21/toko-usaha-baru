@@ -25,18 +25,19 @@
                         <th scope="col">No</th>
                         <th scope="col">Nama Keuangan</th>
                         <th scope="col">Jenis Keuangan</th>
+                        <th scope="col">Nominal</th>
                         <th scope="col">Tanggal</th>
                         <th scope="col">Bukti Dokumen</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($finance as $item)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $item->nama_keuangan }}</td>
                         <td>{{ $item->jenis_keuangan }}</td>
+                        <td>{{ $item->nominal }}</td>
                         <td>{{ $item->tgl_keuangan }}</td>
                         <td> <a href="finance/{{ $item->bukti_dokumen }}" target="_blank">{{ $item->bukti_dokumen }}</a>
                         </td>
@@ -45,8 +46,6 @@
                         </td>
                     </tr>
                     @endforeach
-
-
                 </tbody>
             </table>
 

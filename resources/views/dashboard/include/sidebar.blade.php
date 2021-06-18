@@ -34,7 +34,17 @@
                     <ul class="submenu">
 
                         <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
-                        <li><a href="{{ '/admin/sales' }}">Data Penjualan</a></li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-edit2"></span><span class="mtext">Laporan</span>
+                    </a>
+                    <ul class="submenu">
+
+                        <li><a href="/admin/finance/indexlap">Laporan Laba Rugi</a></li>
+
                     </ul>
                 </li>
             </ul>

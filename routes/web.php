@@ -77,8 +77,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::patch('finance/{finance}/update','FinanceController@update');
         Route::post('finance/store','FinanceController@store');
         Route::get('finance/{finance}/delete','FinanceController@destroy');
-        Route::get('finance/{file}','FinanceController@showDocument');
-
+        //Route::get('finance/{file}','FinanceController@showDocument');
+        Route::get('finance/laporan','FinanceController@periodeLaporan');
+        Route::get('finance/indexlap','FinanceController@modalLaporan');
+        //Route::get('finance/laporan','FinanceController@labaRugi');
         Route::get('sales','SalesController@index');
         Route::get('sales/create','SalesController@create');
         Route::post('sales/store','SalesController@store');
