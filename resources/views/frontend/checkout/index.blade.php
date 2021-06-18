@@ -88,9 +88,9 @@
                                 <div class="col-md-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="code" id="code1"
-                                            value="{{$code}}">
+                                            value="">
                                         <label class="form-check-label" for="code1">
-                                            {{$code}}
+
                                         </label>
                                     </div>
                                 </div>
