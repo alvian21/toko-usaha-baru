@@ -141,28 +141,28 @@
         </div>
 
         <div class="col-lg-3 col-sm-6">
-          <img src="images/gmodal-1.jpeg" class="img-thumbnail" alt="Tampak Depan Toko Usaha Baru" id="gmodal1">
+          <img src="{{asset('images/gmodal-1.jpeg')}}" class="img-thumbnail" alt="Tampak Depan Toko Usaha Baru" id="gmodal1">
         </div>
         <div class="col-lg-3 col-sm-6">
-          <img src="images/gmodal-2.jpeg" class="img-thumbnail" alt="Berbagai Macam Sprei dengan Motif Menarik" id="gmodal2">
+          <img src="{{asset('images/gmodal-2.jpeg')}}" class="img-thumbnail" alt="Berbagai Macam Sprei dengan Motif Menarik" id="gmodal2">
         </div>
         <div class="col-lg-3 col-sm-6">
-          <img src="images/gmodal-3.jpeg" class="img-thumbnail" alt="Berbagai Macam dan Jenis Kain" id="gmodal3">
+          <img src="{{asset('images/gmodal-3.jpeg')}}" class="img-thumbnail" alt="Berbagai Macam dan Jenis Kain" id="gmodal3">
         </div>
         <div class="col-lg-3 col-sm-6">
-          <img src="images/gmodal-4.jpg" class="img-thumbnail" alt="Pakaian dan perlengkapan bayi" id="gmodal4">
+          <img src="{{asset('images/gmodal-4.jpg')}}" class="img-thumbnail" alt="Pakaian dan perlengkapan bayi" id="gmodal4">
         </div>
         <div class="col-lg-3 col-sm-6">
-          <img src="images/gmodal-5.jpg" class="img-thumbnail" alt="Terdapat Berbagai Jenis Celana untuk Pria dan Wanita" id="gmodal5">
+          <img src="{{asset('images/gmodal-5.jpg')}}" class="img-thumbnail" alt="Terdapat Berbagai Jenis Celana untuk Pria dan Wanita" id="gmodal5">
         </div>
         <div class="col-lg-3 col-sm-6">
-          <img src="images/gmodal-6.jpg" class="img-thumbnail" alt="Hem dan Kemeja untuk Pria" id="gmodal6">
+          <img src="{{asset('images/gmodal-6.jpg')}}" class="img-thumbnail" alt="Hem dan Kemeja untuk Pria" id="gmodal6">
         </div>
         <div class="col-lg-3 col-sm-6">
-          <img src="images/gmodal-7.jpg" class="img-thumbnail" alt="Berbagai bentuk Blouse untuk Wanita" id="gmodal7">
+          <img src="{{asset('images/gmodal-7.jpg')}}" class="img-thumbnail" alt="Berbagai bentuk Blouse untuk Wanita" id="gmodal7">
         </div>
         <div class="col-lg-3 col-sm-6">
-          <img src="images/gmodal-8.jpg" class="img-thumbnail" alt="Jacket untuk Pria dan Wanita" id="gmodal8">
+          <img src="{{asset('images/gmodal-8.jpg')}}" class="img-thumbnail" alt="Jacket untuk Pria dan Wanita" id="gmodal8">
         </div>
       </div>
       <!-- End row dark -->

@@ -16,22 +16,45 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['namespace'=>'Frontend'],function () {
-    Route::get("/","HomeController@index")->name("home");
+Route::group(['namespace' => 'Frontend'], function () {
+    Route::get("/", "HomeController@index")->name("home");
     Route::get('login', 'AuthController@getLogin')->name("customer.getlogin");
     Route::post('login', 'AuthController@postLogin')->name("customer.login");
 
     Route::get('register', 'AuthController@getRegister')->name("customer.getregister");
     Route::post('register', 'AuthController@postRegister')->name("customer.register");
 
+
+    //catalog controller
+    Route::resource('catalog', 'CatalogController');
+
+    Route::group(['middleware' => 'auth:frontend'], function () {
+
+
+        //cartcontroller
+        Route::resource('cart', 'CartController');
+        //user controller
+        Route::resource('user', 'UserController');
+
+        //checkout controller
+        Route::get('/checkout/getharga','CheckoutController@getHarga')->name('checkout.getharga');
+        Route::get('/checkout/deletecart','CheckoutController@deleteCart')->name('checkout.delete');
+        Route::post('/checkout/changeqty','CheckoutController@changeQty')->name('checkout.qty');
+        Route::resource('checkout', 'CheckoutController');
+        //address controller
+        // Route::get('/address/city','AddressController@getKota')->name('address.city');
+        Route::resource('address', 'AddressController');
+
+        Route::get('/logout', 'AuthController@logout')->name('frontend.logout');
+    });
 });
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
 
     Route::get('login', 'AuthController@getLogin')->name("admin.getlogin");
     Route::post('login', 'AuthController@postLogin')->name("admin.login");
 
-    Route::group(['middleware'=>'auth:backend'],function () {
+    Route::group(['middleware' => 'auth:backend'], function () {
         Route::get('logout', 'AuthController@logout')->name("admin.logout");
 
         Route::get('item','BarangController@index');
@@ -54,8 +77,10 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
         Route::patch('finance/{finance}/update','FinanceController@update');
         Route::post('finance/store','FinanceController@store');
         Route::get('finance/{finance}/delete','FinanceController@destroy');
-        Route::get('finance/{file}','FinanceController@showDocument');
-
+        //Route::get('finance/{file}','FinanceController@showDocument');
+        Route::get('finance/laporan','FinanceController@periodeLaporan');
+        Route::get('finance/indexlap','FinanceController@modalLaporan');
+        //Route::get('finance/laporan','FinanceController@labaRugi');
         Route::get('sales','SalesController@index');
         Route::get('sales/create','SalesController@create');
         Route::post('sales/store','SalesController@store');
@@ -69,9 +94,9 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Backend'],function () {
 
         Route::resource('dashboard', 'DashboardController');
         Route::resource('employee', 'EmployeeController');
-        Route::resource('barang','BarangController');
-        Route::resource('supplier','SupplierController');
-        Route::resource('customer','CustomerController');
+        Route::resource('barang', 'BarangController');
+        Route::resource('supplier', 'SupplierController');
+        Route::resource('customer', 'CustomerController');
     });
 
 

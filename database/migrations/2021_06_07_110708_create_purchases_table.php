@@ -20,6 +20,7 @@ class CreatePurchasesTable extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->integer('jumlah');
+            $table->integer('harga');
             $table->date('tgl_pembelian');
             $table->string('bukti_nota');
             $table->string('nama_pegawai');
