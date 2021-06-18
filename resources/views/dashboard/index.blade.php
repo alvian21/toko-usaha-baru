@@ -73,8 +73,8 @@
     <div class="row">
         <div class="col-xl-8 mb-30">
             <div class="card-box height-100-p pd-20">
-                <h2 class="h4 mb-20">Activity</h2>
-                <div id="chart5"></div>
+                <h2 class="h4 mb-20">Laba Rugi</h2>
+                <div><canvas id="lineChart"></canvas></div>
             </div>
         </div>
         <div class="col-xl-4 mb-30">
@@ -231,10 +231,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div class="footer-wrap pd-20 mb-20 card-box">
-        DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit
-            Hingarajiya</a>
     </div>
 </div>
 @endsection

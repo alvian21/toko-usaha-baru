@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Finance;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -81,5 +82,13 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function chartLabarugi(Request $request){
+        $totalpen= Finance::where('jenis_keuangan',"=",'pendapatan')
+        ->groupby('jenis_keuangan')->sum('nominal');
+
+        $totalpeng= Finance::where('jenis_keuangan',"=",'pengeluaran')
+        ->groupby('jenis_keuangan')->sum('nominal');
     }
 }
