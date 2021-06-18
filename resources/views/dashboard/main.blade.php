@@ -69,11 +69,8 @@
     <script src="{{asset('assets/src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{asset('assets/vendors/scripts/dashboard.js')}}"></script>
     <script src="{{asset('assets/src/scripts/sweetalert2.all.min.js')}}"></script>
-<<<<<<< HEAD
     <script src="{{asset('assets/src/scripts/jquery.mask.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-=======
->>>>>>> amanda
     @stack('script')
 </body>
 

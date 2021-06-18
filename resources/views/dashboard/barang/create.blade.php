@@ -1,5 +1,6 @@
 @extends('dashboard.main')
 @section('content')
+@include('dashboard.include.alert')
 <div class="pd-ltr-20 xs-pd-20-10">
     <div class="min-height-200px">
         <div class="pd-20 card-box mb-30">
@@ -8,11 +9,7 @@
                     <h4 class="text-blue h4">Tambah Master Barang</h4>
                 </div>
             </div>
-<<<<<<< HEAD
             <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
-=======
-            <form action="{{ 'store' }}" method="POST" enctype="multipart/form-data">
->>>>>>> amanda
                 @csrf
                 <div class="form-group row mt-3">
                     <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
@@ -25,10 +22,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Harga</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Harga Beli</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control  @error('harga') is-invalid @enderror" value="{{ old('harga') }}"
-                            name="harga" type="number" placeholder="Harga">
+                        <input class="form-control  @error('harga_beli') is-invalid @enderror" value="{{ old('harga_beli') }}"
+                            name="harga_beli" type="number" placeholder="harga beli">
+                        @error('nama_barang')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Harga Jual</label>
+                    <div class="col-sm-12 col-md-10">
+                        <input class="form-control  @error('harga_jual') is-invalid @enderror" value="{{ old('harga_jual') }}"
+                            name="harga_jual" type="number" placeholder="harga jual">
                         @error('nama_barang')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -54,6 +61,12 @@
                             <option value="ibu-dan-bayi">Ibu dan bayi</option>
                             <option value="lain-lain">Lain -lain</option>
                           </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Deskripsi</label>
+                    <div class="col-sm-12 col-md-10">
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
