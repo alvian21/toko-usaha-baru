@@ -93,6 +93,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::get('sales/detail/{id}','SalesController@getDetail');
         Route::get('sales/cetak-struk','SalesController@getStruk');
 
+
+        Route::get('penjadwalan/showNotif','PenjadwalanController@showNotif')->name('showNotif');
+
         Route::resource('dashboard', 'DashboardController');
         Route::resource('employee', 'EmployeeController');
         Route::resource('barang', 'BarangController');

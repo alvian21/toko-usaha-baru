@@ -135,7 +135,7 @@
 
                             <tr>
                                 <td class="pr-3"><b>Total</b></td>
-                                <td class="pr-3"><b>:</b></td>
+                                <td class="pr-3" colspan="2"><b>:</b></td>
                                 {{-- <td><b> Rp{{ number_format($total,2,',','.') }}</b></td> --}}
                                 <td><b class="total-harga rupiah"></b></td>
                             </tr>
