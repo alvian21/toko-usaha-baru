@@ -85,12 +85,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::get('sales/create','SalesController@create');
         Route::post('sales/store','SalesController@store');
         Route::post('sales/create/add','SalesController@addList');
-        Route::get('sales/create/delete/{namabarang}','SalesController@deleteBarang');
+        Route::get('sales/create/delete/{id}','SalesController@deleteBarang');
         Route::get('sales/getHarga/{id}','SalesController@getHarga');
         Route::get('sales/uptMin/{id}','SalesController@updateMinus');
         Route::get('sales/uptPlus/{id}','SalesController@updatePlus');
         Route::get('sales/getTotal','SalesController@getTotal');
         Route::get('sales/detail/{id}','SalesController@getDetail');
+        Route::get('sales/cetak-struk','SalesController@getStruk');
 
         Route::resource('dashboard', 'DashboardController');
         Route::resource('employee', 'EmployeeController');

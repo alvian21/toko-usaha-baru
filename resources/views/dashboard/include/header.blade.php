@@ -125,3 +125,20 @@
         </div>
     </div>
 </div>
+@push('script')
+<script>
+    $(document).ready(function () {
+        function showNotif() {
+            $.ajax({
+                url: '',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+
+                }
+            })
+        }
+    })
+
+</script>
+@endpush
