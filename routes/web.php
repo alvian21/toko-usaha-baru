@@ -44,6 +44,7 @@ Route::group(['namespace' => 'Frontend'], function () {
         //address controller
         // Route::get('/address/city','AddressController@getKota')->name('address.city');
         Route::resource('address', 'AddressController');
+        Route::resource('order', 'OrderController');
 
         Route::get('/logout', 'AuthController@logout')->name('frontend.logout');
     });
@@ -97,6 +98,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::resource('barang', 'BarangController');
         Route::resource('supplier', 'SupplierController');
         Route::resource('customer', 'CustomerController');
+        Route::resource('safetystok', 'SafetyStokController');
     });
 
 

@@ -7,11 +7,11 @@
         <div class="pd-20 card-box mb-30">
             <div class="clearfix mb-20">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Master Pegawai</h4>
+                    <h4 class="text-blue h4"> Safety Stok</h4>
                 </div>
                 <div class="pull-right">
-                    <a href="{{route('employee.create')}}" class="btn btn-primary btn-sm scroll-click"
-                        role="button">Tambah Pegawai</a>
+                    <a href="{{route('safetystok.create')}}" class="btn btn-primary btn-sm scroll-click"
+                        role="button">Tambah Safety Stok</a>
                 </div>
             </div>
             @include('dashboard.include.alert')
@@ -19,23 +19,23 @@
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Nama Lengkap</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Jumlah</th>
+                        <th scope="col">Keterangan</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($employee as $row)
+                    @forelse ($safety as $row)
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
-                        <td>{{$row->nama}}</td>
-                        <td>{{$row->username}}</td>
-                        <td>{{$row->role}}</td>
+                        <td>{{$row->item->nama_barang}}</td>
+                        <td>{{$row->jumlah}}</td>
+                        <td>{{$row->keterangan}}</td>
                         <td>
-                            <a href="{{route('employee.edit',[$row->id])}}" class="btn btn-info">Edit</a>
-                            <button type="button" class="btn btn-danger deletedata"
-                                data-id="{{$row->id}}">Hapus</button></td>
+                            <a href="{{route('safetystok.edit',[$row->id])}}" class="btn btn-info">Edit</a>
+                            {{-- <button type="button" class="btn btn-danger deletedata"
+                                data-id="{{$row->id}}">Hapus</button></td> --}}
                     </tr>
                     @empty
                     @endforelse
