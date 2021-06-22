@@ -19,6 +19,7 @@ class CreateSuppliersTable extends Migration
             $table->string('alamat');
             $table->string('email')->nullable();
             $table->string('nomor_telepon');
+            $table->integer('lead_time')->nullable();
             $table->timestamps();
         });
     }
