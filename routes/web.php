@@ -99,6 +99,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::resource('supplier', 'SupplierController');
         Route::resource('customer', 'CustomerController');
         Route::resource('safetystok', 'SafetyStokController');
+        Route::resource('onlinesales', 'OnlineSalesController');
     });
 
 

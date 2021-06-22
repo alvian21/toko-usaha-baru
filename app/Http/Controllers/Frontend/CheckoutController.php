@@ -21,10 +21,10 @@ class CheckoutController extends Controller
     public function index()
     {
         $item = Item::all();
-        $address = CustomerAddress::where('customer_id', Auth::guard('frontend')->user()->id)->where('utama',1)->first();
+        $address = CustomerAddress::where('customer_id', Auth::guard('frontend')->user()->id)->where('utama', 1)->first();
 
 
-        return view("frontend.checkout.index", ['item' => $item, 'address'=>$address]);
+        return view("frontend.checkout.index", ['item' => $item, 'address' => $address]);
     }
 
     /**
@@ -49,47 +49,50 @@ class CheckoutController extends Controller
         $cart = session('cart');
 
         $idcust = Auth::guard('frontend')->user()->id;
-        $address = CustomerAddress::where('customer_id', $idcust)->where('utama',1)->first();
+        $address = CustomerAddress::where('customer_id', $idcust)->where('utama', 1)->first();
+        if ($address) {
+            $total = 0;
+            $subtotal = 0;
+            foreach ($cart as $key => $value) {
+                $total += $value['qty'];
+                $subtotal += $value['qty'] * $value['harga'];
+            }
 
-        $total = 0;
-        $subtotal = 0;
-        foreach ($cart as $key => $value) {
-            $total += $value['qty'];
-            $subtotal += $value['qty'] * $value['harga'];
+            $sales = new SalesTransaction();
+            $sales->id = $this->generateNumber();
+            $sales->customer_id = $idcust;
+            $sales->customer_address_id = $address->id;
+            $sales->total_barang = $total;
+            $sales->tgl_transaksi = date('Y-m-d');
+            $sales->no_resi = "belum ada";
+            $sales->jasa = "";
+            $sales->ongkir = 0;
+            $sales->status = "menunggu";
+            $sales->status_penjualan = 'online';
+            $sales->bukti_pembayaran = 'belum di upload';
+            $sales->status_pembayaran = 'belum dibayar';
+            $sales->save();
+
+
+            foreach ($cart as $key => $value) {
+                $item = Item::find($value['id_barang']);
+                $detail = new DetailTransaction();
+                $detail->sales_transaction_id = $sales->id;
+                $detail->jumlah_barang = $value['qty'];
+                $detail->item_id = $value['id_barang'];
+                $detail->nama_barang = $item->nama_barang;
+                $detail->harga = $value['harga'];
+                $detail->save();
+            }
+
+            $idcheckout = md5($this->generateNumber());
+            session(['id_checkout' => $idcheckout]);
+            $total = session(['total_harga' => $subtotal]);
+            session()->forget('cart');
+            return redirect('/checkout/' . $idcheckout);
+        }else{
+            return redirect()->route('address.create');
         }
-
-        $sales = new SalesTransaction();
-        $sales->id = $this->generateNumber();
-        $sales->customer_id = $idcust;
-        $sales->customer_address_id = $address->id;
-        $sales->total_barang = $total;
-        $sales->tgl_transaksi = date('Y-m-d');
-        $sales->no_resi = "belum ada";
-        $sales->jasa = "";
-        $sales->ongkir = 0;
-        $sales->status = "menunggu";
-        $sales->status_penjualan = 'online';
-        $sales->bukti_pembayaran = 'belum di upload';
-        $sales->status_pembayaran = 'belum dibayar';
-        $sales->save();
-
-
-        foreach ($cart as $key => $value) {
-            $item = Item::find($value['id_barang']);
-            $detail = new DetailTransaction();
-            $detail->sales_transaction_id = $sales->id;
-            $detail->jumlah_barang = $value['qty'];
-            $detail->item_id = $value['id_barang'];
-            $detail->nama_barang = $item->nama_barang;
-            $detail->harga = $value['harga'];
-            $detail->save();
-        }
-
-        $idcheckout = md5($this->generateNumber());
-        session(['id_checkout' => $idcheckout]);
-        $total = session(['total_harga' => $subtotal]);
-        session()->forget('cart');
-        return redirect('/checkout/' . $idcheckout);
     }
 
     /**

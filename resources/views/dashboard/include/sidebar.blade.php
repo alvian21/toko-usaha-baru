@@ -35,8 +35,7 @@
                         <li><a href="{{ route('safetystok.index')}}">Data Safety Stok</a></li>
                         <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
                         <li><a href="{{ '/admin/sales' }}">Data Penjualan</a></li>
-
-
+                        <li><a href="{{ route('onlinesales.index') }}">Data Penjualan Online</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

@@ -26,7 +26,8 @@
 
                    <td>
                        <a href="{{route('order.show',[$item->id])}}" class="btn btn-warning">Detail</a>
-                       <button type="button" class="btn btn-info">Upload Pembayaran</button>
+
+                       <a href="{{route('order.edit',[$item->id])}}" class="btn btn-info">Upload Pembayaran</a>
 
                    </td>
                 </tr>

@@ -11,7 +11,7 @@
                     <h4  class="text-white text-center">Untuk pembayaran, silahkan cek di menu pesanan</h4>
                     <div class="row mt-4">
                         <div class="col-md-12 text-center">
-                            <button type="button" class="btn btn-light">Menu Pesanan</button>
+                            <a href="{{route('order.index')}}" class="btn btn-light">Menu Pesanan</a>
                         </div>
                     </div>
                 </div>

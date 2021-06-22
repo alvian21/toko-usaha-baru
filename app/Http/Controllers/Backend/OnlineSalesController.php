@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\SalesTransaction;
-use Illuminate\Support\Facades\Auth;
-use App\DetailTransaction;
-use App\Item;
 use Illuminate\Support\Facades\Validator;
 
-class OrderController extends Controller
+class OnlineSalesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +16,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = SalesTransaction::all()->where('customer_id', Auth::guard('frontend')->user()->id);
-
-        return view("frontend.user.order.index", ['order' => $order]);
+        $sales = SalesTransaction::all()->where('status_penjualan', 'online');
+        return view('dashboard.onlinesales.index', ['sales' => $sales]);
     }
 
     /**
@@ -53,11 +49,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-
-        $order = DetailTransaction::where('sales_transaction_id', $id)->get();
-        $item = Item::all();
-
-        return view('frontend.user.order.show', ['order' => $order, 'item' => $item]);
+        //
     }
 
     /**
@@ -69,7 +61,7 @@ class OrderController extends Controller
     public function edit($id)
     {
         $sales = SalesTransaction::find($id);
-        return view('frontend.user.order.edit', ['sales' => $sales]);
+        return view('dashboard.onlinesales.edit', ['sales' => $sales]);
     }
 
     /**
@@ -81,23 +73,27 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'upload_pembayaran' => 'required|image|mimes:jpeg,png,jpg'
-        ]);
+       $validator = Validator::make($request->all(),[
+        'no_resi' => 'nullable|string',
+        'status' => 'required',
+        'status_pembayaran' => 'required',
+        'ongkir' => 'nullable',
+        'jasa' => 'required'
+       ]);
 
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator->errors());
-        }else{
-            $file = $request->file('upload_pembayaran');
-            $name = time() . $file->getClientOriginalExtension();
-            $file->move(\base_path() . "/public/bukti_pembayaran", $name);
+       if($validator->fails()){
+           return redirect()->back()->withErrors($validator->errors());
+       }else{
+           $sales = SalesTransaction::find($id);
+           $sales->no_resi = $request->get('no_resi');
+           $sales->status = $request->get('status');
+           $sales->status_pembayaran = $request->get('status_pembayaran');
+           $sales->ongkir = $request->get('ongkir');
+           $sales->jasa = $request->get('jasa');
+           $sales->save();
 
-            $sales = SalesTransaction::find($id);
-            $sales->bukti_pembayaran = $name;
-            $sales->save();
-
-            return redirect()->route('order.index');
-        }
+           return redirect()->route('onlinesales.index')->with('alert-success','Penjualan online berhasil di update');
+       }
     }
 
     /**
