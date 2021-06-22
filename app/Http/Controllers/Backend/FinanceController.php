@@ -190,10 +190,7 @@ class FinanceController extends Controller
         $tgl_akhir = $request->get('tgl_akhir');
 
         $periode = Finance::whereDate('tgl_keuangan','>=',$tgl_awal)
-        ->whereDate('tgl_keuangan','<=',$tgl_akhir)->get();$nama_keuanganpen = Finance::select('nama_keuangan')->whereDate('tgl_keuangan','>=',$tgl_awal)
-        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
-        ->where('jenis_keuangan',"=",'pendapatan')
-        ->groupby('nama_keuangan')->get();
+        ->whereDate('tgl_keuangan','<=',$tgl_akhir)->get();
 
         $nama_keuanganpen = Finance::select('nama_keuangan')->whereDate('tgl_keuangan','>=',$tgl_awal)
         ->whereDate('tgl_keuangan','<=',$tgl_akhir)

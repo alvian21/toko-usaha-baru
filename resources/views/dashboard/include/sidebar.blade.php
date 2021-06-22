@@ -12,7 +12,7 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="/admin/dashboard" class="dropdown-toggle no-arrow active">
+                    <a href="{{route('dashboard.index')}}" class="dropdown-toggle no-arrow active">
                         <span class="micon dw dw-house1"></span><span class="mtext">Home</span>
                     </a>
                 </li>
