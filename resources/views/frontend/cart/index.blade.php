@@ -40,12 +40,12 @@
 
                                     </select>
                                 </td>
-                                <td>{{ "Rp " . number_format($row['total']*$row['qty'],2,',','.')}}</td>
+                                <td>{{ "Rp " . number_format($row['harga']*$row['qty'],2,',','.')}}</td>
                                 <td style="cursor: pointer" class="hapus" data-id="{{$row['id_barang']}}">Hapus</td>
                             </tr>
 
                             @php
-                            $subtotal += $row['total']*$row['qty'];
+                            $subtotal += $row['harga']*$row['qty'];
                             $no++;
                             @endphp
                             @endif
@@ -72,7 +72,9 @@
                             <h4>Jumlah Produk:</h4>
                         </div>
                         <div class="col-md-6">
-                            <h4 class="pl-1">{{count(session('cart'))}}</h4>
+                            <h4 class="pl-1">@if (session()->has('cart'))
+                                {{count(session('cart'))}}
+                            @endif</h4>
                         </div>
                     </div>
                     <hr>

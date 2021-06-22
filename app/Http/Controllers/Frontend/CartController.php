@@ -62,8 +62,8 @@ class CartController extends Controller
                         'id_user' => $idUser,
                         'id_barang' => $request->get('id'),
                         'qty' => $request->get('qty'),
-                        'harga' => $item->harga,
-                        'total' => $request->get('qty') * $item->harga
+                        'harga' => $item->harga_jual,
+                        'total' => $request->get('qty') * $item->harga_jual
                     ];
                     array_push($arr, $cart);
                 }
@@ -75,8 +75,8 @@ class CartController extends Controller
                     'id_user' => $idUser,
                     'id_barang' => $request->get('id'),
                     'qty' => $request->get('qty'),
-                    'harga' => $item->harga,
-                    'total' => $request->get('qty') * $item->harga
+                    'harga' => $item->harga_jual,
+                    'total' => $request->get('qty') * $item->harga_jual
                 ];
                 array_push($arr, $cart);
                 session(['cart' => $arr]);
@@ -137,5 +137,5 @@ class CartController extends Controller
     {
         //
     }
-    
+
 }

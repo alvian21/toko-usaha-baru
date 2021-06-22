@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Finance;
 use Illuminate\Http\Request;
+use App\SalesTransaction;
+use Illuminate\Support\Facades\Validator;
 
-class DashboardController extends Controller
+class OnlineSalesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-       return view("dashboard.index");
+        $sales = SalesTransaction::all()->where('status_penjualan', 'online');
+        return view('dashboard.onlinesales.index', ['sales' => $sales]);
     }
 
     /**
@@ -58,7 +60,8 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sales = SalesTransaction::find($id);
+        return view('dashboard.onlinesales.edit', ['sales' => $sales]);
     }
 
     /**
@@ -70,7 +73,27 @@ class DashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       $validator = Validator::make($request->all(),[
+        'no_resi' => 'nullable|string',
+        'status' => 'required',
+        'status_pembayaran' => 'required',
+        'ongkir' => 'nullable',
+        'jasa' => 'required'
+       ]);
+
+       if($validator->fails()){
+           return redirect()->back()->withErrors($validator->errors());
+       }else{
+           $sales = SalesTransaction::find($id);
+           $sales->no_resi = $request->get('no_resi');
+           $sales->status = $request->get('status');
+           $sales->status_pembayaran = $request->get('status_pembayaran');
+           $sales->ongkir = $request->get('ongkir');
+           $sales->jasa = $request->get('jasa');
+           $sales->save();
+
+           return redirect()->route('onlinesales.index')->with('alert-success','Penjualan online berhasil di update');
+       }
     }
 
     /**
@@ -82,13 +105,5 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function chartLabarugi(Request $request){
-        $totalpen= Finance::where('jenis_keuangan',"=",'pendapatan')
-        ->groupby('jenis_keuangan')->sum('nominal');
-
-        $totalpeng= Finance::where('jenis_keuangan',"=",'pengeluaran')
-        ->groupby('jenis_keuangan')->sum('nominal');
     }
 }

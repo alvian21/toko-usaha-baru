@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Finance;
 use Illuminate\Http\Request;
+use App\SalesTransaction;
+use Illuminate\Support\Facades\Auth;
+use App\DetailTransaction;
+use App\Item;
+use Illuminate\Support\Facades\Validator;
 
-class DashboardController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +19,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-       return view("dashboard.index");
+        $order = SalesTransaction::all()->where('customer_id', Auth::guard('frontend')->user()->id);
+
+        return view("frontend.user.order.index", ['order' => $order]);
     }
 
     /**
@@ -47,7 +53,11 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $order = DetailTransaction::where('sales_transaction_id', $id)->get();
+        $item = Item::all();
+
+        return view('frontend.user.order.show', ['order' => $order, 'item' => $item]);
     }
 
     /**
@@ -58,7 +68,8 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sales = SalesTransaction::find($id);
+        return view('frontend.user.order.edit', ['sales' => $sales]);
     }
 
     /**
@@ -70,7 +81,23 @@ class DashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'upload_pembayaran' => 'required|image|mimes:jpeg,png,jpg'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator->errors());
+        }else{
+            $file = $request->file('upload_pembayaran');
+            $name = time() . $file->getClientOriginalExtension();
+            $file->move(\base_path() . "/public/bukti_pembayaran", $name);
+
+            $sales = SalesTransaction::find($id);
+            $sales->bukti_pembayaran = $name;
+            $sales->save();
+
+            return redirect()->route('order.index');
+        }
     }
 
     /**
@@ -82,13 +109,5 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function chartLabarugi(Request $request){
-        $totalpen= Finance::where('jenis_keuangan',"=",'pendapatan')
-        ->groupby('jenis_keuangan')->sum('nominal');
-
-        $totalpeng= Finance::where('jenis_keuangan',"=",'pengeluaran')
-        ->groupby('jenis_keuangan')->sum('nominal');
     }
 }

@@ -22,7 +22,7 @@ class CreateSafetyStoksTable extends Migration
             $table->string('nama_barang');
             $table->string('nama_pemasok');
             $table->integer('jumlah');
-            $table->integer('reorder_point');
+            $table->integer('reorder_point')->nullable();
             $table->longText('keterangan')->nullable();
             $table->timestamps();
         });

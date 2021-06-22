@@ -25,7 +25,8 @@
                         <th scope="col">No</th>
                         <th scope="col">Nama Barang</th>
                         <th scope="col">Stok</th>
-                        <th scope="col">Harga</th>
+                        <th scope="col">Harga Beli</th>
+                        <th scope="col">Harga Jual</th>
                         <th scope="col">Gambar</th>
                         <th scope="col">Aksi</th>
                     </tr>
@@ -37,7 +38,8 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $item->nama_barang }}</td>
                         <td>{{ $item->stok }}</td>
-                        <td>{{ $item->harga }}</td>
+                        <td>{{ $item->harga_beli }}</td>
+                        <td>{{ $item->harga_jual }}</td>
                         <td><img width="80px" src="{{ url('/item_images/' . $item->gambar) }}" alt=""></td>
                         <td><a href="item/{{ $item->id }}/edit" class="btn btn-info">Edit</a>
                             {{-- <a rel="{{ $item->id }}" href="javascript:" class="btn btn-danger del">Hapus</a> --}}

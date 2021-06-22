@@ -27,7 +27,7 @@ class AddressController extends Controller
      */
     public function create()
     {
-
+        return view("frontend.user.address.create");
     }
 
     /**
@@ -44,68 +44,31 @@ class AddressController extends Controller
             'kota' => 'required',
             'kode_pos' => 'required',
             'nomor_hp' => 'required',
+            'utama' => 'required',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
         } else {
 
-            // //provinsi
-            // $curl = curl_init();
+            $cek = CustomerAddress::where('customer_id', Auth::guard('frontend')->user()->id)->where('utama', 1)->first();
+            $add = new CustomerAddress();
+            $add->customer_id = Auth::guard('frontend')->user()->id;
+            $add->alamat = $request->get('alamat');
+            $add->kota = $request->get('input_kota');
+            $add->kode_pos = $request->get('kode_pos');
+            $add->nomor_telepon = $request->get('nomor_hp');
+            $add->provinsi = $request->get('input_provinsi');
+            if ($cek && $request->get('utama') == 1) {
+                $cek->utama = 0;
+                $cek->save();
+                $add->utama = $request->get('utama');
+            } else {
+                $add->utama = $request->get('utama');
+            }
+            $add->save();
 
-            // curl_setopt_array($curl, array(
-            //     CURLOPT_URL => "https://api.rajaongkir.com/starter/province?id=" . $request->get('provinsi'),
-            //     CURLOPT_RETURNTRANSFER => true,
-            //     CURLOPT_ENCODING => "",
-            //     CURLOPT_MAXREDIRS => 10,
-            //     CURLOPT_TIMEOUT => 30,
-            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            //     CURLOPT_CUSTOMREQUEST => "GET",
-            //     CURLOPT_HTTPHEADER => array(
-            //         "key:" . config('app.rajaongkir')
-            //     ),
-            // ));
-
-            // $response = curl_exec($curl);
-            // $err = curl_error($curl);
-            // $response = json_decode($response, true);
-            // $provinsi = $response['rajaongkir']['results'];
-            // $provinsi = $provinsi['province'];
-            // curl_close($curl);
-
-
-            // $curl = curl_init();
-
-            // curl_setopt_array($curl, array(
-            //     CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$request->get('kota')."&province=".$request->get('provinsi'),
-            //     CURLOPT_RETURNTRANSFER => true,
-            //     CURLOPT_ENCODING => "",
-            //     CURLOPT_MAXREDIRS => 10,
-            //     CURLOPT_TIMEOUT => 30,
-            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            //     CURLOPT_CUSTOMREQUEST => "GET",
-            //     CURLOPT_HTTPHEADER => array(
-            //         "key:" . config('app.rajaongkir')
-            //     ),
-            // ));
-
-            // $response = curl_exec($curl);
-            // $err = curl_error($curl);
-            // $response = json_decode($response, true);
-            // $kota = $response['rajaongkir']['results'];
-            // $kota = $kota['city_name'];
-            // curl_close($curl);
-
-            // $add = new CustomerAddress();
-            // $add->customer_id = Auth::guard('frontend')->user()->id;
-            // $add->alamat = $request->get('alamat');
-            // $add->kota = $kota;
-            // $add->kode_pos = $request->get('kode_pos');
-            // $add->nomor_telepon = $request->get('nomor_hp');
-            // $add->provinsi = $provinsi;
-            // $add->save();
-
-            return redirect()->route('user.index')->with('success', 'alamat berhasil ditambahkan');
+            return redirect()->route('user.index')->with('alert-success', 'alamat berhasil ditambahkan');
         }
     }
 
@@ -128,7 +91,9 @@ class AddressController extends Controller
      */
     public function edit($id)
     {
-        //
+        $add = CustomerAddress::find($id);
+
+        return view("frontend.user.address.edit", ['add' => $add]);
     }
 
     /**
@@ -140,7 +105,37 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'alamat' => 'required',
+            'provinsi' => 'required',
+            'kota' => 'required',
+            'kode_pos' => 'required',
+            'nomor_hp' => 'required',
+            'utama' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        } else {
+
+            $cek = CustomerAddress::where('customer_id', Auth::guard('frontend')->user()->id)->where('utama', 1)->where('id','!=',$id)->first();
+            $add = CustomerAddress::find($id);
+            $add->alamat = $request->get('alamat');
+            $add->kota = $request->get('input_kota');
+            $add->kode_pos = $request->get('kode_pos');
+            $add->nomor_telepon = $request->get('nomor_hp');
+            $add->provinsi = $request->get('input_provinsi');
+            if ($cek && $request->get('utama') == 1) {
+                $cek->utama = 0;
+                $cek->save();
+                $add->utama = $request->get('utama');
+            } else {
+                $add->utama = $request->get('utama');
+            }
+            $add->save();
+
+            return redirect()->route('user.index')->with('alert-success', 'alamat berhasil diupdate');
+        }
     }
 
     /**
@@ -153,6 +148,4 @@ class AddressController extends Controller
     {
         //
     }
-
-
 }

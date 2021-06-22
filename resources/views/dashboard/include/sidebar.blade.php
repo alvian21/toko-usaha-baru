@@ -12,7 +12,7 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="/admin/dashboard" class="dropdown-toggle no-arrow active">
+                    <a href="{{route('dashboard.index')}}" class="dropdown-toggle no-arrow active">
                         <span class="micon dw dw-house1"></span><span class="mtext">Home</span>
                     </a>
                 </li>
@@ -32,10 +32,10 @@
                         <span class="micon dw dw-edit2"></span><span class="mtext">Data Transaksi</span>
                     </a>
                     <ul class="submenu">
-
+                        <li><a href="{{ route('safetystok.index')}}">Data Safety Stok</a></li>
                         <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
                         <li><a href="{{ '/admin/sales' }}">Data Penjualan</a></li>
-
+                        <li><a href="{{ route('onlinesales.index') }}">Data Penjualan Online</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
