@@ -8,10 +8,6 @@
             <div class="clearfix mb-20">
                 <div class="pull-left">
                     <h4 class="text-blue h4">Master Pegawai</h4>
-<<<<<<< HEAD
-=======
-
->>>>>>> amanda
                 </div>
                 <div class="pull-right">
                     <a href="{{route('employee.create')}}" class="btn btn-primary btn-sm scroll-click"
@@ -38,8 +34,9 @@
                         <td>{{$row->role}}</td>
                         <td>
                             <a href="{{route('employee.edit',[$row->id])}}" class="btn btn-info">Edit</a>
-                            <button type="button" class="btn btn-danger deletedata"
-                                data-id="{{$row->id}}">Hapus</button></td>
+                            {{-- <button type="button" class="btn btn-danger deletedata"
+                                data-id="{{$row->id}}">Hapus</button> --}}
+                        </td>
                     </tr>
                     @empty
                     @endforelse

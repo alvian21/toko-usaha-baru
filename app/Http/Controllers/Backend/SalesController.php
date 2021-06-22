@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Item;
 use App\SalesTransaction;
+use PDF;
 
 class SalesController extends Controller
 {
@@ -30,10 +31,6 @@ class SalesController extends Controller
      */
     public function create()
     {
-        // $users = DB::table('items')
-        //              ->select('stok')
-        //              ->where('id', '=', 1)
-        //              ->get();
 
         $items = Item::all();
 
@@ -62,6 +59,7 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->btn == "Simpan"){
         $dataBarang = session('data_barang');
 
         $totalBrg = 0;
@@ -92,6 +90,8 @@ class SalesController extends Controller
                          ->where('nama_barang', '=', $item['nama_barang'])
                          ->first();
 
+
+
             $sls_detail->item_id = $items->id;
             $sls_detail->sales_transaction_id = $id_sales;
             $sls_detail->jumlah_barang = $item['jumlah'];
@@ -99,10 +99,28 @@ class SalesController extends Controller
             $sls_detail->harga = $item['harga'];
 
             $sls_detail->save();
+
+            $stok = DB::table('items')
+                         ->select('stok')
+                         ->where('id', '=', $sls_detail->item_id)
+                         ->first();
+
+            Item::where('id', $sls_detail->item_id)->update([
+                'stok' => $stok->stok - $item['jumlah']
+            ]);
         }
         session()->forget('data_barang');
 
         return redirect('/admin/sales')->with('status', 'Data Berhasil Dimasukkan!');
+
+        } else{
+            $url = "http://127.0.0.1:8000/admin/sales/cetak-struk";
+            $urlcr = "/admin/sales/create";
+            echo "<script>window.open('".$url."', '_blank')
+            setTimeout(function(){location.href='".$urlcr."'; }, 2000);
+            </script>";
+        }
+
     }
 
     /**
@@ -179,7 +197,12 @@ class SalesController extends Controller
             $dataBarang = session('data_barang');
 
             foreach ($dataBarang as $item) {
-                array_push($listBarang, $item);
+                if($item['id'] == $request->id){
+                    return redirect('/admin/sales/create')->with('status', 'Data sudah ada di daftar!');
+                }else{
+
+                    array_push($listBarang, $item);
+                }
             }
             array_push($listBarang, $daftarBarang);
         }else{
@@ -191,14 +214,16 @@ class SalesController extends Controller
         return redirect('/admin/sales/create');
     }
 
-    public function deleteBarang($namabarang){
+    public function deleteBarang($id){
         $dataBarang = session('data_barang');
 
         $barangUpdate = [];
 
         foreach ($dataBarang as $item) {
-            if($namabarang == $item['nama_barang']){
+            if($id == $item['id']){
+
                 unset($item);
+
             }else{
                 array_push($barangUpdate, $item);
             }
@@ -319,5 +344,24 @@ class SalesController extends Controller
 
         return response()->json($items);
 
+    }
+
+    public function getStruk(){
+
+        $dataBarang = session('data_barang') ?? [];
+        $ldate = date('Y-m-d');
+        $total = 0;
+
+        if($dataBarang){
+            foreach ($dataBarang ?? '' as $item) {
+                $total += $item['total'];
+            }
+        }else{
+            $dataBarang = [];
+        }
+
+        $pdf = PDF::loadview('dashboard.sales.struk', ['dataBarang' => $dataBarang, 'date' => $ldate, 'total' => $total]);
+
+        return $pdf->stream();
     }
 }

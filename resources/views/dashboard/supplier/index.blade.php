@@ -40,7 +40,7 @@
                         <td>{{ $item->email }}</td>
                         <td>{{ $item->nomor_telepon }}</td>
                         <td><a href="supplier/{{ $item->id }}/edit" class="btn btn-info">Edit</a>
-                            <a rel="{{ $item->id }}" href="javascript:" class="btn btn-danger del">Hapus</a>
+                            {{-- <a rel="{{ $item->id }}" href="javascript:" class="btn btn-danger del">Hapus</a> --}}
                         </td>
                     </tr>
                     @endforeach

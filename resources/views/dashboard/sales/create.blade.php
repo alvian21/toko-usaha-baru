@@ -14,6 +14,11 @@
     <div class="col-5">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
+                @if (session('status'))
+                <div class="alert alert-danger">
+                    {{ session('status') }}
+                </div>
+                @endif
                 <div class="pd-20 card-box mb-30">
                     <div class="clearfix">
                         <div class="pull-left">
@@ -26,7 +31,7 @@
                             <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
                             <div class="col-sm-12 col-md-10">
                                 <select class="form-control js-example-basic-single" name="id" id="id">
-
+                                    <option value="-" selected disabled>Pilih Barang</option>
                                     @foreach ($items as $i)
 
                                     <option value="{{ $i->id }}">{{ $i->nama_barang }}</option>
@@ -113,8 +118,8 @@
                                         </span>
                                     </div>
                                 </td>
-                                <td class="text-dark">{{  number_format($item['harga'],2,',','.')  }}</td>
-                                <td class="p-3"><a href="{{ 'create/delete/'.$item['nama_barang'] }}" type="button"
+                                <td class="text-dark">{{  'Rp'.number_format($item['harga'],0,',','.')  }}</td>
+                                <td class="p-3"><a href="{{ 'create/delete/'.$item['id'] }}" type="button"
                                         class="btn btn-danger p-1">
                                         X
                                     </a>
@@ -130,7 +135,7 @@
 
                             <tr>
                                 <td class="pr-3"><b>Total</b></td>
-                                <td class="pr-3"><b>:</b></td>
+                                <td class="pr-3" colspan="2"><b>:</b></td>
                                 {{-- <td><b> Rp{{ number_format($total,2,',','.') }}</b></td> --}}
                                 <td><b class="total-harga rupiah"></b></td>
                             </tr>
@@ -156,8 +161,8 @@
                     <div class="justify-content-between">
                         <form action="{{ 'store' }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
-                            <button type="submit" name="struk" class="btn btn-secondary">Cetak Struk</button>
+                            <input type="submit" name="btn" class="btn btn-primary" value="Simpan">
+                            <input type="submit" name="btn" class="btn btn-secondary" value="Cetak Struk">
                         </form>
                     </div>
                 </div>
@@ -251,7 +256,7 @@
 
         $('#id').on('change', function () {
 
-            let id = $(this).val();
+            let id = $(this).find(":selected").val();
 
             $.ajax({
 
