@@ -7,14 +7,21 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <p>Alamat : {{$address->alamat}}, {{$address->kota}}, {{$address->kode_pos}}, {{$address->provinsi}}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Alamat : {{$address->alamat}}, {{$address->kota}}, {{$address->kode_pos}}, {{$address->provinsi}}</p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="{{route('user.index')}}" class="btn btn-light">Ubah Alamat</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-8">
-            <div class="card" style="height: 40rem">
+            <div class="card" style="height: 30rem">
                 <div class="card-body">
                     <table class="table">
                         <thead>
@@ -50,7 +57,7 @@
 
                                     </select>
                                 </td>
-                                <td>{{ "Rp " . number_format($row['total']*$row['qty'],2,',','.')}}</td>
+                                <td>{{ "Rp " . number_format($row['harga']*$row['qty'],2,',','.')}}</td>
                                 <td style="cursor: pointer" class="hapus" data-id="{{$row['id_barang']}}">Hapus</td>
                             </tr>
 
@@ -75,43 +82,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card" style="height: 16rem">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5>Opsi Pengiriman:</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="code" id="code1"
-                                            value="">
-                                        <label class="form-check-label" for="code1">
 
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5>Biaya Pengiriman:</h5>
-                                </div>
-                                <div class="col-md-6">
-                                    <h5 id="biaya"></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="cold-md-12">
-                                    <h6 id="etd" class="ml-3"></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card" style="height: 20rem">

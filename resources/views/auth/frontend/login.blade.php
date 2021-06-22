@@ -35,7 +35,9 @@
 				</form>
 
 					<div class="col-12 forgot">
+                        <p>Belum Punya Akun ? <a href="/register">Daftar</a></p>
 						<a href="#">Lupa Password</a>
+
 					</div>
 
 			</div>

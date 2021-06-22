@@ -18,6 +18,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <style>
         #ex4 .p1[data-count]:after {
             position: absolute;
@@ -156,6 +157,7 @@
     <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/css/all.css')}}"></script>
     <script type="text/javascript" src="{{asset('frontend/fontawesome-free-5.15.2-web/js/all.js')}}"></script>
     <script src="{{asset('assets/src/scripts/sweetalert2.all.min.js')}}"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     @stack('script')
 </body>
 

@@ -22,6 +22,7 @@ class CreateCustomerAddressesTable extends Migration
             $table->string('kode_pos');
             $table->string('provinsi');
             $table->string('nomor_telepon');
+            $table->integer('utama');
             $table->timestamps();
         });
     }

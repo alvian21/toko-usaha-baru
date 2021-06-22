@@ -23,6 +23,7 @@ class CreateSalesTransactionsTable extends Migration
             $table->string('no_resi')->nullable();
             $table->string('jasa')->nullable();
             $table->integer('ongkir')->nullable();
+            $table->string('status')->nullable();
             $table->string('status_penjualan');
             $table->string('status_pembayaran')->nullable();
             $table->timestamps();
