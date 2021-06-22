@@ -97,6 +97,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::resource('barang', 'BarangController');
         Route::resource('supplier', 'SupplierController');
         Route::resource('customer', 'CustomerController');
+
+        Route::get('purchase','pembelianController@index');
+        Route::get('purchase/create','pembelianController@create');
+        Route::post('/purchase/store','pembelianController@store');
+        Route::get('purchase/{purchase}/edit','pembelianController@edit');
+        Route::patch('purchase/{purchase}/update','pembelianController@update');
     });
 
 

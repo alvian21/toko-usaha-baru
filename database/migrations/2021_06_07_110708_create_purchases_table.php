@@ -17,13 +17,11 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items');
+            $table->integer('jumlah');
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->integer('jumlah');
-            $table->integer('harga');
-            $table->date('tgl_pembelian');
-            $table->string('bukti_nota');
-            $table->string('nama_pegawai');
+            $table->unsignedBigInteger('supplier_id');
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->timestamps();
         });
     }
