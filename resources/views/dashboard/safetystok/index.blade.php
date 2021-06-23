@@ -20,7 +20,8 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama Barang</th>
-                        <th scope="col">Jumlah</th>
+                        <th scope="col">Jumlah SS</th>
+                        <th scope="col">Reorder Point</th>
                         <th scope="col">Keterangan</th>
                         <th scope="col">Aksi</th>
                     </tr>
@@ -31,6 +32,7 @@
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{$row->item->nama_barang}}</td>
                         <td>{{$row->jumlah}}</td>
+                        <td>{{$row->reorder_point}}</td>
                         <td>{{$row->keterangan}}</td>
                         <td>
                             <a href="{{route('safetystok.edit',[$row->id])}}" class="btn btn-info">Edit</a>
@@ -54,6 +56,7 @@
 <script>
     $(document).ready(function () {
 
+        $(".table").DataTable();
         function ajax() {
             $.ajaxSetup({
                 headers: {

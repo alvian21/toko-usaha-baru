@@ -50,6 +50,16 @@
                         @enderror
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Lead Time</label>
+                    <div class="col-sm-12 col-md-10">
+                        <input class="form-control  @error('lead_time') is-invalid @enderror" name="lead_time"
+                            type="number" value="{{ old('lead_time') }}" placeholder="Lead Time">
+                        @error('lead_time')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

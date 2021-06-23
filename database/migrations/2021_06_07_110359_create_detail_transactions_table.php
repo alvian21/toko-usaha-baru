@@ -19,7 +19,7 @@ class CreateDetailTransactionsTable extends Migration
             $table->foreign('item_id')->references('id')->on('items');
             $table->unsignedBigInteger('sales_transaction_id');
             $table->foreign('sales_transaction_id')->references('id')->on('sales_transactions');
-            $table->string('jumlah_barang');
+            $table->integer('jumlah_barang');
             $table->string('nama_barang');
             $table->integer('harga');
             $table->timestamps();

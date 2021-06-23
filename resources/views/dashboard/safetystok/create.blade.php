@@ -12,9 +12,10 @@
                 @include('dashboard.include.alert')
                 @csrf
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Pilih Barang</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
                     <div class="col-sm-12 col-md-10">
-                        <select class="form-control" id="barang" name="barang">
+                        <select class="form-control js-example-basic-single" id="barang" name="barang">
+                            <option value="-" selected disabled>Pilih Barang</option>
                             @forelse ($item as $row)
 
                             <option value="{{$row->id}}">{{$row->nama_barang}}</option>
@@ -26,9 +27,30 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Nama Supplier</label>
+                    <div class="col-sm-12 col-md-10">
+                        <select class="form-control js-example-basic-single" id="supplier" name="supplier">
+                            <option value="-" selected disabled>Pilih Supplier</option>
+                            @forelse ($supplier as $row)
+
+                            <option value="{{$row->id}}">{{$row->nama_pemasok}}</option>
+
+                            @empty
+
+                            @endforelse
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Jumlah</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="number" name="jumlah" placeholder="Jumlah">
+                        <input class="form-control" type="number" id="jumlah" name="jumlah" placeholder="Jumlah">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Reorder Point</label>
+                    <div class="col-sm-12 col-md-10">
+                        <input class="form-control" type="number" id="rop" name="rop" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -47,3 +69,62 @@
 
 </div>
 @endsection
+@push('script')
+
+<script>
+    $(document).ready(function () {
+
+
+        $('.js-example-basic-single').select2();
+
+
+        $('#barang').on('change', function () {
+
+            let idBarang = $(this).val();
+            let idSupplier = $('#supplier').val();
+
+            $.ajax({
+
+                url: "{{ route('getSafetyStok') }}",
+                method: "GET",
+                data: {
+                    "idBarang": idBarang,
+                    "idSupplier": idSupplier
+                },
+                success: function (data) {
+                    $('#jumlah').val(data['ss']);
+                    $('#rop').val(data['rop']);
+
+                }
+            })
+
+        })
+
+        $('#supplier').on('change', function () {
+
+            let idBarang = $('#barang').val();
+            let idSupplier = $(this).val();
+
+            $.ajax({
+
+                url: "{{ route('getSafetyStok') }}",
+                method: "GET",
+                data: {
+                    "idBarang": idBarang,
+                    "idSupplier": idSupplier
+                },
+                success: function (data) {
+                    $('#jumlah').val(data['ss']);
+                    $('#rop').val(data['rop']);
+                }
+            })
+        })
+
+
+
+
+    })
+
+</script>
+
+@endpush
