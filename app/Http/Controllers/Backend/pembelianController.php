@@ -32,28 +32,20 @@ class pembelianController extends Controller
 
     public function store(Request $request)
     {
-        // $jumlahbeli = DB::table('purchase as a')
-        // -> select(DB::raw('DISTINCTROW a.jumlah as jumlah, b.harga_beli as harga_beli, c.')
-        // -> Sum('a.debet' - 'a.kredit')
-        // -> join('items as b','a.item_id', '=', 'b.id') And ('')
-        // -> get();
 
-        $purchase = new Purchase();
-        $purchase->item_id = $request->get('item_id[]');
-        $purchase->jumlah = $request->get('jumlah[]');
-        $purchase->supplier_id = $request->get('supplier_id');
-        $purchase->employee_id = $request->get('employee_id');
-        // if (count($purchase['item_id']) > 0) {
-        //     foreach ($purchase['item_id'] as $item => $value) {
-        //         $data2 = array(
-        //             'employee_id' => $purchase['employee_id'],
-        //             'supplier_id' => $purchase['supplier_id'],
-        //             'item_id' => $purchase['item_id'][$item],
-        //             'jumlah' => $purchase['jumlah'][$item]
-        //         );
-        //         Purchase::create($data2);
-        //     }
-        // }
+
+        $item = $request->get('item_id');
+
+        foreach ($item as $key => $value) {
+            $purchase = new Purchase();
+            $purchase->item_id = $value;
+            $purchase->jumlah = $request->get('jumlah');
+            $purchase->supplier_id = $request->get('supplier_id');
+            $purchase->employee_id = $request->get('employee_id');
+            $purchase->save();
+        }
+
+
         return redirect('/admin/purchase');
     }
 

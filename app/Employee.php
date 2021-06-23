@@ -7,5 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Employee  extends Authenticatable
 {
-    //
+    public function purchase()
+    {
+        return $this->hasMany('App\Purchase');
+    }
 }

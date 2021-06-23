@@ -31,12 +31,11 @@
                 <tbody>
                     @foreach ($purchase as $item)
                     <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $item->purchase_id}}</td>
-                        <td>{{ $item->item_id}}</td>
-                        <td>{{ $item->employee_id}}</td>
+                        <td>{{ $item->id}}</td>
+                        <td>{{ $item->item->nama_barang}}</td>
                         <td>{{ $item->jumlah }}</td>
-                        <td>{{ $item->supplier_id}}</td>
+                        <td>{{ $item->employee->nama}}</td>
+                        <td>{{ $item->supplier->nama_pemasok}}</td>
                         <td>
                             <a href="" class="btn btn-info">Lihat</a>
                             <a href="purchase/{purchase}/edit" class="btn btn-info">Edit</a>
