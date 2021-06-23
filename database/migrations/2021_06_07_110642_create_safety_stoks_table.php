@@ -17,7 +17,10 @@ class CreateSafetyStoksTable extends Migration
             $table->id();
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items');
+            $table->unsignedBigInteger('supplier_id');
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->integer('jumlah');
+            $table->integer('reorder_point');
             $table->longText('keterangan')->nullable();
             $table->timestamps();
         });
