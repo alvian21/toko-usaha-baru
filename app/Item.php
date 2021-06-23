@@ -12,4 +12,8 @@ class Item extends Model
     {
         return $this->hasOne('App\SafetyStok');
     }
+    public function purchase()
+    {
+        return $this->hasMany('App\Purchase');
+    }
 }

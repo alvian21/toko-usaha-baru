@@ -104,6 +104,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::resource('customer', 'CustomerController');
         Route::resource('safetystok', 'SafetyStokController');
         Route::resource('onlinesales', 'OnlineSalesController');
+
+        Route::get('purchase','pembelianController@index');
+        Route::get('purchase/create','pembelianController@create');
+        Route::post('/purchase/store','pembelianController@store');
+        Route::get('purchase/{purchase}/edit','pembelianController@edit');
+        Route::patch('purchase/{purchase}/update','pembelianController@update');
     });
 
 

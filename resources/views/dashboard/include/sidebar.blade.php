@@ -36,6 +36,7 @@
                         <li><a href="{{ '/admin/finance' }}">Data Keuangan</a></li>
                         <li><a href="{{ '/admin/sales' }}">Data Penjualan</a></li>
                         <li><a href="{{ route('onlinesales.index') }}">Data Penjualan Online</a></li>
+                        <li><a href="{{ '/admin/purchase' }}">Data Pembelian</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
