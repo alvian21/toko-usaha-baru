@@ -27,6 +27,7 @@
                         <th scope="col">Alamat</th>
                         <th scope="col">Email</th>
                         <th scope="col">Nomor Hp</th>
+                        <th scope="col">Lead Time (Hari)</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         <td>{{ $item->alamat }}</td>
                         <td>{{ $item->email }}</td>
                         <td>{{ $item->nomor_telepon }}</td>
+                        <td>{{ $item->lead_time }}</td>
                         <td><a href="supplier/{{ $item->id }}/edit" class="btn btn-info">Edit</a>
                             {{-- <a rel="{{ $item->id }}" href="javascript:" class="btn btn-danger del">Hapus</a> --}}
                         </td>

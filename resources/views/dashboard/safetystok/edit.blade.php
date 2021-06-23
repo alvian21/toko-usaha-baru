@@ -13,12 +13,28 @@
                 @csrf
                 @method('put')
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Pilih Barang</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
                     <div class="col-sm-12 col-md-10">
-                        <select class="form-control" id="barang" name="barang">
+                        <select class="form-control js-example-basic-single" id="barang" name="barang">
+                            <option value="-" selected disabled>Pilih Barang</option>
                             @forelse ($item as $row)
 
-                            <option value="{{$row->id}}" @if($safety->item_id==$row->id) selected @endif >{{$row->nama_barang}}</option>
+                            <option value="{{$row->id}}">{{$row->nama_barang}}</option>
+
+                            @empty
+
+                            @endforelse
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Nama Supplier</label>
+                    <div class="col-sm-12 col-md-10">
+                        <select class="form-control js-example-basic-single" id="supplier" name="supplier">
+                            <option value="-" selected disabled>Pilih Supplier</option>
+                            @forelse ($supplier as $row)
+
+                            <option value="{{$row->id}}">{{$row->nama_pemasok}}</option>
 
                             @empty
 
@@ -29,13 +45,15 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Jumlah</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="number" name="jumlah" value="{{$safety->jumlah}}" placeholder="Jumlah">
+                        <input class="form-control" type="number" name="jumlah" value="{{$safety->jumlah}}"
+                            placeholder="Jumlah">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Keterangan</label>
                     <div class="col-sm-12 col-md-10">
-                        <textarea class="form-control" id="keterangan" name="keterangan" rows="3">{{$safety->keterangan}}</textarea>
+                        <textarea class="form-control" id="keterangan" name="keterangan"
+                            rows="3">{{$safety->keterangan}}</textarea>
                     </div>
                 </div>
                 <div class="text-center">

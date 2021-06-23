@@ -91,13 +91,13 @@ class PenjadwalanController extends Controller
         foreach ($item as $i) {
 
             $safety_stk = DB::table('safety_stoks')
-                     ->select('jumlah')
+                     ->select('reorder_point')
                      ->where('item_id', '=', $i->id)
                      ->first();
 
             if($safety_stk){
 
-                if ($safety_stk->jumlah >= $i->stok ) {
+                if ($safety_stk->reorder_point >= $i->stok ) {
 
                     $html .= '<li>
                                 <a href="/admin/pembelian/create">

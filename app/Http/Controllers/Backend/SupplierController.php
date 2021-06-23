@@ -44,6 +44,7 @@ class SupplierController extends Controller
             'nama_pemasok' => 'required',
             'alamat' => 'required',
             'nomor_telepon' => 'required',
+            'lead_time' => 'nullable'
         ]);
 
         Supplier::create($request->all());
@@ -87,6 +88,7 @@ class SupplierController extends Controller
             'nama_pemasok' => 'required',
             'alamat' => 'required',
             'nomor_telepon' => 'required',
+            'lead_time' => 'nullable'
 
         ]);
 
@@ -96,7 +98,7 @@ class SupplierController extends Controller
             'alamat' => $request->alamat,
             'email' => $request->email,
             'nomor_telepon' => $request->nomor_telepon,
-
+            'lead_time' => $request->lead_time
         ]);
 
         return redirect('/admin/supplier')->with('status', 'Data berhasil diubah');

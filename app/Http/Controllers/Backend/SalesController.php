@@ -237,11 +237,11 @@ class SalesController extends Controller
     public function getHarga($id){
 
         $items = DB::table('items')
-                     ->select('harga')
+                     ->select('harga_jual')
                      ->where('id', '=', $id)
                      ->first();
 
-        return $items->harga;
+        return $items->harga_jual;
     }
 
     public function updateMinus($id){

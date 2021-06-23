@@ -28,7 +28,7 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Email</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" name="email" type="email" {{ $supplier->email }}
+                        <input class="form-control" name="email" type="email" value=" {{ $supplier->email }}"
                             placeholder="Email">
                     </div>
                 </div>
@@ -37,6 +37,13 @@
                     <div class="col-sm-12 col-md-10">
                         <input class="form-control" name="nomor_telepon" type="text"
                             value="{{ $supplier->nomor_telepon }}" placeholder="Nomor Hp">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Lead Time</label>
+                    <div class="col-sm-12 col-md-10">
+                        <input class="form-control" name="lead_time" type="number" value="{{ $supplier->lead_time }}"
+                            placeholder="Lead Time">
                     </div>
                 </div>
                 <div class="text-center">

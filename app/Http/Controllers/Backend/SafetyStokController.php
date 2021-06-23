@@ -7,6 +7,8 @@ use App\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\SafetyStok;
+use App\Supplier;
+use Illuminate\Support\Facades\DB;
 
 class SafetyStokController extends Controller
 {
@@ -29,7 +31,9 @@ class SafetyStokController extends Controller
     public function create()
     {
         $item  = Item::all();
-        return view('dashboard.safetystok.create', ['item' => $item]);
+        $supplier = Supplier::all();
+
+        return view('dashboard.safetystok.create', ['item' => $item, 'supplier' => $supplier]);
     }
 
     /**
@@ -41,8 +45,10 @@ class SafetyStokController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'supplier' => 'required',
             'barang' => 'required',
             'jumlah' => 'required',
+            'rop' => 'required',
             'keterangan' => 'nullable'
         ]);
 
@@ -50,8 +56,10 @@ class SafetyStokController extends Controller
             return redirect()->back()->withErrors($validator->errors());
         } else {
             $sfstok = new SafetyStok();
+            $sfstok->supplier_id = $request->get('supplier');
             $sfstok->item_id = $request->get('barang');
             $sfstok->jumlah = $request->get('jumlah');
+            $sfstok->reorder_point = $request->get('rop');
             $sfstok->keterangan = $request->get('keterangan');
             $sfstok->save();
 
@@ -80,6 +88,7 @@ class SafetyStokController extends Controller
     {
         $item  = Item::all();
         $safety = SafetyStok::find($id);
+        $supplier = Supplier::all();
         return view('dashboard.safetystok.edit', ['item' => $item, 'safety' => $safety]);
     }
 
@@ -121,4 +130,42 @@ class SafetyStokController extends Controller
     {
         //
     }
+
+    public function getSafetyStok(Request $request){
+
+
+
+        $bulanlalu = date('m', strtotime('-1 months'));
+
+        $max_sales = DB::table('detail_transactions')
+                        ->where('item_id', '=', $request->get('idBarang'))
+                        ->max('jumlah_barang');
+
+        $avg_sales = DB::table('detail_transactions')
+                        ->where('item_id', '=', $request->get('idBarang'))
+                        ->avg('jumlah_barang');
+
+        $avg_rop = DB::table('detail_transactions as dt')
+                        ->join('sales_transactions as st', 'dt.sales_transaction_id','=','st.id')
+                        ->where('item_id', '=', $request->get('idBarang'))
+                        ->whereMonth('st.tgl_transaksi', '=', $bulanlalu)
+                        ->avg('jumlah_barang');
+
+        $lead_time = DB::table('suppliers')
+                        ->select('lead_time')
+                        ->where('id', '=', $request->get('idSupplier'))
+                        ->first();
+
+        $safety_stok = ($max_sales - $avg_sales) * $lead_time->lead_time;
+
+        $rop = $avg_rop * $lead_time->lead_time + $safety_stok;
+
+        return response()->json([
+            "ss" => round($safety_stok),
+            "rop" => round($rop)
+        ]);
+
+    }
+
+
 }

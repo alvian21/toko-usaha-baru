@@ -96,6 +96,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
 
 
         Route::get('penjadwalan/showNotif','PenjadwalanController@showNotif')->name('showNotif');
+        Route::get('safetystok/getSafetyStok','SafetyStokController@getSafetyStok')->name('getSafetyStok');
 
         Route::resource('dashboard', 'DashboardController');
         Route::resource('employee', 'EmployeeController');
