@@ -14,7 +14,14 @@
     <div class="col-5">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                @if (session('status'))
+                @if (session('status') == 'Data Berhasil Dimasukkan!')
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+                @elseif (session('status') == '')
+                <div>
+                </div>
+                @else
                 <div class="alert alert-danger">
                     {{ session('status') }}
                 </div>
@@ -162,7 +169,7 @@
                         <form action="{{ 'store' }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="submit" name="btn" class="btn btn-primary" value="Simpan">
-                            <input type="submit" name="btn" class="btn btn-secondary" value="Cetak Struk">
+                            {{-- <input type="submit" name="btn" class="btn btn-secondary" value="Cetak Struk"> --}}
                         </form>
                     </div>
                 </div>
@@ -197,7 +204,7 @@
             $('#total').val(total);
         });
 
-        $('#bayar').keyup(function () {
+        $('#bayar').on('keyup', function () {
 
             let bayar = $(this).val();
             let total = $(".total-harga").text();
@@ -256,7 +263,7 @@
 
         $('#id').on('change', function () {
 
-            let id = $(this).find(":selected").val();
+            let id = $(this).val();
 
             $.ajax({
 

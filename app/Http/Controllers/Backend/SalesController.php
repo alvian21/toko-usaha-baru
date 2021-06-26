@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Item;
 use App\SalesTransaction;
+use Illuminate\Support\Facades\Session;
 use PDF;
 
 class SalesController extends Controller
@@ -59,7 +60,8 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->btn == "Simpan"){
+
+
         $dataBarang = session('data_barang');
 
         $totalBrg = 0;
@@ -90,8 +92,6 @@ class SalesController extends Controller
                          ->where('nama_barang', '=', $item['nama_barang'])
                          ->first();
 
-
-
             $sls_detail->item_id = $items->id;
             $sls_detail->sales_transaction_id = $id_sales;
             $sls_detail->jumlah_barang = $item['jumlah'];
@@ -109,17 +109,16 @@ class SalesController extends Controller
                 'stok' => $stok->stok - $item['jumlah']
             ]);
         }
-        session()->forget('data_barang');
 
-        return redirect('/admin/sales')->with('status', 'Data Berhasil Dimasukkan!');
+        $url = "http://127.0.0.1:8000/admin/sales/cetak-struk";
+        $urlcr = "/admin/sales";
+        echo "<script>window.open('".$url."', '_blank')
+        setTimeout(function(){location.href='".$urlcr."'; }, 2000);
+        </script>";
 
-        } else{
-            $url = "http://127.0.0.1:8000/admin/sales/cetak-struk";
-            $urlcr = "/admin/sales/create";
-            echo "<script>window.open('".$url."', '_blank')
-            setTimeout(function(){location.href='".$urlcr."'; }, 2000);
-            </script>";
-        }
+
+        return $request->session()->flash('status', 'Data Berhasil Dimasukkan!');
+
 
     }
 
@@ -361,6 +360,7 @@ class SalesController extends Controller
         }
 
         $pdf = PDF::loadview('dashboard.sales.struk', ['dataBarang' => $dataBarang, 'date' => $ldate, 'total' => $total]);
+        session()->forget('data_barang');
 
         return $pdf->stream();
     }
