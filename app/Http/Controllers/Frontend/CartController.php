@@ -38,8 +38,8 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        $item = Item::find($request->get('id'));
         if (Auth::guard('frontend')->check()) {
-            $item = Item::find($request->get('id'));
 
             $idUser = Auth::guard('frontend')->user()->id;
             $arr = [];
@@ -89,6 +89,47 @@ class CartController extends Controller
 
             echo $data;
         } else {
+
+            $arr = [];
+            if (session()->has('cart')) {
+                $cart = session('cart');
+
+                $status = false;
+                foreach ($cart as $key => $value) {
+                    if ($value['id_barang'] == $request->get('id')) {
+                        $value['qty'] = $request->get('qty') + $value['qty'];
+                        $status = true;
+                        array_push($arr, $value);
+                    } else {
+                        array_push($arr, $value);
+                    }
+                }
+
+                if (!$status) {
+                    $cart = [
+                        'id_user' => null,
+                        'id_barang' => $request->get('id'),
+                        'qty' => $request->get('qty'),
+                        'harga' => $item->harga_jual,
+                        'total' => $request->get('qty') * $item->harga_jual
+                    ];
+                    array_push($arr, $cart);
+                }
+                session(['cart' => $arr]);
+
+                session()->save();
+            } else {
+                $cart = [
+                    'id_user' => null,
+                    'id_barang' => $request->get('id'),
+                    'qty' => $request->get('qty'),
+                    'harga' => $item->harga_jual,
+                    'total' => $request->get('qty') * $item->harga_jual
+                ];
+                array_push($arr, $cart);
+                session(['cart' => $arr]);
+            }
+
             echo 'false';
         }
     }
@@ -137,5 +178,4 @@ class CartController extends Controller
     {
         //
     }
-
 }

@@ -22,14 +22,14 @@
                     <td>{{$item->tgl_transaksi}}</td>
                     <td>{{$item->no_resi}}</td>
                     <td>{{$item->total_barang}}</td>
-                   <td>{{$item->status}}</td>
+                    <td>{{$item->status}}</td>
 
-                   <td>
-                       <a href="{{route('order.show',[$item->id])}}" class="btn btn-warning">Detail</a>
-
-                       <a href="{{route('order.edit',[$item->id])}}" class="btn btn-info">Upload Pembayaran</a>
-
-                   </td>
+                    <td>
+                        <a href="{{route('order.show',[$item->id])}}" class="btn btn-warning">Detail</a>
+                        @if($item->status == "dikonfirmasi")
+                        <a href="{{route('order.edit',[$item->id])}}" class="btn btn-info">Upload Pembayaran</a>
+                        @endif
+                    </td>
                 </tr>
                 @empty
                 @endforelse
@@ -39,9 +39,9 @@
 </div>
 @endsection
 @push('script')
-    <script>
-        $(document).ready(function(){
+<script>
+    $(document).ready(function(){
             $('#tabelalamat').DataTable()
         })
-    </script>
+</script>
 @endpush

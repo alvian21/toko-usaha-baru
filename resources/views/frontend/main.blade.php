@@ -79,7 +79,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link p1 iconcart" href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"
-                                data-count="1"></i>@if(session()->has('cart')) {{count(session('cart'))}} @endif</a>
+                                data-count="1"></i>@if(session()->has('cart') && auth()->guard('frontend')->check()) {{count(session('cart'))}} @endif</a>
                     </li>
                     {{-- <li class="nav-item">
             <a class="nav-link" onclick="window.location='about'">About Us</a>

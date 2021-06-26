@@ -16,4 +16,8 @@ class Item extends Model
     {
         return $this->hasMany('App\Purchase');
     }
+    public function detail()
+    {
+        return $this->hasMany('App\DetailTransaction');
+    }
 }

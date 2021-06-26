@@ -21,16 +21,17 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Nomor Resi</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="text" name="no_resi" placeholder="">
+                        <input class="form-control" type="text" name="no_resi" value="{{$sales->no_resi}}" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Status</label>
                     <div class="col-sm-12 col-md-10">
                         <select class="form-control" id="status" name="status">
-                            <option value="dikonfirmasi">Di Konfirmasi</option>
-                            <option value="dibatalkan">Di Batalkan</option>
-                            <option value="diproses">Di Proses</option>
+                            <option value="menunggu" @if($sales->status=="menunggu") selected @endif>Menunggu</option>
+                            <option value="dikonfirmasi" @if($sales->status=="dikonfirmasi") selected @endif>Di Konfirmasi</option>
+                            <option value="dibatalkan" @if($sales->status=="dibatalkan") selected @endif>Di Batalkan</option>
+                            <option value="diproses"  @if($sales->status=="diproses") selected @endif>Di Proses</option>
                         </select>
                     </div>
                 </div>
@@ -38,22 +39,21 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Status Pembayaran</label>
                     <div class="col-sm-12 col-md-10">
                         <select class="form-control" id="status_pembayaran" name="status_pembayaran">
-                            <option value="Belum di bayar">Belum di bayar</option>
-                            <option value="Sudah di bayar">Sudah di bayar</option>
-
+                            <option value="Belum di bayar" @if($sales->status_pembayaran=="Belum di bayar") selected @endif>Belum di bayar</option>
+                            <option value="Sudah di bayar" @if($sales->status_pembayaran=="Sudah di bayar") selected @endif>Sudah di bayar</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Biaya Kirim</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="number" name="ongkir" placeholder="5000">
+                        <input class="form-control" type="number" name="ongkir" value="{{$sales->ongkir}}" placeholder="5000">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Jasa Kirim</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control" type="text" name="jasa" placeholder="Jne">
+                        <input class="form-control" type="text" name="jasa" value="{{$sales->jasa}}" placeholder="Jne">
                     </div>
                 </div>
                 <div class="form-group row">
