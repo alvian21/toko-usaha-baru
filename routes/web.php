@@ -107,7 +107,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::resource('onlinesales', 'OnlineSalesController');
 
         Route::get('purchase','pembelianController@index');
-        Route::get('purchase/create','pembelianController@create');
+        Route::get('purchase/create/{id}','pembelianController@create');
         Route::post('/purchase/store','pembelianController@store');
         Route::get('purchase/{purchase}/edit','pembelianController@edit');
         Route::patch('purchase/{purchase}/update','pembelianController@update');

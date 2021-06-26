@@ -12,4 +12,9 @@ class Supplier extends Model
         return $this->hasMany('App\Purchase');
     }
     protected $fillable = ['nama_pemasok','alamat','email','nomor_telepon','lead_time'];
+
+    public function safetyStock()
+    {
+        return $this->hasMany('App\SafetyStok');
+    }
 }

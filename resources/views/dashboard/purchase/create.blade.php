@@ -15,7 +15,7 @@
                     <div class="col-sm-12 col-md-10">
                         <select multiple class="form-control @error('item_id') is-invalid @enderror" id="item" name="item_id[]">
                             @foreach($item as $row)
-                            <option value="{{$row->id}}">{{$row->nama_barang}}</option>
+                            <option value="{{$row->id}}" @if($safetyStock->item->id==$row->id) selected @endif>{{$row->nama_barang}}</option>
                             @endforeach
                         </select>
                         @error('item_id')
@@ -26,7 +26,7 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Jumlah</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control  @error('jumlah') is-invalid @enderror" type="text" value="{{ old('jumlah') }}" name="jumlah" placeholder="Jumlah">
+                        <input class="form-control  @error('jumlah') is-invalid @enderror" type="text" value="{{$eoq}}" name="jumlah" placeholder="Jumlah">
                         @error('jumlah')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -48,16 +48,13 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Supplier</label>
                     <div class="col-sm-12 col-md-10">
-                        <select id="exampleFormControlSelect1" name="supplier_id" class="form-control  @error('supplier_id') is-invalid @enderror">
-                            @foreach($supplier as $row)
-                            <option value="{{$row->id}}">{{$row->nama_pemasok}}</option>
-                            @endforeach
-                        </select>
-                        @error('supplier_id')
+                    <input class="form-control  @error('supplier') is-invalid @enderror" readonly type="text" value="{{$safetyStock->supplier->nama_pemasok}}" name="supplier" placeholder="Supplier">
+                        @error('supplier')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
+                <input type="hidden" name="supplier_id" value="{{$safetyStock->supplier->id}}">
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

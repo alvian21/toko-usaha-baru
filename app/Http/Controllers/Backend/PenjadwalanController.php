@@ -91,7 +91,6 @@ class PenjadwalanController extends Controller
         foreach ($item as $i) {
 
             $safety_stk = DB::table('safety_stoks')
-                     ->select('reorder_point')
                      ->where('item_id', '=', $i->id)
                      ->first();
 
@@ -100,7 +99,7 @@ class PenjadwalanController extends Controller
                 if ($safety_stk->reorder_point >= $i->stok ) {
 
                     $html .= '<li>
-                                <a href="/admin/pembelian/create">
+                                <a href="/admin/purchase/create/'.$safety_stk->id.'">
                                     <h3>Barang '.$i->nama_barang.'</h3>
                                     <p>Stok Barang '.$i->nama_barang.' tinggal '.$i->stok.', mohon untuk melakukan pembelian barang</p>
                                 </a>

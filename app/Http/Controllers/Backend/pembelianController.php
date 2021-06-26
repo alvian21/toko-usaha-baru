@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DetailTransaction;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Item;
 use Illuminate\Http\Request;
 use App\Purchase;
+use App\Reception;
 use App\Supplier;
 use App\SafetyStok;
+use App\SalesTransaction;
 use Illuminate\Support\Facades\DB;
 
 class pembelianController extends Controller
@@ -20,20 +23,34 @@ class pembelianController extends Controller
     }
 
 
-    public function create()
+    public function create($id)
     {
+        $bulan = date('m');
         $item = Item::all();
         $employee = Employee::all();
         $supplier = Supplier::all();
-        // dd($item);
-        return view('dashboard.purchase.create',compact('item','employee','supplier'))->with('status', 'Data berhasil ditambah!');
+        $safetyStock = SafetyStok::find($id);
+        $penerimaan = Reception::where('item_id', $safetyStock->item->id)->count();
+        $penjualan = SalesTransaction::whereMonth('tgl_transaksi', $bulan)->get();
+        $totalpenjualan = 0;
+
+        foreach($penjualan as $row){
+            $detail = DetailTransaction::where('item_id', $safetyStock->item->id)->count();
+            $totalpenjualan = $totalpenjualan+$detail;
+        }
+
+        if($penerimaan>0){
+            $eoq = 2*$totalpenjualan*$penerimaan;
+        }else{
+            $eoq = 0;
+        }
+
+        return view('dashboard.purchase.create',compact('item','employee','supplier','safetyStock', 'eoq'))->with('status', 'Data berhasil ditambah!');
     }
 
 
     public function store(Request $request)
     {
-
-
         $item = $request->get('item_id');
 
         foreach ($item as $key => $value) {

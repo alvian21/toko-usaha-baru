@@ -10,4 +10,9 @@ class SafetyStok extends Model
     {
         return $this->belongsTo('App\Item');
     }
+
+    public function supplier()
+    {
+        return $this->belongsTo('App\Supplier');
+    }
 }
