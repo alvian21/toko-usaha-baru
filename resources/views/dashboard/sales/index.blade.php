@@ -6,6 +6,9 @@
         <div class="alert alert-success">
             {{ session('status') }}
         </div>
+        @php
+        session()->forget('status')
+        @endphp
         @endif
         <!-- basic table  Start -->
         <div class="pd-20 card-box mb-30">
@@ -33,7 +36,7 @@
 
                     @foreach ($sls_trans as $item)
                     <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
+                        <th scope="row">{{ $item->id }}</th>
                         <td>{{ $item->status_penjualan }}</td>
                         <td>{{ $item->tgl_transaksi }}</td>
                         <td>{{ $item->total_barang }}</td>
