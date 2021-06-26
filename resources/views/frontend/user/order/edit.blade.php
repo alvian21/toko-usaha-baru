@@ -8,6 +8,11 @@
     @method('put')
     <div class="row">
         <div class="col-md-12">
+            <h5>Detail Transfer</h5>
+            <h6>Nama rekening : Amanda</h6>
+            <h6>No Rekening : 88921029</h6>
+            <h6>Tujuan Rekening : BCA</h6>
+            <h6>Total yang dibayar : @rupiah($total)</h6>
             <div>
                 <label for="upload_pembayaran">Upload Pembayaran</label>
                 <input type="file" class="form-control" required id="upload_pembayaran" name="upload_pembayaran">
@@ -19,6 +24,7 @@
             <button type="submit" class="btn btn-primary mt-3">Simpan</button>
         </div>
     </div>
+
 </form>
 @endsection
 @push('script')

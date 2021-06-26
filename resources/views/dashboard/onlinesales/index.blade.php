@@ -20,11 +20,12 @@
                 <thead>
                     <tr>
                         <th scope="col">No</th>
+                        <th scope="col">Kode Transaksi</th>
                         <th scope="col">Customer</th>
                         <th scope="col">Tanggal Penjualan</th>
                         <th scope="col">Total Barang</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Status Pembayaran</th>
+                        <th scope="col">Bukti Pembayaran</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -33,15 +34,15 @@
                     @foreach ($sales as $item)
                           <tr>
                               <td>{{$loop->iteration}}</td>
+                              <td>{{$item->id}}</td>
                               <td>{{$item->customer->nama_lengkap}}</td>
                               <td>{{$item->tgl_transaksi}}</td>
                               <td>{{$item->total_barang}}</td>
                               <td>{{$item->status}}</td>
-                              <td>{{$item->status_pembayaran}}</td>
+                              <td>@if($item->bukti_pembayaran != 'belum di upload') sudah di upload @else belum di upload @endif</td>
                               <td>
                                   <a href="{{route('onlinesales.edit',[$item->id])}}"  class="btn btn-primary">Edit</a>
-                                {{-- <button type="button" class="btn btn-primary">Edit</button> --}}
-                                <button type="button" class="btn btn-info">Detail</button>
+                                  <a href="{{route('onlinesales.show',[$item->id])}}"  class="btn btn-info">Detail</a>
                               </td>
                           </tr>
                     @endforeach
@@ -54,49 +55,12 @@
     </div>
 
 </div>
-{{-- Modal --}}
-<div class="modal fade" id="exampleModallarge" tabindex="-1" role="dialog" aria-labelledby="exampleModalLarge"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLarge">Detail Penjualan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="basic-data-table">
-                    <table class="table nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Nama Barang</th>
-                                <th>Jumlah Barang</th>
-                                <th>Harga Barang</th>
-                                <th>Total Harga</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="data-detail">
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 @push('script')
 <script>
     $("#table").DataTable();
 
-    $(".detail-sales").on('click', function () {
 
-        let id = $(this).data('id');
-    });
 
 </script>
 @endpush

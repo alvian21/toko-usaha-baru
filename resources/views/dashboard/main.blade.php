@@ -4,7 +4,6 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
-    <title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
     <title>Dashboard - Toko usaha baru</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Site favicon -->

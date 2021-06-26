@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Item;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class BarangController extends Controller
      */
     public function create()
     {
-        return view('dashboard.barang.create');
+        $kode = random_int(100000, 999999);
+        return view('dashboard.barang.create', ['kode' => $kode]);
     }
 
     /**
@@ -37,6 +39,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kode_barang' => 'required',
             'nama_barang' => 'required',
             'harga_jual' => 'required',
             'harga_beli' => 'required',
@@ -52,6 +55,7 @@ class BarangController extends Controller
             $file->move(\base_path() . "/public/item_images", $name);
 
             $item = new Item();
+            $item->id = $request->get('kode_barang');
             $item->nama_barang = $request->nama_barang;
             $item->harga_jual = $request->harga_jual;
             $item->harga_beli = $request->harga_beli;
@@ -59,9 +63,9 @@ class BarangController extends Controller
             $item->stok = $request->stok;
             $item->deskripsi = $request->deskripsi;
             $item->save();
-
-        }else{
+        } else {
             $item = new Item();
+            $item->id = $request->get('kode_barang');
             $item->nama_barang = $request->nama_barang;
             $item->harga_jual = $request->harga_jual;
             $item->harga_beli = $request->harga_beli;
@@ -130,11 +134,11 @@ class BarangController extends Controller
                 'gambar' => $name,
 
             ]);
-            if($item->gambar != ""){
+            if ($item->gambar != "") {
 
-                unlink(public_path('item_images/'. $item->gambar));
+                unlink(public_path('item_images/' . $item->gambar));
             }
-        }else{
+        } else {
             Item::where('id', $item->id)->update([
                 'nama_barang' => $request->nama_barang,
                 'harga_jual' => $request->harga_jual,
@@ -155,15 +159,14 @@ class BarangController extends Controller
      */
     public function destroy(Item $item)
     {
-        if(file_exists(public_path('item_images/'. $item->gambar))){
+        if (file_exists(public_path('item_images/' . $item->gambar))) {
 
             Item::destroy($item->id);
-            if($item->gambar != ""){
+            if ($item->gambar != "") {
 
-                unlink(public_path('item_images/'. $item->gambar));
+                unlink(public_path('item_images/' . $item->gambar));
             }
-
-        }else{
+        } else {
 
             Item::destroy($item->id);
         }

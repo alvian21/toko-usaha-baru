@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\SalesTransaction;
 use Illuminate\Support\Facades\Validator;
+use App\DetailTransaction;
+use App\Item;
 
 class OnlineSalesController extends Controller
 {
@@ -49,7 +51,11 @@ class OnlineSalesController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = DetailTransaction::where('sales_transaction_id', $id)->get();
+        $sales = SalesTransaction::find($id);
+        $item = Item::all();
+
+        return view('dashboard.onlinesales.show', ['order' => $order, 'item' => $item, 'sales' => $sales]);
     }
 
     /**

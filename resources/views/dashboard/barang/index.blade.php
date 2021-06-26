@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th scope="col">No</th>
+                        <th scope="col">Kode</th>
                         <th scope="col">Nama Barang</th>
                         <th scope="col">Stok</th>
                         <th scope="col">Harga Beli</th>
@@ -36,6 +37,7 @@
                     @foreach ($barang as $item)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $item->id }}</td>
                         <td>{{ $item->nama_barang }}</td>
                         <td>{{ $item->stok }}</td>
                         <td>{{ $item->harga_beli }}</td>

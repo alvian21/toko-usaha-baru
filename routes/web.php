@@ -24,7 +24,7 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::get('register', 'AuthController@getRegister')->name("customer.getregister");
     Route::post('register', 'AuthController@postRegister')->name("customer.register");
 
-
+    Route::resource('cart', 'CartController',['only' => ['store']]);
     //catalog controller
     Route::resource('catalog', 'CatalogController');
 
@@ -32,7 +32,7 @@ Route::group(['namespace' => 'Frontend'], function () {
 
 
         //cartcontroller
-        Route::resource('cart', 'CartController');
+        Route::resource('cart', 'CartController',['except' => ['store']]);
         //user controller
         Route::resource('user', 'UserController');
 

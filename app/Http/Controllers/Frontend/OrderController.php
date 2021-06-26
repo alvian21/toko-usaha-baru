@@ -55,9 +55,10 @@ class OrderController extends Controller
     {
 
         $order = DetailTransaction::where('sales_transaction_id', $id)->get();
+        $sales = SalesTransaction::find($id);
         $item = Item::all();
 
-        return view('frontend.user.order.show', ['order' => $order, 'item' => $item]);
+        return view('frontend.user.order.show', ['order' => $order, 'item' => $item, 'sales' => $sales]);
     }
 
     /**
@@ -69,7 +70,12 @@ class OrderController extends Controller
     public function edit($id)
     {
         $sales = SalesTransaction::find($id);
-        return view('frontend.user.order.edit', ['sales' => $sales]);
+        $total = 0;
+        foreach ($sales->detail as $key => $value) {
+            $total += $value->harga * $value->jumlah_barang;
+        }
+        $total += $sales->ongkir;
+        return view('frontend.user.order.edit', ['sales' => $sales, 'total' => $total]);
     }
 
     /**
@@ -85,9 +91,9 @@ class OrderController extends Controller
             'upload_pembayaran' => 'required|image|mimes:jpeg,png,jpg'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
-        }else{
+        } else {
             $file = $request->file('upload_pembayaran');
             $name = time() . $file->getClientOriginalExtension();
             $file->move(\base_path() . "/public/bukti_pembayaran", $name);

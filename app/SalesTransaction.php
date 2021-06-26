@@ -12,4 +12,9 @@ class SalesTransaction extends Model
     {
         return $this->belongsTo('App\Customer');
     }
+
+    public function detail()
+    {
+        return $this->hasMany('App\DetailTransaction');
+    }
 }
