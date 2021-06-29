@@ -74,7 +74,6 @@
 <script>
     $(document).ready(function () {
 
-
         $('.js-example-basic-single').select2();
 
 
@@ -116,6 +115,7 @@
                 success: function (data) {
                     $('#jumlah').val(data['ss']);
                     $('#rop').val(data['rop']);
+
                 }
             })
         })

@@ -12,16 +12,6 @@
             <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row mt-3">
-                    <label class="col-sm-12 col-md-2 col-form-label">Kode</label>
-                    <div class="col-sm-12 col-md-10">
-                        <input class="form-control @error('kode_barang') is-invalid @enderror" readonly
-                         name="kode_barang" type="text" value="{{$kode}}" >
-                        @error('kode_barang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row mt-3">
                     <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
                     <div class="col-sm-12 col-md-10">
                         <input class="form-control @error('nama_barang') is-invalid @enderror"
@@ -34,8 +24,8 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Harga Beli</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control  @error('harga_beli') is-invalid @enderror" value="{{ old('harga_beli') }}"
-                            name="harga_beli" type="number" placeholder="harga beli">
+                        <input class="form-control  @error('harga_beli') is-invalid @enderror"
+                            value="{{ old('harga_beli') }}" name="harga_beli" type="number" placeholder="harga beli">
                         @error('nama_barang')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -44,8 +34,8 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Harga Jual</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control  @error('harga_jual') is-invalid @enderror" value="{{ old('harga_jual') }}"
-                            name="harga_jual" type="number" placeholder="harga jual">
+                        <input class="form-control  @error('harga_jual') is-invalid @enderror"
+                            value="{{ old('harga_jual') }}" name="harga_jual" type="number" placeholder="harga jual">
                         @error('nama_barang')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -65,12 +55,12 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Kategori</label>
                     <div class="col-sm-12 col-md-10">
                         <select class="form-control" id="exampleFormControlSelect1" name="kategori">
-                            <option value="women">Women</option>
-                            <option value="pria">Pria</option>
-                            <option value="anak-anak">Anak - anak</option>
-                            <option value="ibu-dan-bayi">Ibu dan bayi</option>
-                            <option value="lain-lain">Lain -lain</option>
-                          </select>
+                            <option value="-" disabled selected>Pilih Kategori</option>
+                            @foreach ( $kategori as $i)
+                            <option value="{{ $i->id }}">{{ $i->nama_kategori }}</option>
+                            @endforeach
+
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Categories;
 use App\Item;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
@@ -26,8 +28,8 @@ class BarangController extends Controller
      */
     public function create()
     {
-        $kode = random_int(100000, 999999);
-        return view('dashboard.barang.create', ['kode' => $kode]);
+        $kategori = Categories::all();
+        return view('dashboard.barang.create', ['kategori' => $kategori]);
     }
 
     /**
@@ -39,7 +41,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_barang' => 'required',
+            'kategori' => 'required',
             'nama_barang' => 'required',
             'harga_jual' => 'required',
             'harga_beli' => 'required',
@@ -55,7 +57,7 @@ class BarangController extends Controller
             $file->move(\base_path() . "/public/item_images", $name);
 
             $item = new Item();
-            $item->id = $request->get('kode_barang');
+            $item->category_id = $request->kategori;
             $item->nama_barang = $request->nama_barang;
             $item->harga_jual = $request->harga_jual;
             $item->harga_beli = $request->harga_beli;
@@ -65,7 +67,7 @@ class BarangController extends Controller
             $item->save();
         } else {
             $item = new Item();
-            $item->id = $request->get('kode_barang');
+            $item->category_id = $request->kategori;
             $item->nama_barang = $request->nama_barang;
             $item->harga_jual = $request->harga_jual;
             $item->harga_beli = $request->harga_beli;
@@ -97,7 +99,9 @@ class BarangController extends Controller
      */
     public function edit(Item $item)
     {
-        return view('dashboard.barang.edit', compact('item'));
+        $kategori = Categories::all();
+
+        return view('dashboard.barang.edit', compact('kategori','item'));
     }
 
     /**
@@ -110,6 +114,7 @@ class BarangController extends Controller
     public function update(Request $request, Item $item)
     {
         $request->validate([
+            'kategori' => 'required',
             'nama_barang' => 'required',
             'harga_jual' => 'required',
             'harga_beli' => 'required',
@@ -126,6 +131,7 @@ class BarangController extends Controller
 
             Item::where('id', $item->id)->update([
 
+                'category_id' => $request->kategori,
                 'nama_barang' => $request->nama_barang,
                 'harga_jual' => $request->harga_jual,
                 'harga_beli' => $request->harga_beli,
@@ -140,6 +146,7 @@ class BarangController extends Controller
             }
         } else {
             Item::where('id', $item->id)->update([
+                'category_id' => $request->kategori,
                 'nama_barang' => $request->nama_barang,
                 'harga_jual' => $request->harga_jual,
                 'harga_beli' => $request->harga_beli,

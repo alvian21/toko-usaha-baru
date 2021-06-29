@@ -22,6 +22,7 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ '/admin/supplier' }}">Data Supplier</a></li>
+                        <li><a href="{{ '/admin/categories' }}">Data Kategori</a></li>
                         <li><a href="{{ '/admin/item' }}">Data Barang</a></li>
                         <li><a href="{{route('employee.index')}}">Pegawai</a></li>
                         <li><a href="{{route('customer.index')}}">Customer</a></li>
@@ -46,6 +47,7 @@
                     <ul class="submenu">
 
                         <li><a href="/admin/finance/indexlap">Laporan Laba Rugi</a></li>
+                        <li><a href="/admin/purchase/filLaporan">Laporan Pembelian</a></li>
 
                     </ul>
                 </li>

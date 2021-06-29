@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Item;
+use App\SafetyStok;
 use App\SalesTransaction;
 use Illuminate\Support\Facades\Session;
 use PDF;
@@ -109,9 +110,51 @@ class SalesController extends Controller
             Item::where('id', $sls_detail->item_id)->update([
                 'stok' => $stok->stok - $item['jumlah']
             ]);
-        }
 
-        // $request->session()->flash('status', 'Data Berhasil Dimasukkan!');
+            $bulanlalu = date('m', strtotime('-1 months'));
+
+            $max_sales = DB::table('detail_transactions as dt')
+                            ->join('sales_transactions as st', 'dt.sales_transaction_id','=','st.id')
+                            ->where('item_id', '=', $sls_detail->item_id)
+                            ->whereMonth('st.tgl_transaksi', '=', $bulanlalu)
+                            ->max('jumlah_barang');
+
+            $avg_sales = DB::table('detail_transactions as dt')
+                            ->join('sales_transactions as st', 'dt.sales_transaction_id','=','st.id')
+                            ->where('item_id', '=', $sls_detail->item_id)
+                            ->whereMonth('st.tgl_transaksi', '=', $bulanlalu)
+                            ->avg('jumlah_barang');
+
+            $avg_rop = DB::table('detail_transactions as dt')
+                            ->join('sales_transactions as st', 'dt.sales_transaction_id','=','st.id')
+                            ->where('item_id', '=', $sls_detail->item_id)
+                            ->whereMonth('st.tgl_transaksi', '=', $bulanlalu)
+                            ->avg('jumlah_barang');
+
+            $idSup = DB::table('safety_stoks')
+                            ->select('supplier_id')
+                            ->where('item_id', '=', $sls_detail->item_id)
+                            ->first();
+
+            $lead_time = DB::table('suppliers')
+                            ->select('lead_time')
+                            ->where('id', '=', $idSup->supplier_id)
+                            ->first();
+
+            $safety_stok = ($max_sales - $avg_sales) * $lead_time->lead_time;
+
+            $rop = $avg_rop * $lead_time->lead_time + $safety_stok;
+
+            $cekItem = SafetyStok::where('item_id', '=', $sls_detail->item_id)->first();
+
+            if($cekItem){
+                SafetyStok::where('item_id', $sls_detail->item_id)->update([
+
+                    'jumlah' => $safety_stok,
+                    'reorder_point' => $rop,
+                ]);
+            }
+        }
 
         session(['status' => 'Data Berhasil Dimasukkan!']);
 

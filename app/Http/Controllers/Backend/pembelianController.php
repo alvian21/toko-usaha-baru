@@ -102,4 +102,19 @@ class pembelianController extends Controller
             ->get();
         return view('dashboard.purchase.formpembelian', compact('form'));
     }
+
+    public function formLaporan(){
+
+        return view('dashboard.purchase.filterLaporan');
+    }
+
+    public function getLaporan(Request $request){
+
+        $request->validate([
+            'tgl_awal' => 'required',
+            'tgl_akhir' => 'required'
+        ]);
+
+
+    }
 }
