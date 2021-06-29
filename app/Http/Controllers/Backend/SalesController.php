@@ -77,7 +77,6 @@ class SalesController extends Controller
 
         $sls_trans = new SalesTransaction();
 
-        $sls_trans->id = $this->generateNumber();
         $sls_trans->total_barang = $totalBrg;
         $sls_trans->tgl_transaksi = date('Y-m-d H:i:s');
         $sls_trans->status_penjualan = "offline";
@@ -111,7 +110,10 @@ class SalesController extends Controller
                 'stok' => $stok->stok - $item['jumlah']
             ]);
 
-            $bulanlalu = date('m', strtotime('-1 months'));
+            $cekItem = SafetyStok::where('item_id', '=', $sls_detail->item_id)->first();
+
+            if($cekItem){
+                $bulanlalu = date('m', strtotime('-1 months'));
 
             $max_sales = DB::table('detail_transactions as dt')
                             ->join('sales_transactions as st', 'dt.sales_transaction_id','=','st.id')
@@ -145,9 +147,6 @@ class SalesController extends Controller
 
             $rop = $avg_rop * $lead_time->lead_time + $safety_stok;
 
-            $cekItem = SafetyStok::where('item_id', '=', $sls_detail->item_id)->first();
-
-            if($cekItem){
                 SafetyStok::where('item_id', $sls_detail->item_id)->update([
 
                     'jumlah' => $safety_stok,
@@ -409,13 +408,5 @@ class SalesController extends Controller
         return $pdf->stream();
     }
 
-    public function generateNumber()
-    {
-        $i = 0;
-        $tmp = mt_rand(1, 9);
-        do {
-            $tmp .= mt_rand(0, 9);
-        } while (++$i < 14);
-        return $tmp;
-    }
+
 }

@@ -120,6 +120,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::patch('purchase/{purchase}/update','pembelianController@update');
         Route::get('purchase/filLaporan','pembelianController@formLaporan');
         Route::get('purchase/getLaporan','pembelianController@getLaporan');
+        Route::get('purchase/cetak-laporan','pembelianController@cetakLaporan');
     });
 
 

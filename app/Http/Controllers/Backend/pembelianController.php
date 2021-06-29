@@ -13,6 +13,7 @@ use App\Supplier;
 use App\SafetyStok;
 use App\SalesTransaction;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class pembelianController extends Controller
 {
@@ -115,6 +116,46 @@ class pembelianController extends Controller
             'tgl_akhir' => 'required'
         ]);
 
+       $pembelian = DB::table('purchases as pe')
+        ->join('items as b', 'pe.item_id', '=', 'b.id')
+        ->join('employees as e', 'pe.employee_id', '=', 'e.id')
+        ->join('suppliers as s', 'pe.supplier_id', '=', 's.id')
+        ->select('pe.tgl_beli','b.nama_barang','e.nama','s.nama_pemasok', DB::raw('sum(jumlah) as jml'))
+        ->whereBetween('pe.tgl_beli', [$request->tgl_awal, $request->tgl_akhir])
+        ->groupBy('pe.tgl_beli','b.nama_barang','e.nama','s.nama_pemasok')
+        ->get();
 
+        $dataPembelian = [];
+        foreach ($pembelian as $i) {
+            array_push($dataPembelian, $i);
+        }
+
+        session(['dataPembelian' => $dataPembelian]);
+
+        $url = "http://127.0.0.1:8000/admin/purchase/cetak-laporan";
+        $urlcr = "/admin/purchase/filLaporan";
+        echo "<script>window.open('".$url."', '_blank')
+        setTimeout(function(){location.href='".$urlcr."'; }, 2000);
+        </script>";
+    }
+
+    public function cetakLaporan(){
+
+        $pembelian = session('dataPembelian') ?? [];
+
+        $total = 0;
+
+        if($pembelian){
+            foreach ($pembelian as $i) {
+                $total += $i->jml;
+            }
+        }else{
+            $pembelian = [];
+        }
+
+        $pdf = PDF::loadview('dashboard.purchase.laporan', ['pembelian' => $pembelian, 'total' => $total]);
+        session()->forget('dataPembelian');
+
+        return $pdf->stream();
     }
 }
