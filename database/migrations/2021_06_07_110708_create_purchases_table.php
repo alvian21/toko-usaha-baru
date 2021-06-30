@@ -18,6 +18,7 @@ class CreatePurchasesTable extends Migration
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items');
             $table->integer('jumlah');
+            $table->date('tgl_beli');
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->unsignedBigInteger('supplier_id');

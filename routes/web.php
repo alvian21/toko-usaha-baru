@@ -97,6 +97,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
 
         Route::get('penjadwalan/showNotif','PenjadwalanController@showNotif')->name('showNotif');
         Route::get('safetystok/getSafetyStok','SafetyStokController@getSafetyStok')->name('getSafetyStok');
+        Route::delete('safetystok/{id}','SafetyStokController@destroy')->name('destroySS');
+
+        Route::get('categories','CategoriesController@index');
+        Route::get('categories/create','CategoriesController@create');
+        Route::post('categories/store','CategoriesController@store')->name('categories.store');
+        Route::get('categories/{categories}/edit','CategoriesController@edit')->name('categories.edit');
+        Route::patch('categories/{categories}/update','CategoriesController@update')->name('categories.update');
 
         Route::resource('dashboard', 'DashboardController');
         Route::resource('employee', 'EmployeeController');
@@ -121,6 +128,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
             Route::resource('penjualan','PenjualanController');
             Route::resource('penjualanterlaris','PenjualanTerlarisController');
         });
+        Route::get('purchase/filLaporan','pembelianController@formLaporan');
+        Route::get('purchase/getLaporan','pembelianController@getLaporan');
+        Route::get('purchase/cetak-laporan','pembelianController@cetakLaporan');
     });
 
 

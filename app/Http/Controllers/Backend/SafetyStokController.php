@@ -126,26 +126,30 @@ class SafetyStokController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        if($request->ajax()){
+            $customer = SafetyStok::find($id);
+            $customer->delete();
+
+            return response()->json([
+                'message' => "true"
+            ]);
+
+        }
     }
 
     public function getSafetyStok(Request $request){
 
-
-
         $bulanlalu = date('m', strtotime('-1 months'));
 
-        $max_sales = DB::table('detail_transactions')
+        $max_sales = DB::table('detail_transactions as dt')
+                        ->join('sales_transactions as st', 'dt.sales_transaction_id','=','st.id')
                         ->where('item_id', '=', $request->get('idBarang'))
+                        ->whereMonth('st.tgl_transaksi', '=', $bulanlalu)
                         ->max('jumlah_barang');
 
-        $avg_sales = DB::table('detail_transactions')
-                        ->where('item_id', '=', $request->get('idBarang'))
-                        ->avg('jumlah_barang');
-
-        $avg_rop = DB::table('detail_transactions as dt')
+        $avg_sales = DB::table('detail_transactions as dt')
                         ->join('sales_transactions as st', 'dt.sales_transaction_id','=','st.id')
                         ->where('item_id', '=', $request->get('idBarang'))
                         ->whereMonth('st.tgl_transaksi', '=', $bulanlalu)
@@ -158,11 +162,14 @@ class SafetyStokController extends Controller
 
         $safety_stok = ($max_sales - $avg_sales) * $lead_time->lead_time;
 
-        $rop = $avg_rop * $lead_time->lead_time + $safety_stok;
+        $rop = ($avg_sales * $lead_time->lead_time) + $safety_stok;
 
         return response()->json([
             "ss" => round($safety_stok),
-            "rop" => round($rop)
+            "rop" => round($rop),
+            "max_sls" => $max_sales,
+            "avg_sales" => $avg_sales,
+            "lead_time" => $lead_time->lead_time
         ]);
 
     }

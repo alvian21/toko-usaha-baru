@@ -2,7 +2,11 @@
 @section('content')
 <div class="pd-ltr-20 xs-pd-20-10">
     <div class="min-height-200px">
-
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
         <!-- basic table  Start -->
         <div class="pd-20 card-box mb-30">
             <div class="clearfix mb-20">
@@ -35,9 +39,9 @@
                         <td>{{$row->reorder_point}}</td>
                         <td>{{$row->keterangan}}</td>
                         <td>
-                            <a href="{{route('safetystok.edit',[$row->id])}}" class="btn btn-info">Edit</a>
-                            {{-- <button type="button" class="btn btn-danger deletedata"
-                                data-id="{{$row->id}}">Hapus</button></td> --}}
+                            {{-- <a href="{{route('safetystok.edit',[$row->id])}}" class="btn btn-info">Edit</a> --}}
+                            <button type="button" class="btn btn-danger deletedata"
+                                data-id="{{$row->id}}">Hapus</button></td>
                     </tr>
                     @empty
                     @endforelse
@@ -57,6 +61,7 @@
     $(document).ready(function () {
 
         $(".table").DataTable();
+
         function ajax() {
             $.ajaxSetup({
                 headers: {
@@ -69,7 +74,7 @@
             var id = $(this).data('id');
 
             swal({
-                    title: "Apa kamu yakin untuk menghapus data karyawan?",
+                    title: "Apa kamu yakin untuk menghapus data Safetystok?",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -78,16 +83,16 @@
                     if (willDelete) {
                         ajax();
                         $.ajax({
-                            url: "{{url('admin/employee/')}}/" + id,
+                            url: "{{url('admin/safetystok/')}}/" + id,
                             method: "DELETE",
                             success: function (data) {
                                 if (data['message'] == "true") {
-                                    swal("Data karyawan berhasil dihapus!", {
+                                    swal("Data Safety stok berhasil dihapus!", {
                                         icon: "success",
                                     });
                                     setTimeout(function () {
                                         window.location.href =
-                                            "{{route('employee.index')}}";
+                                            "{{route('safetystok.index')}}";
                                     }, 1500)
                                 }
                             }
