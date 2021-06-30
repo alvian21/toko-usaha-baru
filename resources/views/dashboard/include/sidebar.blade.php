@@ -46,6 +46,8 @@
                     <ul class="submenu">
 
                         <li><a href="/admin/finance/indexlap">Laporan Laba Rugi</a></li>
+                        <li><a href="{{route('laporan.penjualan.index')}}">Laporan Penjualan</a></li>
+                        <li><a href="{{route('laporan.penjualanterlaris.index')}}">Laporan Penjualan Terlaris</a></li>
 
                     </ul>
                 </li>

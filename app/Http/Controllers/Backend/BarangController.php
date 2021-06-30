@@ -57,6 +57,7 @@ class BarangController extends Controller
             $item = new Item();
             $item->id = $request->get('kode_barang');
             $item->nama_barang = $request->nama_barang;
+            $item->kategori = $request->kategori;
             $item->harga_jual = $request->harga_jual;
             $item->harga_beli = $request->harga_beli;
             $item->gambar = $name;
@@ -67,6 +68,7 @@ class BarangController extends Controller
             $item = new Item();
             $item->id = $request->get('kode_barang');
             $item->nama_barang = $request->nama_barang;
+            $item->kategori = $request->kategori;
             $item->harga_jual = $request->harga_jual;
             $item->harga_beli = $request->harga_beli;
             $item->gambar = "";
@@ -143,6 +145,7 @@ class BarangController extends Controller
                 'nama_barang' => $request->nama_barang,
                 'harga_jual' => $request->harga_jual,
                 'harga_beli' => $request->harga_beli,
+                'kategori' => $request->kategori,
                 'stok' => $request->stok,
                 'deskripsi' => $request->deskripsi,
             ]);

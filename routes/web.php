@@ -111,6 +111,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::post('/purchase/store','pembelianController@store');
         Route::get('purchase/{purchase}/edit','pembelianController@edit');
         Route::patch('purchase/{purchase}/update','pembelianController@update');
+
+        //laporan
+        Route::group(['namespace' => 'Laporan','as'=>'laporan.'],function () {
+
+            Route::post('penjualanterlaris/cetak','PenjualanTerlarisController@Cetak')->name('cetak.penjualanterlaris');
+            Route::post('penjualan/cetak','PenjualanController@Cetak')->name('cetak.penjualan');
+            Route::post('penjualan/cetakdetail','PenjualanController@CetakDetail')->name('cetakdetail.penjualan');
+            Route::resource('penjualan','PenjualanController');
+            Route::resource('penjualanterlaris','PenjualanTerlarisController');
+        });
     });
 
 
