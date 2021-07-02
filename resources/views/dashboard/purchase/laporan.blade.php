@@ -167,6 +167,7 @@
                     <th>Nama Pegawai</th>
                     <th>Nama Pemasok</th>
                     <th>Jumlah Dibeli</th>
+                    <th>Total Nominal</th>
                 </tr>
             </thead>
             <tbody>
@@ -178,11 +179,13 @@
                     <td class="unit">{{$i->nama}}</td>
                     <td class="qty">{{ $i->nama_pemasok }}</td>
                     <td class="total">{{ $i->jml }}</td>
+                    <td class="">{{ $i->nominal_beli }}</td>
                 </tr>
                 @endforeach
                 <tr>
                     <td class="total">Total</td>
                     <td colspan="5" class="total">{{ $total }}</td>
+                    <td colspan="5" class="total">{{ $totalNominal }}</td>
                 </tr>
 
             </tbody>

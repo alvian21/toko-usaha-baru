@@ -11,15 +11,9 @@
             <form action="{{ '/admin/purchase/getLaporan' }}" method="get">
                 @csrf
                 <div class="form-group mt-3 row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Tanggal Awal</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Periode Bulan :</label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="date" name="tgl_awal">
-                    </div>
-                </div>
-                <div class="form-group mt-3 row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Tanggal Akhir</label>
-                    <div class="col-sm-12 col-md-10">
-                        <input type="date" name="tgl_akhir">
+                        <input type="month" name="tgl_awal">
                     </div>
                 </div>
                 <div class="text-center">

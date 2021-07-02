@@ -124,9 +124,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
     });
 
 
-
-
-
     // Route::get('/struk','OutputController@struk');
     // Route::get('/pembelianbarang','OutputController@pembelian_barang');
     // Route::get('/laporangaji','OutputController@laporan_gaji');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\DetailTransaction;
 use App\Employee;
+use App\Finance;
 use App\Http\Controllers\Controller;
 use App\Item;
 use Illuminate\Http\Request;
@@ -112,23 +113,32 @@ class pembelianController extends Controller
     public function getLaporan(Request $request){
 
         $request->validate([
-            'tgl_awal' => 'required',
-            'tgl_akhir' => 'required'
+            'tgl_awal' => 'required'
         ]);
 
        $pembelian = DB::table('purchases as pe')
         ->join('items as b', 'pe.item_id', '=', 'b.id')
         ->join('employees as e', 'pe.employee_id', '=', 'e.id')
         ->join('suppliers as s', 'pe.supplier_id', '=', 's.id')
-        ->select('pe.tgl_beli','b.nama_barang','e.nama','s.nama_pemasok', DB::raw('sum(jumlah) as jml'))
-        ->whereBetween('pe.tgl_beli', [$request->tgl_awal, $request->tgl_akhir])
-        ->groupBy('pe.tgl_beli','b.nama_barang','e.nama','s.nama_pemasok')
+        ->select('pe.tgl_beli','b.nama_barang','e.nama','s.nama_pemasok', DB::raw('sum(jumlah) * harga_beli as nominal_beli'), DB::raw('sum(jumlah) as jml') )
+        ->where('pe.tgl_beli', "like" , "%".date("y-m", strtotime($request->tgl_awal))."%")
+        ->groupBy('pe.tgl_beli','b.nama_barang','e.nama','s.nama_pemasok','harga_beli')
         ->get();
 
         $dataPembelian = [];
+        $totalNominal = 0;
+        $date = date('Y-m-d');
         foreach ($pembelian as $i) {
             array_push($dataPembelian, $i);
+            $totalNominal += $i->nominal_beli;
         }
+
+        $finance = new Finance();
+        $finance->jenis_keuangan = "pengeluaran";
+        $finance->nama_keuangan = "Pembelian Periode Bulan ". date("m", strtotime($request->tgl_awal)). " tahun " . date("Y", strtotime($request->tgl_awal));
+        $finance->nominal = $totalNominal;
+        $finance->tgl_keuangan =  $date;
+        $finance->save();
 
         session(['dataPembelian' => $dataPembelian]);
 
@@ -144,16 +154,18 @@ class pembelianController extends Controller
         $pembelian = session('dataPembelian') ?? [];
 
         $total = 0;
+        $totalNominal = 0;
 
         if($pembelian){
             foreach ($pembelian as $i) {
                 $total += $i->jml;
+                $totalNominal += $i->nominal_beli;
             }
         }else{
             $pembelian = [];
         }
 
-        $pdf = PDF::loadview('dashboard.purchase.laporan', ['pembelian' => $pembelian, 'total' => $total]);
+        $pdf = PDF::loadview('dashboard.purchase.laporan', ['pembelian' => $pembelian, 'total' => $total, 'totalNominal' => $totalNominal]);
         session()->forget('dataPembelian');
 
         return $pdf->stream();

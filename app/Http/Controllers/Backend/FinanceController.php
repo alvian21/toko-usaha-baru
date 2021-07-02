@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Purchase;
 use Illuminate\Http\Request;
 use Symfony\Component\Finder\Finder;
+use PDF;
 
 class FinanceController extends Controller
 {
@@ -203,19 +204,15 @@ class FinanceController extends Controller
         ->groupby('nama_keuangan')->get();
 
 
-        $pendapatan = Finance::select('nominal')->whereDate('tgl_keuangan','>=',$tgl_awal)
-        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        $pendapatan = Finance::select('nominal','nama_keuangan')
+        ->whereBetween('tgl_keuangan', [$tgl_awal,$tgl_akhir])
         ->where('jenis_keuangan',"=",'pendapatan')
-        ->groupby('jenis_keuangan')
-        ->groupby('nominal')
         ->get();
 
 
-        $pengeluaran = Finance::select('nominal')->whereDate('tgl_keuangan','>=',$tgl_awal)
-        ->whereDate('tgl_keuangan','<=',$tgl_akhir)
+        $pengeluaran = Finance::select('nominal','nama_keuangan')
+        ->whereBetween('tgl_keuangan', [$tgl_awal,$tgl_akhir])
         ->where('jenis_keuangan',"=",'pengeluaran')
-        ->groupby('jenis_keuangan')
-        ->groupby('nominal')
         ->get();
 
         $totalpen= Finance::whereDate('tgl_keuangan','>=',$tgl_awal)
@@ -230,7 +227,10 @@ class FinanceController extends Controller
 
 
 
-        return view('dashboard.finance.laporan', ['periode'=>$periode, 'tgl_awal'=>$tgl_awal, 'tgl_akhir'=>$tgl_akhir, 'nama_keuanganpen'=>$nama_keuanganpen,'nama_keuanganpeng'=>$nama_keuanganpeng, 'pendapatan'=>$pendapatan, 'pengeluaran'=>$pengeluaran, 'totalpen'=>$totalpen, 'totalpeng'=>$totalpeng]);
+        $pdf = PDF::loadview('dashboard.finance.laporan', ['periode'=>$periode, 'tgl_awal'=>$tgl_awal, 'tgl_akhir'=>$tgl_akhir, 'nama_keuanganpen'=>$nama_keuanganpen,'nama_keuanganpeng'=>$nama_keuanganpeng, 'pendapatan'=>$pendapatan, 'pengeluaran'=>$pengeluaran, 'totalpen'=>$totalpen, 'totalpeng'=>$totalpeng]);
+
+
+        return $pdf->stream();
     }
 
     public function labaRugi(Request $request)
