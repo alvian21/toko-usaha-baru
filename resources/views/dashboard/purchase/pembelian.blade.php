@@ -25,6 +25,7 @@
                         <th scope="col">Jumlah</th>
                         <th scope="col">Id Pegawai</th>
                         <th scope="col">Id Supplier</th>
+                        <th scope="col">Nominal Beli</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -36,6 +37,7 @@
                         <td>{{ $item->jumlah }}</td>
                         <td>{{ $item->employee->nama}}</td>
                         <td>{{ $item->supplier->nama_pemasok}}</td>
+                        <td>{{ $item->jumlah * $item->item->harga_beli }}</td>
                         <td>
                             <a href="" class="btn btn-info">Lihat</a>
                             <a href="purchase/{purchase}/edit" class="btn btn-info">Edit</a>
