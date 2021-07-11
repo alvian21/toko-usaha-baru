@@ -12,6 +12,16 @@
             <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row mt-3">
+                    <label class="col-sm-12 col-md-2 col-form-label">Kode Barang</label>
+                    <div class="col-sm-12 col-md-10">
+                        <input class="form-control @error('kode_barang') is-invalid @enderror"
+                            value="{{ old('kode_barang') }}" name="kode_barang" type="text" placeholder="Kode Barang">
+                        @error('kode_barang')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
                     <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
                     <div class="col-sm-12 col-md-10">
                         <input class="form-control @error('nama_barang') is-invalid @enderror"

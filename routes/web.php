@@ -118,7 +118,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::post('/purchase/store','pembelianController@store');
         Route::get('purchase/{purchase}/edit','pembelianController@edit');
         Route::patch('purchase/{purchase}/update','pembelianController@update');
-
+        Route::get('purchase/kirim/{id}','pembelianController@kirim')->name('purchase.kirim');
+        Route::resource('purchase', 'pembelianController');
         //laporan
         Route::group(['namespace' => 'Laporan','as'=>'laporan.'],function () {
 

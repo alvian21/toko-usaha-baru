@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Laporan Penjualan | Detail</title>
+    <title>Invoice Pembelian</title>
     <style>
         .clearfix:after {
             content: "";
@@ -18,7 +18,7 @@
 
         body {
             position: relative;
-            width: 30cm;
+            width: 18cm;
             height: 29.7cm;
             margin: 0 auto;
             color: #001028;
@@ -90,7 +90,7 @@
 
         table th,
         table td {
-            /* text-align: center; */
+            text-align: center;
             font-size: 1.2em;
         }
 
@@ -109,7 +109,7 @@
 
         table td {
             padding: 20px;
-            text-align: center;
+            /* text-align: center; */
         }
 
         table td.service,
@@ -117,9 +117,6 @@
             vertical-align: top;
         }
 
-        table td.sub {
-            border-top: 1px solid #C1CED9;
-        }
 
         table td.grand {
             border-top: 1px solid #5D6975;
@@ -145,26 +142,6 @@
         .center {
             text-align: center;
         }
-
-        .span {
-            font-size: 5rem
-        }
-
-        table td.total {
-            font-size: 1.2em;
-        }
-
-        table td.grand {
-            border-top: 1px solid #5D6975;
-        }
-
-        table td.right {
-            text-align: right;
-        }
-
-        table td.left {
-            text-align: left;
-        }
     </style>
 </head>
 
@@ -172,84 +149,29 @@
     <header class="clearfix">
         <h3 style="text-align: left">{{date('H:i d F, Y')}}</h3>
 
-        <h1 style="color: #34abeb">Laporan Penjualan | Detail</h1>
-        <h3 class="center" style="color: #eb5f34">{{$periode1}} - {{$periode2}}</h3>
-    </header>
-    @forelse ($penjualan as $item)
+        <h1 style="color: #34abeb">Invoice Pembelian</h1>
 
-    <header class="clearfix">
-        <div id="project">
-            <div><span style="font-size: 12px">Kode Transaksi</span> : {{$item->id}}</div>
-            <div><span style="font-size: 12px">Transaksi</span> : {{$item->status_penjualan}}</div>
-            <div><span style="font-size: 12px">Customer</span> :
-                @if (isset($item->customer->nama_lengkap))
-                {{$item->customer->nama_lengkap}}
 
-                @else
-                    -
-                @endif
-            </div>
-            <div><span style="font-size: 12px">Tanggal</span> : {{$item->tgl_transaksi}}</div>
-        </div>
 
     </header>
     <main>
-
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Barang</th>
-                    <th>Jumlah</th>
-                    <th>Harga</th>
-                    <th>Sub Total</th>
+
                 </tr>
 
             </thead>
             <tbody>
 
-                @php
-                    $total = 0;
-                @endphp
-
-                @forelse ($item->detail as $row)
-                <tr>
-                    <td >{{$loop->iteration}}</td>
-                    <td >{{$row->item_id}} | {{$row->nama_barang}}</td>
-                    <td >{{$row->jumlah_barang}}</td>
-                    <td >@rupiah($row->harga)</td>
-
-                    @php
-                    $subtotal = $row->harga * $row->jumlah_barang;
-                    @endphp
-                    <td >@rupiah($subtotal)</td>
-                </tr>
-                @php
-                   $total +=  $subtotal
-                @endphp
-                @empty
-
-                @endforelse
-
-                {{-- diskon dan pajak --}}
-
-
-
-                <tr>
-
-                    <td colspan="4" class="right">Grand Total</td>
-                    <td class="sub total" align="right">@rupiah($total)</td>
-                </tr>
-
             </tbody>
+            <tfoot>
 
+            </tfoot>
         </table>
 
     </main>
 
-    @empty
-
-    @endforelse
 </body>
 
 </html>

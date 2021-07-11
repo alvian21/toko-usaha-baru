@@ -25,7 +25,7 @@
             <table class="table" id="table">
                 <thead>
                     <tr>
-                        <th scope="col">No</th>
+                        <th scope="col">Kode Transaksi</th>
                         <th scope="col">Status Penjualan</th>
                         <th scope="col">Tanggal Penjualan</th>
                         <th scope="col">Total Barang</th>

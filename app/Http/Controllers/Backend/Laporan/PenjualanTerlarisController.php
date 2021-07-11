@@ -93,9 +93,9 @@ class PenjualanTerlarisController extends Controller
         $periode1 = $request->get('periode1');
         $periode2 = $request->get('periode2');
         if ($status == 'semua') {
-            $penjualan = SalesTransaction::select('item_id','nama_barang',DB::raw('count(*) as total'))->rightJoin('detail_transactions','sales_transactions.id','detail_transactions.sales_transaction_id')->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->groupBy('item_id','nama_barang')->get();
+            $penjualan = SalesTransaction::select('item_id','nama_barang',DB::raw('sum(total_barang) as total'))->rightJoin('detail_transactions','sales_transactions.id','detail_transactions.sales_transaction_id')->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->groupBy('item_id','nama_barang')->get();
         } else {
-            $penjualan = SalesTransaction::select('item_id','nama_barang',DB::raw('count(*) as total'))->rightJoin('detail_transactions','sales_transactions.id','detail_transactions.sales_transaction_id')->where('status_penjualan', $status)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
+            $penjualan = SalesTransaction::select('item_id','nama_barang',DB::raw('sum(total_barang) as total'))->rightJoin('detail_transactions','sales_transactions.id','detail_transactions.sales_transaction_id')->where('status_penjualan', $status)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
         }
 
         // dd($penjualan);
