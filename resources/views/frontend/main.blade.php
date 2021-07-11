@@ -64,7 +64,7 @@
                             <a class="nav-link" href="{{route('catalog.index')}}">Catalog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" onclick="window.location='catalog'">About Us</a>
+                            <a class="nav-link" href="{{route('aboutus.index')}}">About Us</a>
                         </li>
 
                     </ul>

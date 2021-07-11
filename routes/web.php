@@ -48,6 +48,9 @@ Route::group(['namespace' => 'Frontend'], function () {
 
         Route::get('/logout', 'AuthController@logout')->name('frontend.logout');
     });
+    //aboutus controller
+    Route::resource('aboutus', 'AboutusController');
+
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
