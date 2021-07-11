@@ -14,6 +14,8 @@ use App\SafetyStok;
 use App\SalesTransaction;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use App\Mail\InvoicePembelian;
+use Illuminate\Support\Facades\Mail;
 
 class pembelianController extends Controller
 {
@@ -57,9 +59,11 @@ class pembelianController extends Controller
         foreach ($item as $key => $value) {
             $purchase = new Purchase();
             $purchase->item_id = $value;
+            $purchase->tgl_beli = date('Y-m-d');
             $purchase->jumlah = $request->get('jumlah');
             $purchase->supplier_id = $request->get('supplier_id');
             $purchase->employee_id = $request->get('employee_id');
+            $purchase->status = 'belum dikirim';
             $purchase->save();
         }
 
@@ -157,5 +161,15 @@ class pembelianController extends Controller
         session()->forget('dataPembelian');
 
         return $pdf->stream();
+    }
+
+    public function kirim($id){
+        $purchase = Purchase::findOrFail($id);
+        $purchase->status = "sudah dikirim";
+        $purchase->save();
+
+        // $supp = Supplier::find($purchase->supplier_id);
+        // Mail::to($supp->email)->send(new InvoicePembelian);
+        return redirect()->route('purchase.index')->with('success','Pembelian berhasil dikirim');
     }
 }

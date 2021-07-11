@@ -74,6 +74,20 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-md-2 col-form-label">Customer</label>
+                            <div class="col-sm-12 col-md-10">
+                                <select class="form-control" id="exampleFormControlSelect1" name="customer">
+                                    <option value="semua">Semua</option>
+                                    @forelse ($customer as $row)
+                                    <option value="{{$row->id}}">{{$row->nama_lengkap}}</option>
+                                    @empty
+                                    @endforelse
+
+
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row mt-3">
                             <label class="col-sm-12 col-md-2 col-form-label">Periode</label>
                             <div class="col-sm-12 col-md-10">

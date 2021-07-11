@@ -6,6 +6,7 @@ use App\DetailTransaction;
 use App\Http\Controllers\Controller;
 use App\Penjualan;
 use Illuminate\Http\Request;
+use App\Customer;
 use App\SalesTransaction;
 use PDF;
 
@@ -18,7 +19,8 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        return view('dashboard.output.penjualan.index');
+        $customer = Customer::all();
+        return view('dashboard.output.penjualan.index', ['customer' => $customer]);
     }
 
     /**
@@ -129,12 +131,17 @@ class PenjualanController extends Controller
     {
 
         $status = $request->get('transaksi');
+        $customer = $request->get('customer');
         $periode1 = $request->get('periode1');
         $periode2 = $request->get('periode2');
-        if ($status == 'semua') {
+        if ($status == 'semua' && $customer == 'semua') {
             $penjualan = SalesTransaction::whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
+        }elseif ($status == 'semua' && $customer != 'semua') {
+            $penjualan = SalesTransaction::where('customer_id', $customer)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
+        }elseif ($status != 'semua' && $customer == 'semua') {
+            $penjualan = SalesTransaction::where('status_penjualan', $status)->where('customer_id', $customer)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
         } else {
-            $penjualan = SalesTransaction::where('status_penjualan', $status)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
+            $penjualan = SalesTransaction::where('status_penjualan', $status)->where('customer_id', $customer)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
         }
         $periode1 = date("l, F j, Y", strtotime($periode1));
         $periode2 = date("l, F j, Y", strtotime($periode2));
