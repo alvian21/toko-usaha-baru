@@ -168,8 +168,8 @@ class pembelianController extends Controller
         $purchase->status = "sudah dikirim";
         $purchase->save();
 
-        $supp = Supplier::find($purchase->supplier_id);
-        Mail::to($supp->email)->send(new InvoicePembelian);
+        // $supp = Supplier::find($purchase->supplier_id);
+        // Mail::to($supp->email)->send(new InvoicePembelian);
         return redirect()->route('purchase.index')->with('success','Pembelian berhasil dikirim');
     }
 }

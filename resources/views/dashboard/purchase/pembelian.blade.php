@@ -35,7 +35,7 @@
                         <td>{{ $item->employee->nama}}</td>
                         <td>{{ $item->supplier->nama_pemasok}}</td>
                         <td>
-                            <a href="" class="btn btn-info">Lihat</a>
+                            {{-- <a href="" class="btn btn-info">Lihat</a> --}}
 
                             <button class="btn btn-success kirim" data-id="{{$item->id}}" type="button">Kirim</button>
                             {{-- <a href="purchase/{purchase}/edit" class="btn btn-info">Edit</a> --}}
