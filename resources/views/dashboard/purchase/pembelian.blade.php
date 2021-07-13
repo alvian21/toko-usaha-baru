@@ -22,9 +22,10 @@
                     <tr>
                         <th scope="col">Nama Barang</th>
                         <th scope="col">Jumlah</th>
-                        <th scope="col">Id Pegawai</th>
-                        <th scope="col">Id Supplier</th>
-                        <th scope="col">Nominal Beli</th>
+                        <th scope="col">Nama Pegawai</th>
+                        <th scope="col">Nama Supplier</th>
+                        <th scope="col">Total Beli</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -36,10 +37,18 @@
                         <td>{{ $item->employee->nama}}</td>
                         <td>{{ $item->supplier->nama_pemasok}}</td>
                         <td>{{ $item->jumlah * $item->item->harga_beli }}</td>
+                        <td>{{ $item->status }}</td>
                         <td>
                             {{-- <a href="" class="btn btn-info">Lihat</a> --}}
-
+                            @if( $item->status == "belum dikirim")
                             <button class="btn btn-success kirim" data-id="{{$item->id}}" type="button">Kirim</button>
+                            @elseif ($item->status == "sudah dikirim")
+                            <button class="btn btn-info diterima" data-id="{{$item->id}}"
+                                type="button">Diterima</button>
+                            @else
+                            <button class="btn btn-secondary" disabled data-id="{{$item->id}}" type="button">Sudah
+                                Diterima</button>
+                            @endif
                             {{-- <a href="purchase/{purchase}/edit" class="btn btn-info">Edit</a> --}}
                         </td>
                     </tr>
@@ -51,11 +60,11 @@
 </div>
 @endsection
 @push('script')
-    <script>
-        $(document).ready(function(){
-            $('.kirim').on('click',function(){
-                var id = $(this).data('id')
-                Swal.fire({
+<script>
+    $(document).ready(function () {
+        $('.kirim').on('click', function () {
+            var id = $(this).data('id')
+            Swal.fire({
                 title: 'Apa kamu yakin?',
                 text: "Ketika sudah dikirim pembelian tidak dapat di cancel!",
                 icon: 'warning',
@@ -63,12 +72,30 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Ya, kirim!'
-                }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                   window.location.href="{{url('admin/purchase/kirim/')}}/"+id
+                    window.location.href = "{{url('admin/purchase/kirim/')}}/" + id
                 }
-                })
             })
         })
-    </script>
+
+        $('.diterima').on('click', function () {
+            var id = $(this).data('id')
+            Swal.fire({
+                title: 'Apa kamu yakin?',
+                text: "Ketika barang sudah diterima, stok bertambah dan tidak bisa dicancel!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Barang diterima!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{url('admin/purchase/diterima/')}}/" + id
+                }
+            })
+        })
+    })
+
+</script>
 @endpush

@@ -209,11 +209,13 @@
             let bayar = $(this).val();
             let total = $(".total-harga").text();
 
-            bayar = bayar.replace(".", "");
-            bayar = bayar.replace(".", "");
-            total = total.replace("Rp", "");
-            total = total.replace(".", "");
-            console.log(bayar);
+            let spBayar = bayar.split('.');
+            spBayar.forEach(element => {
+
+                bayar = bayar.replace(".", "");
+                total = total.replace("Rp", "");
+                total = total.replace(".", "");
+            });
 
             let kembalian = bayar - total;
 

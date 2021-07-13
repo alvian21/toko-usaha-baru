@@ -19,7 +19,7 @@ class CreateReceptionsTable extends Migration
             $table->foreign('item_id')->references('id')->on('items');
             $table->unsignedBigInteger('purchase_id');
             $table->foreign('purchase_id')->references('id')->on('purchases');
-            $table->integer('harga');
+            $table->integer('jumlah');
             $table->integer('total_harga');
             $table->date('tgl_penerimaan');
             $table->string('bukti_nota');

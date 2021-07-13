@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\PenerimaanBarang;
+use App\Reception;
 use Illuminate\Http\Request;
 
 class PenerimaanBarangController extends Controller
@@ -15,7 +15,8 @@ class PenerimaanBarangController extends Controller
      */
     public function index()
     {
-        return view('dashboard.tableTransaksi.penerimaanBarang.table');
+        $reception = Reception::all();
+        return view('dashboard.reception.index', compact('reception'));
     }
 
     /**
@@ -42,10 +43,10 @@ class PenerimaanBarangController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PenerimaanBarang  $penerimaanBarang
+     * @param  \App\Reception  $penerimaanBarang
      * @return \Illuminate\Http\Response
      */
-    public function show(PenerimaanBarang $penerimaanBarang)
+    public function show(Reception $penerimaanBarang)
     {
         //
     }
@@ -53,10 +54,10 @@ class PenerimaanBarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PenerimaanBarang  $penerimaanBarang
+     * @param  \App\Reception  $penerimaanBarang
      * @return \Illuminate\Http\Response
      */
-    public function edit(PenerimaanBarang $penerimaanBarang)
+    public function edit(Reception $penerimaanBarang)
     {
         //
     }
@@ -65,10 +66,10 @@ class PenerimaanBarangController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PenerimaanBarang  $penerimaanBarang
+     * @param  \App\Reception  $penerimaanBarang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PenerimaanBarang $penerimaanBarang)
+    public function update(Request $request, Reception $penerimaanBarang)
     {
         //
     }
@@ -76,10 +77,10 @@ class PenerimaanBarangController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PenerimaanBarang  $penerimaanBarang
+     * @param  \App\Reception  $penerimaanBarang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PenerimaanBarang $penerimaanBarang)
+    public function destroy(Reception $penerimaanBarang)
     {
         //
     }

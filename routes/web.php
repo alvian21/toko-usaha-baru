@@ -115,6 +115,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::resource('customer', 'CustomerController');
         Route::resource('safetystok', 'SafetyStokController');
         Route::resource('onlinesales', 'OnlineSalesController');
+        Route::resource('reception', 'PenerimaanBarangController');
 
         Route::get('purchase','pembelianController@index');
         Route::get('purchase/create/{id}','pembelianController@create');
@@ -122,6 +123,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::get('purchase/{purchase}/edit','pembelianController@edit');
         Route::patch('purchase/{purchase}/update','pembelianController@update');
         Route::get('purchase/kirim/{id}','pembelianController@kirim')->name('purchase.kirim');
+        Route::get('purchase/diterima/{id}','pembelianController@diterima')->name('purchase.diterima');
         Route::resource('purchase', 'pembelianController');
         //laporan
         Route::group(['namespace' => 'Laporan','as'=>'laporan.'],function () {

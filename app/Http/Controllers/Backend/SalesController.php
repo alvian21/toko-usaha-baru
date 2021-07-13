@@ -66,7 +66,7 @@ class SalesController extends Controller
         $dataBarang = session('data_barang');
 
         $totalBrg = 0;
-        $nomor = date('YmdHis');
+
         if($dataBarang){
             foreach ($dataBarang ?? '' as $item) {
                 $totalBrg += $item['jumlah'];
@@ -76,7 +76,7 @@ class SalesController extends Controller
         }
 
         $sls_trans = new SalesTransaction();
-        $sls_trans->id = $nomor;
+
         $sls_trans->total_barang = $totalBrg;
         $sls_trans->tgl_transaksi = date('Y-m-d H:i:s');
         $sls_trans->status_penjualan = "offline";
@@ -127,12 +127,6 @@ class SalesController extends Controller
                             ->whereMonth('st.tgl_transaksi', '=', $bulanlalu)
                             ->avg('jumlah_barang');
 
-            $avg_rop = DB::table('detail_transactions as dt')
-                            ->join('sales_transactions as st', 'dt.sales_transaction_id','=','st.id')
-                            ->where('item_id', '=', $sls_detail->item_id)
-                            ->whereMonth('st.tgl_transaksi', '=', $bulanlalu)
-                            ->avg('jumlah_barang');
-
             $idSup = DB::table('safety_stoks')
                             ->select('supplier_id')
                             ->where('item_id', '=', $sls_detail->item_id)
@@ -145,7 +139,7 @@ class SalesController extends Controller
 
             $safety_stok = ($max_sales - $avg_sales) * $lead_time->lead_time;
 
-            $rop = $avg_rop * $lead_time->lead_time + $safety_stok;
+            $rop = $avg_sales * $lead_time->lead_time + $safety_stok;
 
                 SafetyStok::where('item_id', $sls_detail->item_id)->update([
 

@@ -24,6 +24,7 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama Barang</th>
+                        <th scope="col">Nama Pemasok</th>
                         <th scope="col">Jumlah SS</th>
                         <th scope="col">Reorder Point</th>
                         <th scope="col">Keterangan</th>
@@ -35,6 +36,7 @@
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{$row->item->nama_barang}}</td>
+                        <td>{{$row->supplier->nama_pemasok}}</td>
                         <td>{{$row->jumlah}}</td>
                         <td>{{$row->reorder_point}}</td>
                         <td>{{$row->keterangan}}</td>

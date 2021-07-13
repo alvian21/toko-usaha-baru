@@ -2,6 +2,11 @@
 @section('content')
 <div class="pd-ltr-20 xs-pd-20-10">
     <div class="min-height-200px">
+        @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+        @endif
         <div class="pd-20 card-box mb-30">
             <div class="clearfix">
                 <div class="pull-left">

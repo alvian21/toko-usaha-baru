@@ -184,4 +184,29 @@ class pembelianController extends Controller
         // Mail::to($supp->email)->send(new InvoicePembelian);
         return redirect()->route('purchase.index')->with('success','Pembelian berhasil dikirim');
     }
+
+    public function diterima($id){
+        $purchase = Purchase::findOrFail($id);
+        $purchase->status = "sudah diterima";
+        $purchase->save();
+
+        $dataPurchase = Purchase::where('id', '=', $id)->first();
+        $barang = Item::where('id', '=', $dataPurchase->item_id)->first();
+
+        $reception = new Reception();
+        $reception->item_id = $dataPurchase->item_id;
+        $reception->purchase_id = $dataPurchase->id;
+        $reception->jumlah = $dataPurchase->jumlah;
+        $reception->total_harga = $dataPurchase->jumlah * $barang->harga_beli;
+        $reception->tgl_penerimaan = date('Y-m-d');
+        $reception->nama_pegawai = auth()->guard('backend')->user()->nama;
+        $reception->save();
+
+        $item = Item::findOrFail($dataPurchase->item_id);
+        $item->stok = $barang->stok + $dataPurchase->jumlah;
+        $item->save();
+
+
+        return redirect()->route('purchase.index')->with('success','Barang Sudah Diterima');
+    }
 }

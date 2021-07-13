@@ -52,16 +52,24 @@ class SafetyStokController extends Controller
             'keterangan' => 'nullable'
         ]);
 
+        $ss = SafetyStok::where('item_id', '=', $request->get('barang'))->first();
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
         } else {
-            $sfstok = new SafetyStok();
-            $sfstok->supplier_id = $request->get('supplier');
-            $sfstok->item_id = $request->get('barang');
-            $sfstok->jumlah = $request->get('jumlah');
-            $sfstok->reorder_point = $request->get('rop');
-            $sfstok->keterangan = $request->get('keterangan');
-            $sfstok->save();
+
+            if($ss){
+                return redirect()->route('safetystok.create')->with('alert-danger', 'Data Tidak berhasil disimpan, Karena Data Sudah Ada!');
+            }else{
+                $sfstok = new SafetyStok();
+                $sfstok->supplier_id = $request->get('supplier');
+                $sfstok->item_id = $request->get('barang');
+                $sfstok->jumlah = $request->get('jumlah');
+                $sfstok->reorder_point = $request->get('rop');
+                $sfstok->keterangan = $request->get('keterangan');
+                $sfstok->save();
+            }
+
 
             return redirect()->route('safetystok.index')->with('alert-success', 'Safety stok berhasil disimpan');
         }
