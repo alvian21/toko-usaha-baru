@@ -66,7 +66,7 @@ class SalesController extends Controller
         $dataBarang = session('data_barang');
 
         $totalBrg = 0;
-
+        $nomor = date('YmdHis');
         if($dataBarang){
             foreach ($dataBarang ?? '' as $item) {
                 $totalBrg += $item['jumlah'];
@@ -76,7 +76,7 @@ class SalesController extends Controller
         }
 
         $sls_trans = new SalesTransaction();
-
+        $sls_trans->id = $nomor;
         $sls_trans->total_barang = $totalBrg;
         $sls_trans->tgl_transaksi = date('Y-m-d H:i:s');
         $sls_trans->status_penjualan = "offline";

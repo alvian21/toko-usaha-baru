@@ -49,6 +49,7 @@ class CheckoutController extends Controller
         $cart = session('cart');
 
         $idcust = Auth::guard('frontend')->user()->id;
+        $nomor = date('YmdHis');
         $address = CustomerAddress::where('customer_id', $idcust)->where('utama', 1)->first();
         if ($address) {
             $total = 0;
@@ -59,7 +60,7 @@ class CheckoutController extends Controller
             }
 
             $sales = new SalesTransaction();
-            $sales->id = $this->generateNumber();
+            $sales->id = $nomor;
             $sales->customer_id = $idcust;
             $sales->customer_address_id = $address->id;
             $sales->total_barang = $total;

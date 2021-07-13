@@ -23,6 +23,7 @@ class CreatePurchasesTable extends Migration
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

@@ -48,6 +48,9 @@ Route::group(['namespace' => 'Frontend'], function () {
 
         Route::get('/logout', 'AuthController@logout')->name('frontend.logout');
     });
+    //aboutus controller
+    Route::resource('aboutus', 'AboutusController');
+
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
@@ -118,6 +121,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::post('/purchase/store','pembelianController@store');
         Route::get('purchase/{purchase}/edit','pembelianController@edit');
         Route::patch('purchase/{purchase}/update','pembelianController@update');
+        Route::get('purchase/kirim/{id}','pembelianController@kirim')->name('purchase.kirim');
+        Route::resource('purchase', 'pembelianController');
+        //laporan
+        Route::group(['namespace' => 'Laporan','as'=>'laporan.'],function () {
+
+            Route::post('penjualanterlaris/cetak','PenjualanTerlarisController@Cetak')->name('cetak.penjualanterlaris');
+            Route::post('penjualan/cetak','PenjualanController@Cetak')->name('cetak.penjualan');
+            Route::post('penjualan/cetakdetail','PenjualanController@CetakDetail')->name('cetakdetail.penjualan');
+            Route::resource('penjualan','PenjualanController');
+            Route::resource('penjualanterlaris','PenjualanTerlarisController');
+        });
         Route::get('purchase/filLaporan','pembelianController@formLaporan');
         Route::get('purchase/getLaporan','pembelianController@getLaporan');
         Route::get('purchase/cetak-laporan','pembelianController@cetakLaporan');

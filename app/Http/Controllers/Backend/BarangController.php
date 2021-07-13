@@ -41,6 +41,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kode_barang' => 'required|integer|unique:items,id',
             'kategori' => 'required',
             'nama_barang' => 'required',
             'harga_jual' => 'required',
@@ -57,8 +58,10 @@ class BarangController extends Controller
             $file->move(\base_path() . "/public/item_images", $name);
 
             $item = new Item();
+            $item->id = $request->kode_barang;
             $item->category_id = $request->kategori;
             $item->nama_barang = $request->nama_barang;
+            $item->kategori = $request->kategori;
             $item->harga_jual = $request->harga_jual;
             $item->harga_beli = $request->harga_beli;
             $item->gambar = $name;
@@ -67,8 +70,10 @@ class BarangController extends Controller
             $item->save();
         } else {
             $item = new Item();
+            $item->id = $request->kode_barang;
             $item->category_id = $request->kategori;
             $item->nama_barang = $request->nama_barang;
+            $item->kategori = $request->kategori;
             $item->harga_jual = $request->harga_jual;
             $item->harga_beli = $request->harga_beli;
             $item->gambar = "";
@@ -150,6 +155,7 @@ class BarangController extends Controller
                 'nama_barang' => $request->nama_barang,
                 'harga_jual' => $request->harga_jual,
                 'harga_beli' => $request->harga_beli,
+                'kategori' => $request->kategori,
                 'stok' => $request->stok,
                 'deskripsi' => $request->deskripsi,
             ]);
@@ -181,4 +187,16 @@ class BarangController extends Controller
 
         return redirect('/admin/item')->with('status', 'Data berhasil dihapus!');
     }
+
+
+    // public function updateStatus($id){
+
+    //     $cek = produksi::where('id_produksi',$id)->first();
+
+    //     if($cek->status == 'sedang diproduksi'){
+    //         $cek->status == 'selesai diproduski';
+    //     }
+
+    //     $cek->save();
+    // }
 }
