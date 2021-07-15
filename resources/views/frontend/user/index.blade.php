@@ -15,6 +15,8 @@
 
         <p style="text-align: left" class="mt-4">Kelola informasi profil Anda untuk mengontrol,
             melindungi dan mengamankan akun</p>
+            <h6>Nama Lengkap : <strong>{{auth('frontend')->user()->nama_lengkap}}</strong></h6>
+            <h6>Email : <strong>{{auth('frontend')->user()->email}}</strong></h6>
     </div>
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="row">

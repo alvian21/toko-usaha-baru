@@ -45,6 +45,7 @@ Route::group(['namespace' => 'Frontend'], function () {
         // Route::get('/address/city','AddressController@getKota')->name('address.city');
         Route::resource('address', 'AddressController');
         Route::resource('order', 'OrderController');
+        Route::resource('notifikasi', 'NotifikasiController');
 
         Route::get('/logout', 'AuthController@logout')->name('frontend.logout');
     });

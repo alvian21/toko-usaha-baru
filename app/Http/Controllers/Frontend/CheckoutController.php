@@ -84,12 +84,18 @@ class CheckoutController extends Controller
                 $detail->nama_barang = $item->nama_barang;
                 $detail->harga = $value['harga'];
                 $detail->save();
+
+
+                $item->stok = $item->stok - $value['qty'];
+                $item->save();
             }
 
             $idcheckout = md5($this->generateNumber());
             session(['id_checkout' => $idcheckout]);
             $total = session(['total_harga' => $subtotal]);
             session()->forget('cart');
+
+            session(['notifikasi'=>'Transaksi checkout '.$nomor.' Berhasil dilakukan']);
             return redirect('/checkout/' . $idcheckout);
         }else{
             return redirect()->route('address.create');

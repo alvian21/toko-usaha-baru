@@ -22,7 +22,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
+                                <a class="nav-link text-white" href="https://api.whatsapp.com/send?phone=6282232885121" target="_blank">
                                     <span data-feather="file"></span>
                                     Chat
                                 </a>
@@ -34,7 +34,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
+                                <a class="nav-link text-white" href="{{route('notifikasi.index')}}">
                                     <span data-feather="users"></span>
                                     Notifikasi
                                 </a>
