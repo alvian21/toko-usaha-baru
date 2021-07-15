@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DetailTransaction;
 use App\Employee;
 use App\Finance;
+use App\FinancePurchase;
 use App\Http\Controllers\Controller;
 use App\Item;
 use Illuminate\Http\Request;
@@ -129,6 +130,7 @@ class pembelianController extends Controller
         ->groupBy('pe.tgl_beli','b.nama_barang','e.nama','s.nama_pemasok','harga_beli')
         ->get();
 
+
         $dataPembelian = [];
         $totalNominal = 0;
         $date = date('Y-m-d');
@@ -143,6 +145,16 @@ class pembelianController extends Controller
         $finance->nominal = $totalNominal;
         $finance->tgl_keuangan =  $date;
         $finance->save();
+
+        $allPur = Purchase::whereDate('tgl_beli',$request->tgl_awal)->get();
+
+        foreach ($allPur as $i) {
+
+            $finPur = new FinancePurchase();
+            $finPur->finance_id = $finance->id;
+            $finPur->purchase_id = $i->id;
+            $finPur->save();
+        }
 
         session(['dataPembelian' => $dataPembelian]);
 

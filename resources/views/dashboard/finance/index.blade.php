@@ -42,7 +42,7 @@
                         <td> <a href="finance/{{ $item->bukti_dokumen }}" target="_blank">{{ $item->bukti_dokumen }}</a>
                         </td>
                         <td><a href="finance/{{ $item->id }}/edit" class="btn btn-info">Edit</a>
-                            <a rel="{{ $item->id }}" href="javascript:" class="btn btn-danger del">Hapus</a>
+                            {{-- <a rel="{{ $item->id }}" href="javascript:" class="btn btn-danger del">Hapus</a> --}}
                         </td>
                     </tr>
                     @endforeach
