@@ -61,6 +61,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
     Route::group(['middleware' => 'auth:backend'], function () {
         Route::get('logout', 'AuthController@logout')->name("admin.logout");
 
+        //chart
+        Route::get('/chart/penjualan','DashboardController@chartPenjualan')->name('chart.penjualan');
+
         Route::get('item','BarangController@index');
         Route::get('item/create','BarangController@create');
         Route::get('item/{item}/edit','BarangController@edit');

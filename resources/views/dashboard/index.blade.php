@@ -3,20 +3,16 @@
 <div class="pd-ltr-20">
     <div class="card-box pd-20 height-100-p mb-30">
         <div class="row align-items-center">
-            <div class="col-md-4">
-                <img src="vendors/images/banner-img.png" alt="">
-            </div>
+
             <div class="col-md-8">
                 <h4 class="font-20 weight-500 mb-10 text-capitalize">
-                    Welcome back <div class="weight-600 font-30 text-blue">Johnny Brown!</div>
+                    Welcome back <div class="weight-600 font-30 text-blue">{{auth()->guard('backend')->user()->username}}!</div>
                 </h4>
-                <p class="font-18 max-width-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde hic non
-                    repellendus debitis iure, doloremque assumenda. Autem modi, corrupti, nobis ea iure fugiat, veniam
-                    non quaerat mollitia animi error corporis.</p>
+
             </div>
         </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xl-3 mb-30">
             <div class="card-box height-100-p widget-style1">
                 <div class="d-flex flex-wrap align-items-center">
@@ -69,22 +65,22 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="row">
-        <div class="col-xl-8 mb-30">
+        <div class="col-xl-6 mb-30">
             <div class="card-box height-100-p pd-20">
-                <h2 class="h4 mb-20">Laba Rugi</h2>
-                <div><canvas id="lineChart"></canvas></div>
+                <h2 class="h4 mb-20 text-center">Penjualan Online</h2>
+                <canvas id="online" width="400" height="300"></canvas>
             </div>
         </div>
-        <div class="col-xl-4 mb-30">
+        <div class="col-xl-6 mb-30">
             <div class="card-box height-100-p pd-20">
-                <h2 class="h4 mb-20">Lead Target</h2>
-                <div id="chart6"></div>
+                <h2 class="h4 mb-20 text-center">Penjualan Offline</h2>
+                <canvas id="offline" width="400" height="300"></canvas>
             </div>
         </div>
     </div>
-    <div class="card-box mb-30">
+    {{-- <div class="card-box mb-30">
         <h2 class="h4 pd-20">Best Selling Products</h2>
         <table class="data-table table nowrap">
             <thead>
@@ -231,6 +227,120 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> --}}
 </div>
 @endsection
+@push('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var bulan = ["januari","februari","maret","april","mei","juni","juli","agustus","september","oktober","november","desember"]
+        var ctx = document.getElementById('online').getContext('2d');
+        var ctxofline = document.getElementById('offline').getContext('2d');
+
+        $.ajax({
+            url:"{{route('chart.penjualan')}}",
+            method:"GET",
+            success:function(data){
+
+                var totalonline = []
+                var bulanonline = []
+                data['online'].forEach(element => {
+                        totalonline.push(element['total']);
+                        var removezero = element['tgl_transaksi'].replace("0","")
+                        for (let index = 1; index < bulan.length; index++) {
+                            const res = bulan[index];
+
+                            if(removezero == index+1){
+                                bulanonline.push(res)
+                            }
+
+                        }
+                });
+                var totaloffline = []
+                var bulanoffline = []
+                data['offline'].forEach(element => {
+                        totaloffline.push(element['total']);
+                        var removezero = element['tgl_transaksi'].replace("0","")
+                        for (let index = 1; index < bulan.length; index++) {
+                            const res = bulan[index];
+
+                            if(removezero == index+1){
+                                bulanoffline.push(res)
+                            }
+
+                        }
+                });
+                var offline = new Chart(ctxofline, {
+                    type: 'bar',
+                    data: {
+                        labels: bulanoffline,
+                        datasets: [{
+                            label: 'Penjualan Offline',
+                            data: totaloffline,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+                var online = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: bulanonline,
+                        datasets: [{
+                            label: 'Penjualan Offline',
+                            data: totalonline,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        })
+    })
+</script>
+@endpush

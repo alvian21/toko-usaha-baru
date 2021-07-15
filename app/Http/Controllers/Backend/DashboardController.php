@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Finance;
+use App\SalesTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -15,7 +17,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-       return view("dashboard.index");
+        return view("dashboard.index");
     }
 
     /**
@@ -84,11 +86,24 @@ class DashboardController extends Controller
         //
     }
 
-    public function chartLabarugi(Request $request){
-        $totalpen= Finance::where('jenis_keuangan',"=",'pendapatan')
-        ->groupby('jenis_keuangan')->sum('nominal');
+    public function chartLabarugi(Request $request)
+    {
+        $totalpen = Finance::where('jenis_keuangan', "=", 'pendapatan')
+            ->groupby('jenis_keuangan')->sum('nominal');
 
-        $totalpeng= Finance::where('jenis_keuangan',"=",'pengeluaran')
-        ->groupby('jenis_keuangan')->sum('nominal');
+        $totalpeng = Finance::where('jenis_keuangan', "=", 'pengeluaran')
+            ->groupby('jenis_keuangan')->sum('nominal');
+    }
+
+    public function chartPenjualan(Request $request)
+    {
+        $year = date('Y');
+        $online = SalesTransaction::select(DB::raw('DATE_FORMAT(tgl_transaksi, "%m") as tgl_transaksi'), DB::raw('count(*) as total'))->where('status_penjualan', 'online')->whereYear('tgl_transaksi', $year)->groupBy('tgl_transaksi')->get();
+        $offline = SalesTransaction::select(DB::raw('DATE_FORMAT(tgl_transaksi, "%m") as tgl_transaksi'), DB::raw('count(*) as total'))->where('status_penjualan', 'offline')->whereYear('tgl_transaksi', $year)->groupBy('tgl_transaksi')->get();
+
+        return response()->json([
+            'online' => $online,
+            'offline' => $offline
+        ]);
     }
 }

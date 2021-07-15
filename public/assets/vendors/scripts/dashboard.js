@@ -12,7 +12,7 @@ var options = {
 		height: 100,
 		width: 70,
 		type: 'radialBar',
-	},	
+	},
 	plotOptions: {
 		radialBar: {
 			hollow: {
@@ -82,7 +82,7 @@ var options2 = {
 		height: 100,
 		width: 70,
 		type: 'radialBar',
-	},	
+	},
 	plotOptions: {
 		radialBar: {
 			hollow: {
@@ -152,7 +152,7 @@ var options3 = {
 		height: 100,
 		width: 70,
 		type: 'radialBar',
-	},	
+	},
 	plotOptions: {
 		radialBar: {
 			hollow: {
@@ -222,7 +222,7 @@ var options4 = {
 		height: 100,
 		width: 70,
 		type: 'radialBar',
-	},	
+	},
 	plotOptions: {
 		radialBar: {
 			hollow: {
@@ -460,7 +460,7 @@ $('document').ready(function(){
 			searchPlaceholder: "Search",
 			paginate: {
 				next: '<i class="ion-chevron-right"></i>',
-				previous: '<i class="ion-chevron-left"></i>'  
+				previous: '<i class="ion-chevron-left"></i>'
 			}
 		},
 	});
