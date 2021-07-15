@@ -178,7 +178,7 @@ class FinanceController extends Controller
 
     public function showDocument($file){
 
-        //return response()->file(public_path('bukti_dokumen/'.$file));
+        return response()->file(public_path('bukti_dokumen/'.$file));
     }
 
     public function modalLaporan(Request $request){

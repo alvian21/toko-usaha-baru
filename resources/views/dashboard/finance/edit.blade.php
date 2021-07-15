@@ -26,8 +26,10 @@
                     <div class="col-sm-12 col-md-10">
                         <select class="form-control  @error('jenis_keuangan') is-invalid @enderror" type="text"
                             value="{{ old('jenis_keuangan') }}" name="jenis_keuangan" placeholder="Jenis Keuangan">
-                            <option value="pengeluaran">Pengeluaran</option>
-                            <option value="pendapatan">Pendapatan</option>
+                            <option value="pengeluaran" @if($finance->jenis_keuangan == "pengeluaran") selected
+                                @endif>Pengeluaran</option>
+                            <option value="pendapatan" @if($finance->jenis_keuangan == "pendapatan") selected @endif
+                                >Pendapatan</option>
                         </select>
 
                         @error('jenis_keuangan')
@@ -38,8 +40,8 @@
                 <div class="form-group mt-3 row">
                     <label class="col-sm-12 col-md-2 col-form-label">Nominal</label>
                     <div class="col-sm-12 col-md-10">
-                        <input class="form-control @error('nominal') is-invalid @enderror" type="text"
-                            value="{{ old('nominal') }}" name="nominal" placeholder="nominal">
+                        <input class="form-control @error('nominal') is-invalid @enderror" type="number"
+                            value="{{ $finance->nominal }}" name="nominal" placeholder="nominal">
                         @error('nominal')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
