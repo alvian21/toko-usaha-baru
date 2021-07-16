@@ -26,7 +26,7 @@
 
                     <td>
                         <a href="{{route('order.show',[$item->id])}}" class="btn btn-warning">Detail</a>
-                        @if($item->status == "dikonfirmasi")
+                        @if($item->status == "dikonfirmasi" && $item->status == "belum dibayar")
                         <a href="{{route('order.edit',[$item->id])}}" class="btn btn-info">Upload Pembayaran</a>
                         @endif
                     </td>
