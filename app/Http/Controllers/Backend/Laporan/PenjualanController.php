@@ -139,7 +139,7 @@ class PenjualanController extends Controller
         }elseif ($status == 'semua' && $customer != 'semua') {
             $penjualan = SalesTransaction::where('customer_id', $customer)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
         }elseif ($status != 'semua' && $customer == 'semua') {
-            $penjualan = SalesTransaction::where('status_penjualan', $status)->where('customer_id', $customer)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
+            $penjualan = SalesTransaction::where('status_penjualan', $status)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
         } else {
             $penjualan = SalesTransaction::where('status_penjualan', $status)->where('customer_id', $customer)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
         }

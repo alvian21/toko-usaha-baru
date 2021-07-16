@@ -95,7 +95,7 @@ class PenjualanTerlarisController extends Controller
         if ($status == 'semua') {
             $penjualan = SalesTransaction::select('item_id','nama_barang',DB::raw('sum(total_barang) as total'))->rightJoin('detail_transactions','sales_transactions.id','detail_transactions.sales_transaction_id')->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->groupBy('item_id','nama_barang')->get();
         } else {
-            $penjualan = SalesTransaction::select('item_id','nama_barang',DB::raw('sum(total_barang) as total'))->rightJoin('detail_transactions','sales_transactions.id','detail_transactions.sales_transaction_id')->where('status_penjualan', $status)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->get();
+            $penjualan = SalesTransaction::select('item_id','nama_barang',DB::raw('sum(total_barang) as total'))->rightJoin('detail_transactions','sales_transactions.id','detail_transactions.sales_transaction_id')->where('status_penjualan', $status)->whereDate('tgl_transaksi', '>=', $periode1)->whereDate('tgl_transaksi', '<=', $periode2)->groupBy('item_id','nama_barang')->get();
         }
 
         // dd($penjualan);
