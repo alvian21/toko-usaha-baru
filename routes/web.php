@@ -111,6 +111,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::post('/purchase/store','pembelianController@store');
         Route::get('purchase/{purchase}/edit','pembelianController@edit');
         Route::patch('purchase/{purchase}/update','pembelianController@update');
+        Route::get('/purchase/formpembelian','pembelianController@getFormbeli');
     });
 
 

@@ -12,6 +12,7 @@ use App\Reception;
 use App\Supplier;
 use App\SafetyStok;
 use App\SalesTransaction;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\DB;
 
 class pembelianController extends Controller
@@ -95,11 +96,23 @@ class pembelianController extends Controller
     }
 
 
-    public function formPembelian()
-    {
-        $form = Purchase::select('id,', 'item_id', 'supplier_id', 'jumlah')
-            ->groupBy('id,', 'item_id', 'supplier_id', 'jumlah')
-            ->get();
-        return view('dashboard.purchase.formpembelian', compact('form'));
+    public function getFormbeli(Request $request){
+
+        $data = $request->all();
+        if (count($data['item_id']) > 0) {
+            foreach ($data['item_id'] as $item => $value) {
+                $data2 = array(
+                    'nama_barang' => $data['nama_barang'][$item],
+                    'jumlah' => $data['jumlah'][$item]
+                );
+                Purchase::create($data2);
+            }
+        }
+        $ldate = date('Y-m-d');
+
+
+        $pdf = PDF::loadview('dashboard.sales.formpembelian', compact('data', 'ldate', 'data2'));
+
+        return $pdf->stream();
     }
 }

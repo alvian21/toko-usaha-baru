@@ -1,48 +1,196 @@
 @extends('dashboard.main')
 @section('content')
-<div class="pd-ltr-20 xs-pd-20-10">
-    <div class="min-height-200px">
-        @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Form Pembelian</title>
+    <style>
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        a {
+            color: #5D6975;
+            text-decoration: underline;
+        }
+
+        body {
+            position: relative;
+            width: 19cm;
+            height: 29.7cm;
+            margin: 0 auto;
+            color: #001028;
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-family: Arial;
+        }
+
+        header {
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        #logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #logo img {
+            width: 90px;
+        }
+
+        h3 {
+            line-height: 5px;
+        }
+
+        h1 {
+            border-top: 1px solid #5D6975;
+            border-bottom: 1px solid #5D6975;
+            color: #5D6975;
+            font-size: 2.4em;
+            line-height: 1.4em;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 20px 0;
+            background: white;
+        }
+
+        #project {
+            float: left;
+        }
+
+        #project span {
+            color: #5D6975;
+            text-align: right;
+            width: 52px;
+            margin-right: 10px;
+            display: inline-block;
+            font-size: 0.8em;
+        }
+
+        #company {
+            float: right;
+            text-align: right;
+        }
+
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px;
+        }
+
+        table tr:nth-child(2n-1) td {
+            background: #F5F5F5;
+        }
+
+        table th,
+        table td {
+            text-align: center;
+        }
+
+        table th {
+            padding: 5px 20px;
+            color: #5D6975;
+            border-bottom: 1px solid #C1CED9;
+            white-space: nowrap;
+            font-weight: normal;
+        }
+
+        table .service,
+        table .desc {
+            text-align: left;
+        }
+
+        table td {
+            padding: 20px;
+            text-align: right;
+        }
+
+        table td.service,
+        table td.desc {
+            vertical-align: top;
+        }
+
+        table td.unit,
+        table td.qty,
+        table td.total {
+            font-size: 1.2em;
+        }
+
+        table td.grand {
+            border-top: 1px solid #5D6975;
+            ;
+        }
+
+        #notices .notice {
+            color: #5D6975;
+            font-size: 1.2em;
+        }
+
+        footer {
+            color: #5D6975;
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #C1CED9;
+            padding: 8px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="clearfix">
+        <div id="logo">
+            {{-- <img src="logo.png"> --}}
         </div>
-        @endif
-        <!-- basic table  Start -->
-        <div class="card-box mb-30">
-            <div class="clearfix mb-20">
-                <div class="pull-right">
-                    <a href="" class="btn btn-primary btn-sm scroll-click" type="button">Kirim</a>
-                </div>
-            </div>
-            <div class="pb-20">
-                <form action="" method="">
-                    @csrf
-                    <div>
-                        <h4 class="text-blue h4">
-                            <center>Form Pembelian Barang</center>
-                        </h4>
-                        <h4 class="text-blue h4">
-                            <center>Toko Usaha Baru</center>
-                        </h4>
-                        <p class="text-blue h4">
-                            <center>Tanggal : </center>
-                        </p>
-                    </div>
-                    <div class="form-group mt-3 row">
-                        <label class="col-sm-12 col-md-2 col-form-label">Nama Barang</label>
-                        <div class="col-sm-12 col-md-10">
-                            <input type="text" name="item_name">
-                        </div>
-                    </div>
-                    <div class="form-group mt-3 row">
-                        <label class="col-sm-12 col-md-2 col-form-label">Jumlah Barang</label>
-                        <div class="col-sm-12 col-md-10">
-                            <input type="text" name="jumlah">
-                        </div>
-                    </div>
-                </form>
-            </div>
+        <h1>FORM PEMBELIAN</h1>
+        <div id="project">
+            <h3>Toko Usaha Baru</h3>
+            <h6>Jl. Raya Barat No.4, Klagon, Wotsogo, Jatirogo, Kabupaten Tuban, Jawa Timur 62362</h6>
+            <h3> Telp. 08565323682</h3>
+            <h3 id="hari">{{ $date }}</h3>
         </div>
-    </div>
-</div>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th class="service">No</th>
+                    <th class="desc">Nama Barang</th>
+                    <th>Jumlah</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($ as $i)
+                <tr>
+                    <td class="service">{{ $loop->iteration }}</td>
+                    <td class="desc">{{ $i['nama_barang'] }}</td>
+                    <td class="unit">{{$i['jumlah']}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <hr>
+    </main>
+    <footer>
+        Form was created on a computer and is valid without the signature and seal.
+    </footer>
+
+</body>
+
+</html>
+
 @endsection

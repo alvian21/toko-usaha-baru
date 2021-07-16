@@ -158,7 +158,7 @@
         <h1>INVOICE</h1>
         <div id="project">
             <h3>Toko Usaha Baru</h3>
-            <h3>Jalanin dulu</h3>
+            <h6>Jl. Raya Barat No.4, Klagon, Wotsogo, Jatirogo, Kabupaten Tuban, Jawa Timur 62362</h6>
             <h3> Telp. 08565323682</h3>
             <h3 id="hari">{{ $date }}</h3>
         </div>
