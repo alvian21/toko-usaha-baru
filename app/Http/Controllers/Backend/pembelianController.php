@@ -192,8 +192,11 @@ class pembelianController extends Controller
         $purchase->status = "sudah dikirim";
         $purchase->save();
 
-        // $supp = Supplier::find($purchase->supplier_id);
-        // Mail::to($supp->email)->send(new InvoicePembelian);
+
+        $data = DB::table('purchases')->join('items','items.id','purchases.item_id')->where('purchases.id',$purchase->id)->first();
+
+        $supp = Supplier::find($purchase->supplier_id);
+        Mail::to($supp->email)->send(new InvoicePembelian($data));
         return redirect()->route('purchase.index')->with('success','Pembelian berhasil dikirim');
     }
 

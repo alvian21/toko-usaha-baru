@@ -51,7 +51,7 @@
             font-weight: normal;
             text-align: center;
             margin: 0 0 20px 0;
-            background: url("../images/dimension.png");
+            /* background: url("../images/dimension.png"); */
         }
 
         #project {
@@ -163,10 +163,22 @@
 
             </thead>
             <tbody>
-
+                <tr>
+                    <th>Kode Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Jumlah</th>
+                    <th>Harga</th>
+                    <th>Subtotal</th>
+                </tr>
             </tbody>
             <tfoot>
-
+                    <tr>
+                        <td>{{$res->id}}</td>
+                        <td>{{$res->nama_barang}}</td>
+                        <td>{{$res->jumlah}}</td>
+                        <td>{{$res->harga_beli}}</td>
+                        <td>{{$res->harga_beli * $res->jumlah}}</td>
+                    </tr>
             </tfoot>
         </table>
 
