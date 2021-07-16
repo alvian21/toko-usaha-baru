@@ -79,6 +79,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::post('supplier/store','SupplierController@store');
         Route::get('supplier/{id}/delete','SupplierController@destroy');
 
+        Route::get('finance/laporan','FinanceController@periodeLaporan');
+        Route::get('finance/indexlap','FinanceController@modalLaporan');
         Route::get('finance','FinanceController@index');
         Route::get('finance/create','FinanceController@create');
         Route::get('finance/{finance}/edit','FinanceController@edit');
@@ -86,8 +88,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Backend'], function () {
         Route::post('finance/store','FinanceController@store');
         Route::get('finance/{finance}/delete','FinanceController@destroy');
         Route::get('finance/{file}','FinanceController@showDocument');
-        Route::get('finance/laporan','FinanceController@periodeLaporan');
-        Route::get('finance/indexlap','FinanceController@modalLaporan');
 
         //Route::get('finance/laporan','FinanceController@labaRugi');
         Route::get('sales','SalesController@index');
