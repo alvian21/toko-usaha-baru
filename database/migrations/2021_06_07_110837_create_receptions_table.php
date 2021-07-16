@@ -22,7 +22,7 @@ class CreateReceptionsTable extends Migration
             $table->integer('jumlah');
             $table->integer('total_harga');
             $table->date('tgl_penerimaan');
-            $table->string('bukti_nota');
+            $table->string('bukti_nota')->nullable();
             $table->string('nama_pegawai');
             $table->timestamps();
         });
